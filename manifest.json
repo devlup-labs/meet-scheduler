@@ -1,0 +1,19 @@
+{
+    "name": "Google Meet Links",
+    "version": "1.0",
+    "description": "Enter your google meet links",
+    "content_scripts" : [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["popup.js"]
+        }
+    ],
+    "permissions": [
+        "storage",
+        "alarms"
+    ],
+    "browser_action": {
+        "default_popup": "popup.html"
+    },
+    "manifest_version": 2
+}

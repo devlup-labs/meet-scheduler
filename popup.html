@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        input {
+            border-radius: 20px;
+            border: 1px solid black;
+            padding: 5px;
+            margin: 10px;
+        }
+
+        input:focus{
+            outline: none;
+        }
+
+        button {
+          height: 30px;
+          width: 100px;
+          outline: none;
+          border-radius: 20px;
+          border: 2px solid blue;
+          color: black;
+          cursor: pointer;
+          background: white;
+          transition: background 0.1s ease-in-out;
+          margin: 10px;
+        }
+
+        button:hover {
+            background: blue;
+            color: white;
+            border: none;
+        }
+
+        h1 {
+            color: #08645A;
+        }
+    </style>
+</head>
+<body>
+    <h1><label for="link">Link:</label></h1>
+    <input type="text" id="link" name="link"><br>
+    <input type="datetime-local" id="start_time" name="start_time">
+    <button id="submit_button">Add alarm</button>
+    <h1 id="demo"></h1>
+    <script src="popup.js"></script>
+</body>
+</html>
