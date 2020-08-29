@@ -8,6 +8,10 @@
             "js": ["popup.js"]
         }
     ],
+    "background": {
+        "scripts": ["background.js"],
+        "persistent": true
+    },
     "permissions": [
         "storage",
         "alarms"
