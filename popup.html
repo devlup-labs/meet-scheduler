@@ -32,17 +32,21 @@
             border: none;
         }
 
-        h1 {
+        h2 {
             color: #08645A;
         }
     </style>
 </head>
 <body>
-    <h1><label for="link">Link:</label></h1>
+    <h2><label for="link">Link:</label></h2>
     <input type="text" id="link" name="link"><br>
-    <input type="datetime-local" id="start_time" name="start_time">
+    <h2><label for="description">Description:</label></h2>
+    <input type="text" id="description" name="description"><br>
+    <h2><label for="start_time">Start Time:</label></h2>
+    <input type="datetime-local" id="start_time" name="start_time"><br>
     <button id="submit_button">Add alarm</button>
-    <h1 id="demo"></h1>
+    <h2>Recently added data:</h2><br>
+    <ul id="data_list"></ul>
     <script src="popup.js"></script>
 </body>
 </html>
