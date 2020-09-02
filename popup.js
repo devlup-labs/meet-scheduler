@@ -3,7 +3,7 @@ button.addEventListener('click', OpenLink)
 
 var data = []
 chrome.storage.sync.get(["Data"], function (res) {
-    if (res.Data == undefined) {
+    if (res.Data === undefined) {
         document.getElementById("data_list").innerHTML = "No data added";
     }
     if (res.Data.length > 0) {
@@ -20,6 +20,16 @@ chrome.storage.sync.get(["Data"], function (res) {
 
 class UserData {
     constructor(link, description, startdata) {
+        this.generateID = function () {
+            var dt = new Date().getTime();
+            var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                var r = (dt + Math.random()*16)%16 | 0;
+                dt = Math.floor(dt/16);
+                return (c=='x' ? r :(r&0x3|0x8)).toString(16);
+            });
+            return uuid;
+        }
+        this.id = this.generateID()
         this.link  = link
         this.description = description
         this.startdata = new Date(startdata).toString()
@@ -45,7 +55,14 @@ function OpenLink() {
 
     chrome.storage.sync.get(["Data"], function (res) {
         data = res.Data
-    });
+        for (let i = 0; i < data.length; i++) {
+            var node = document.createElement("LI");
+            var list_data = `Link : ${data[i]["link"]}\nDescription : ${data[i]["description"]}\nTime : ${data[i]["startdata"]}`;
+            var textnode = document.createTextNode(list_data);
+            node.appendChild(textnode);
+            document.getElementById("data_list").appendChild(node);
+        }
+    });  
 
     document.getElementById("link").value = "";
     document.getElementById("description").value = "";
