@@ -1,0 +1,51 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+input {
+    border: none;
+    border-bottom: 1px black solid;
+    padding: 10px;
+    margin: 10px;
+    width: 90%;
+}
+
+input:focus{
+    outline: none;
+}
+
+button {
+    height: 30px;
+    width: 90%;
+    outline: none;
+    border-radius: 20px;
+    border: 2px solid #08645A;
+    color: black;
+    cursor: pointer;
+    background: white;
+    transition: background 0.1s ease-in-out;
+    margin: 10px;
+}
+
+button:hover {
+    background: #08645A;
+    color: white;
+    border: none;
+}
+
+h1 {
+    color: #08645A;
+    margin: 10px;
+    text-align: center;
+}
+
+h2 {
+    color: #08645A;
+    margin: 10px;
+}
+
+li {
+    margin: 10px;
+}
