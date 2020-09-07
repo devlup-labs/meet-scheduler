@@ -42,11 +42,14 @@ async function update_list() {
 
       var button = document.createElement("button");
       button.innerHTML = "X";
-      button.addEventListener("click", async () => {
-        await removeDataFromStorage(key);
-        update_list();
-        sendMessage("REMOVE_ALARM", key);
-      });
+      var fun = (key) => {
+        return async () => {
+          await removeDataFromStorage(key);
+          update_list();
+          sendMessage("REMOVE_ALARM", key);
+        };
+      };
+      button.addEventListener("click", fun(key));
 
       node.appendChild(button);
       document.getElementById("data_list").appendChild(node);
