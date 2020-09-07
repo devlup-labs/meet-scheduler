@@ -1,22 +1,23 @@
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+.wrapper {
+    margin: 0 auto;
+    padding-right: 10px;
+    padding-left:  10px;
+    width: 90vw;
 }
 
-input {
+.wrapper input {
     border: none;
     border-bottom: 1px black solid;
     padding: 10px;
-    margin: 10px;
+    margin: 10px auto;
     width: 90%;
 }
 
-input:focus{
+.wrapper input:focus{
     outline: none;
 }
 
-button {
+.wrapper button {
     height: 30px;
     width: 90%;
     outline: none;
@@ -29,23 +30,33 @@ button {
     margin: 10px;
 }
 
-button:hover {
+.wrapper button:hover {
     background: #08645A;
     color: white;
     border: none;
 }
 
-h1 {
+.popup-title {
     color: #08645A;
-    margin: 10px;
+    margin: 20px;
     text-align: center;
 }
 
-h2 {
+.input-label, .data-list {
     color: #08645A;
     margin: 10px;
 }
 
-li {
-    margin: 10px;
+.wrapper ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 0px;
+}
+
+.wrapper li {
+    margin: 10px auto;
 }
