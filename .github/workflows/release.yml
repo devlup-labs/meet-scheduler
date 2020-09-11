@@ -1,0 +1,19 @@
+  
+  
+on:
+  push:
+    tags:
+      - 'v*'
+name: Release
+
+jobs:
+  build:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Packaged Extension Release
+      uses: thedoctor0/zip-release@master
+      with:
+        filename: 'meet_scheduler.zip'
+        exclusions: '*.git* *.github* .gitignore'
