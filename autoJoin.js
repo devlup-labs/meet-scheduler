@@ -1,4 +1,4 @@
-setInterval(function() {
+function autoJoin() {
     let micButton = document.getElementsByClassName("U26fgb JRY2Pb mUbCce kpROve uJNmj HNeRed QmxbVb")[0];
     micButton.click();
     console.log("Clicked mic button");
@@ -10,6 +10,15 @@ setInterval(function() {
     let joinButton = document.getElementsByClassName("uArJ5e UQuaGc Y5sE8d uyXBBb xKiqt")[0];
     joinButton.click();
     console.log("Clicked join button");
-}, 10000);
+}
 
-// setInterval is set to 10s as of now so that all the elements are rendered properly
+if( document.readyState !== 'loading' ) {
+    console.log( 'Document is already ready, just execute code here' );
+    autoJoin();
+} else {
+    document.addEventListener('DOMContentLoaded', function listner() {
+        console.log( 'Document was not ready, place code here' );
+        autoJoin();
+        document.removeEventListener('DOMContentLoaded', listner);
+    });
+}
