@@ -10,7 +10,12 @@
     border-bottom: 1px black solid;
     padding: 10px;
     margin: 10px auto;
-    width: 90%;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.wrapper .input-with-icon {
+    padding-left: 30px;
 }
 
 .wrapper input:focus{
@@ -83,4 +88,19 @@
 
 .ChromeExtension::-webkit-scrollbar-thumb:hover {
     background: #053d37; 
+}
+
+.right-inner-addon {
+    position: relative;
+    
+    width: 90vw;
+}
+
+.right-inner-addon svg {
+    position: absolute;
+    left: -10px;
+    padding: 10px 12px;
+    pointer-events: none;
+    fill: #08645A;
+    top: 8px;
 }
