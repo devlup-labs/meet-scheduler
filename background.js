@@ -1,9 +1,33 @@
+function createTab (link) {
+  return new Promise(resolve => {
+      chrome.tabs.create({url : link}, async (tab) => {
+          chrome.tabs.onUpdated.addListener(function listener (tabId, info) {
+              if (info.status === 'complete' && tabId === tab.id) {
+                const regexExp = "https:\/\/meet.google.com\/[a-zA-Z0-9\?\&=]+";
+                if (link.match(regexExp)) {
+                  console.log("Valid url");
+
+                  chrome.tabs.executeScript(tab.id, {file : 'autoJoin.js'});
+
+                  console.log(`Status ${info.status} and ID ${tab.id}`);
+
+                } else {
+                  console.log("Invalid url");
+                }
+                
+                chrome.tabs.onUpdated.removeListener(listener);
+                resolve(tab);
+              }
+          });
+      });
+  });
+}
+
 async function onAlarm(alarm) {
   console.debug(`alarm::${alarm.name}`);
   let data = await getDataFromStorage(alarm.name);
   console.debug(data);
-  window.open(data.link, "_blank");
-  // logic to open url and then do some stuff with page
+  let tab = await createTab(data.link);
 }
 
 async function getAllDataFromStorage() {

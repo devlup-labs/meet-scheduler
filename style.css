@@ -59,4 +59,28 @@
 
 .wrapper li {
     margin: 10px auto;
+    font-size: medium;
+}
+
+.wrapper .alarm_list {
+    margin: 0px 10px;
+}
+
+
+.ChromeExtension::-webkit-scrollbar {
+    width: 10px;
+}
+
+.ChromeExtension::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+    border-radius: 10px;
+}
+
+.ChromeExtension::-webkit-scrollbar-thumb {
+    background: #08645A; 
+    border-radius: 10px;
+}
+
+.ChromeExtension::-webkit-scrollbar-thumb:hover {
+    background: #053d37; 
 }
