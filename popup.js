@@ -91,7 +91,7 @@ function button_click() {
 
   // create alarm
   var alarm_data = new Alarm(link, description, startdata);
-  console.log(alarm_data);
+  console.debug(alarm_data);
   setDataIntoStorage(alarm_data.id, alarm_data);
   update_list();
   sendMessage("ADD_ALARM", alarm_data.id);

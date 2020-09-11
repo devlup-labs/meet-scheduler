@@ -5,14 +5,14 @@ function createTab (link) {
               if (info.status === 'complete' && tabId === tab.id) {
                 const regexExp = "https:\/\/meet.google.com\/[a-zA-Z0-9\?\&=]+";
                 if (link.match(regexExp)) {
-                  console.log("Valid url");
+                  console.debug("URL matched the regex");
 
                   chrome.tabs.executeScript(tab.id, {file : 'autoJoin.js'});
 
-                  console.log(`Status ${info.status} and ID ${tab.id}`);
+                  console.debug(`Status : ${info.status} and ID : ${tab.id}`);
 
                 } else {
-                  console.log("Invalid url");
+                  console.debug("URL did not mtach the regex");
                 }
                 
                 chrome.tabs.onUpdated.removeListener(listener);
