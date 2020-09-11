@@ -4,22 +4,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
-<body>
+<body class="ChromeExtension">
 
     <section class="wrapper">
         <h1 class="popup-title">
             MEET SCHEDULER
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 297"><defs><path d="M127.683 0C57.166 0 0 55.79 0 124.612s57.166 124.613 127.683 124.613l.271 46.913c65.606-37.27 128-87.019 128-171.526C255.954 55.791 198.2 0 127.683 0z" id="IconifyId-1746448dfa7-8628a4-30"/><path d="M127.683 0C57.166 0 0 55.79 0 124.612s57.166 124.613 127.683 124.613l.271 46.913c65.606-37.27 128-87.019 128-171.526C255.954 55.791 198.2 0 127.683 0z" id="IconifyId-1746448dfa7-8628a4-31"/><path d="M127.683 0C57.166 0 0 55.79 0 124.612s57.166 124.613 127.683 124.613l.271 46.913c65.606-37.27 128-87.019 128-171.526C255.954 55.791 198.2 0 127.683 0z" id="IconifyId-1746448dfa7-8628a4-32"/><path d="M55.58 128.105v34.239c0 9.039 7.396 16.435 16.435 16.435h85.016c9.039 0 16.434-7.396 16.434-16.435v-21.623l33.66 33.66v-46.276H55.58z" id="IconifyId-1746448dfa7-8628a4-33"/><filter x="-.4%" y="-.3%" width="100.8%" height="100.7%" filterUnits="objectBoundingBox" id="IconifyId-1746448dfa7-8628a4-34"><feOffset dy="2" in="SourceAlpha" result="shadowOffsetInner1"/><feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"/><feColorMatrix values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.2 0" in="shadowInnerInner1"/></filter><filter x="-.4%" y="-.3%" width="100.8%" height="100.7%" filterUnits="objectBoundingBox" id="IconifyId-1746448dfa7-8628a4-35"><feOffset dy="-2" in="SourceAlpha" result="shadowOffsetInner1"/><feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"/><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0" in="shadowInnerInner1"/></filter><filter x="-1%" y="-3%" width="102.6%" height="111.8%" filterUnits="objectBoundingBox" id="IconifyId-1746448dfa7-8628a4-36"><feOffset dx="1" dy="3" in="SourceAlpha" result="shadowOffsetOuter1"/><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0" in="shadowOffsetOuter1"/></filter><linearGradient x1="26.07%" y1="68.042%" x2="74.949%" y2="19.279%" id="IconifyId-1746448dfa7-8628a4-37"><stop stop-color="#058B7E" offset="0%"/><stop stop-color="#058D80" offset="0%"/><stop stop-color="#058D7F" offset="100%"/></linearGradient><linearGradient x1="30.048%" y1="27.302%" x2="81.94%" y2="84.64%" id="IconifyId-1746448dfa7-8628a4-38"><stop offset="0%"/><stop stop-color="#D8D8D8" stop-opacity="0" offset="100%"/></linearGradient></defs><path d="M127.683 0C57.166 0 0 55.79 0 124.612s57.166 124.613 127.683 124.613l.271 46.913c65.606-37.27 128-87.019 128-171.526C255.954 55.791 198.2 0 127.683 0z" fill="url(#IconifyId-1746448dfa7-8628a4-37)"/><use filter="url(#IconifyId-1746448dfa7-8628a4-34)" xlink:href="#IconifyId-1746448dfa7-8628a4-30"/><use filter="url(#IconifyId-1746448dfa7-8628a4-35)" xlink:href="#IconifyId-1746448dfa7-8628a4-31"/><mask id="IconifyId-1746448dfa7-8628a4-39" fill="#fff"><use xlink:href="#IconifyId-1746448dfa7-8628a4-32"/></mask><path fill-opacity=".21" fill="url(#IconifyId-1746448dfa7-8628a4-38)" mask="url(#IconifyId-1746448dfa7-8628a4-39)" d="M58.318 168.56l109.037 112.724l144.54-105.666l-104.454-93.92l-22.334 38.273z"/><use filter="url(#IconifyId-1746448dfa7-8628a4-36)" xlink:href="#IconifyId-1746448dfa7-8628a4-33"/><use fill="#F6F6F6" fill-rule="evenodd" xlink:href="#IconifyId-1746448dfa7-8628a4-33"/><path d="M207.125 128.105V81.7l-33.66 33.587v-21.42c0-9.039-7.395-16.434-16.434-16.434H72.015c-9.04 0-16.435 7.395-16.435 16.435v34.238h151.545z" fill="#E2E2E2"/><rect x="0" y="0" width="256" height="297" fill="rgba(0, 0, 0, 0)" /></svg>
         </h1>
+
         <h2 class="input-label"><label for="link">Link :</label></h2>
-        <input type="text" id="link" name="link" placeholder="Must start with https://"><br>
+        <div class="right-inner-addon">
+            <input class="input-with-icon" type="text" id="link" name="link" placeholder="Must start with https://"><br>
+            <svg class="svg-input" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 283.842 283.842" style="enable-background:new 0 0 283.842 283.842;" xml:space="preserve" width="1.3em" height="1.3em">
+                <g>
+                    <path d="M265.117,22.764l-9.877-8.737c-23.003-20.398-58.227-18.283-78.618,4.726l-28.267,31.89   c-6.38,7.199-5.717,18.251,1.479,24.637l2.653,2.354c7.221,6.402,18.239,5.741,24.646-1.481l28.265-31.889   c6.305-7.107,17.227-7.761,24.338-1.466l9.865,8.752c7.113,6.303,7.783,17.223,1.469,24.334l-61.808,69.726   c-5.231,5.911-13.791,7.505-20.816,3.875c-7.682-3.967-17.051-2.224-22.787,4.245l-0.482,0.544   c-3.881,4.377-5.499,10.188-4.439,15.943c1.061,5.752,4.642,10.604,9.825,13.313c8.197,4.284,17.049,6.358,25.814,6.358   c15.532,0,30.795-6.512,41.67-18.775l61.804-69.718C290.219,78.417,288.099,43.148,265.117,22.764z"/>
+                    <path d="M133.998,208.581l-2.659-2.356c-7.204-6.383-18.259-5.712-24.64,1.489l-28.254,31.886   c-6.308,7.105-17.222,7.764-24.327,1.473l-9.879-8.764c-7.115-6.301-7.783-17.212-1.467-24.325l61.806-69.721   c5.124-5.787,13.555-7.442,20.504-4.028c7.986,3.924,17.683,2.016,23.595-4.656l0.222-0.25c3.798-4.288,5.396-9.979,4.386-15.614   c-1.01-5.636-4.484-10.417-9.533-13.119c-22.828-12.22-50.769-7.22-67.947,12.165l-61.81,69.707v0.001   c-20.371,22.978-18.252,58.246,4.726,78.622l9.877,8.749c10.583,9.383,23.77,13.992,36.913,13.992   c15.394,0,30.724-6.327,41.718-18.724l28.258-31.886C141.88,226.003,141.224,214.987,133.998,208.581z"/>
+                </g>
+            </svg>
+        </div>
+
         <h2 class="input-label"><label for="description">Description :</label></h2>
-        <input type="text" id="description" name="description" placeholder="Description"><br>
+        <div class="right-inner-addon">
+            <input class="input-with-icon" type="text" id="description" name="description" placeholder="Description"><br>
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve" width="1.3em" height="1.3em">
+                <g>
+                    <path d="M502.625,105.375l-96-96c-12.5-12.5-32.75-12.5-45.25,0l-36.688,36.688l141.25,141.25l36.688-36.688   C515.125,138.125,515.125,117.875,502.625,105.375z"/>
+                    <path d="M0.953,472.234c-2.719,10.906,0.469,22.438,8.422,30.391C15.453,508.703,23.625,512,32,512   c2.578,0,5.187-0.312,7.766-0.953l102.922-25.734l-116-116L0.953,472.234z"/>
+                    <path d="M361.375,129l-59.313-59.313c0,0-263.313,263.396-265.063,265.313l59,59.375L361.375,129z"/>
+                    <path d="M118.625,416L178,475c1.938-1.875,265.313-265.063,265.313-265.063L384,150.625L118.625,416z"/>
+                </g>
+            </svg>
+        </div>
+
         <h2 class="input-label"><label for="start_time">Start Time :</label></h2>
-        <input type="datetime-local" id="start_time" name="start_time"><br>
+        <input type="datetime-local" id="start_time" name="start_time" required><br>
         <button id="submit_button">Add alarm</button>
-        <h2 class="data-list">Recently added data :</h2><br>
-        <ul id="data_list"></ul>
+
+        <h2 class="data-list">Your Alarms :</h2><br>
+
+        <div class="alarm_list">
+            <ul id="data_list"></ul>
+        </div>
+
     </section>
 
     <script src="popup.js"></script>

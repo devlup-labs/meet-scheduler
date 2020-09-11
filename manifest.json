@@ -1,11 +1,10 @@
 {
-    "name": "Google Meet Links",
+    "name": "Google Meet Auto Join",
     "version": "1.0",
-    "description": "Enter your google meet links",
+    "description": "Most of us are facing issues in managing google meet links for our online lectures. Here's a solution! Add your links in this extension and never worry about forgetting about lectures. The extension will open the link at the given time and auto join the meeting and this repeats every week",
     "content_scripts" : [
         {
             "matches": ["<all_urls>"],
-            "css": ["style.css"],
             "js": ["popup.js"]
         }
     ],
@@ -15,7 +14,10 @@
     },
     "permissions": [
         "storage",
-        "alarms"
+        "alarms",
+        "tabs",
+        "http://*/",
+        "https://*/"
     ],
     "browser_action": {
         "default_popup": "popup.html"
