@@ -1,11 +1,11 @@
 {
-  "name": "chrome-extension-boilerplate-react",
-  "version": "2.7.0",
-  "description": "A chrome extension boilerplate built with React 16 and Webpack 4",
+  "name": "aut-join-chrome-extension",
+  "version": "1.0",
+  "description": "A chrome extension that lets you auto join your google meet links",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/lxieyang/chrome-extension-boilerplate-react.git"
+    "url": "https://github.com/devlup-labs/meet-scheduler.git"
   },
   "scripts": {
     "build": "node utils/build.js",
