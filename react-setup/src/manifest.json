@@ -1,0 +1,14 @@
+{
+  "name": "Auto Join Chrome Extension",
+  "version": "1.0",
+  "browser_action": {
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "scripts": ["background.bundle.js"],
+    "persistent": true
+  },
+  "permissions": ["storage", "alarms", "tabs", "http://*/", "https://*/"],
+  "manifest_version": 2,
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+}
