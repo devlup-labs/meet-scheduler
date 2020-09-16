@@ -20,7 +20,6 @@ async function get_slots() {
       alert("HTTP-Error: " + response.status);
     } 
   }
-  get_slots();
     
   //returns list of all the courses(detailed object) of a slot
   async function get_courses(slot) {
