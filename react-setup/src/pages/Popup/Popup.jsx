@@ -1,85 +1,104 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { Component } from 'react';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import Button from '@material-ui/core/Button';
 
-const useStyles = makeStyles((theme) => ({
-  formControl: {
-    width: '90%',
-    margin: theme.spacing(2),
-  },
-}));
+import * as sheet from './sheetapi.js';
+import * as pop from './popup.js';
 
-let slots = [{ slot: 'A' }, { slot: 'B' }];
-let slotA = [
-  { title: 'Probability, Statistics and Stochastic process' },
-  { title: 'Algorithm Design and Analysis' },
-  { title: 'Bioinformatics & Computational Biology' },
-];
-let slotB = [
-  { title: 'Analog Electronics' },
-  { title: 'Artificial Intelligence' },
-  { title: 'Signals and Systems' },
-];
+class Popup extends Component {
 
-const Popup = () => {
-  const classes = useStyles();
-  const [selectedSlot, setSelectedSlot] = React.useState('');
-  const [selectedCourse, setSelectedCourse] = React.useState('');
-  const [courses, setCourses] = React.useState([]);
-  const [disable, setDisable] = React.useState(true);
-
-  const handleSlotChange = (event) => {
-    setSelectedSlot(event.target.value);
-    if (event.target.value === 'A') {
-      setCourses(slotA);
-      setDisable(false);
-    }
-    if (event.target.value === 'B') {
-      setCourses(slotB);
-      setDisable(false);
-    }
+constructor() {
+  super();
+  this.state = {
+    selectedSlot: "",
+    selectedCourse: "",
+    courses: [],
+    slots: [],
+    disabled: true,
+    sldiabled: true,
   };
+}
 
-  const hanleCourseChange = (event) => {
-    setSelectedCourse(event.target.value);
-  };
+handleSlotChange = async (event) => {
+  this.setState({
+    disabled: true,
+    selectedSlot: event.target.value,
+  });
+  var courses = await sheet.get_courses(event.target.value);
+  this.setState({
+  courses: courses,
+  disabled: false
+  });
+}
 
+handleCourseChange = (event) => {
+  this.setState({
+    selectedCourse: event.target.value,
+  });
+};
+
+joinnow = async () => {
+  var link = await sheet.get_meetlink(this.state.selectedCourse.A)
+  var message = {type: 'joinnow', link: link};
+  chrome.runtime.sendMessage(message, () => {})
+}
+
+AddAlarm = async () => {
+  var classes = await sheet.get_classes(this.state.selectedSlot);
+  pop.AddAlarm_click(this.state.selectedCourse, classes);
+}
+
+async componentDidMount() {
+  var slots = await sheet.get_slots();
+  this.setState({
+    slots: slots,
+    sldiabled: false
+  });
+};
+
+render() { 
   return (
     <div>
       <h1 style={{ textAlign: 'center' }}>Auto Join</h1>
-      <FormControl className={classes.formControl}>
-        <InputLabel id="demo-controlled-open-select-label">Age</InputLabel>
+      <FormControl style={{ width: '90%', margin: '5%' }} disabled={this.state.sldisabled}>
+        <InputLabel id="demo-controlled-open-select-label">Slot</InputLabel>
         <Select
           labelId="demo-controlled-open-select-label"
           id="demo-controlled-open-select"
-          onChange={handleSlotChange}
-          value={selectedSlot}
+          value={this.state.selectedSlot}
+          onChange={this.handleSlotChange}
         >
-          {slots.map((item) => {
-            return <MenuItem value={item.slot}>{item.slot}</MenuItem>;
+          {this.state.slots.map((item) => {
+            return <MenuItem value={item}>{item}</MenuItem>;
           })}
         </Select>
       </FormControl>
-      <FormControl className={classes.formControl} disabled={disable}>
+      <FormControl style={{ width: '90%', margin: '5%' }} disabled={this.state.disabled}>
         <InputLabel id="demo-controlled-open-select-label">Course</InputLabel>
         <Select
           labelId="demo-controlled-open-select-label"
           id="demo-controlled-open-select"
-          value={selectedCourse}
-          onChange={hanleCourseChange}
+          onChange={this.handleCourseChange}
         >
-          {courses.map((item) => {
-            return <MenuItem value={item.title}>{item.title}</MenuItem>;
+          {this.state.courses.map((item) => {
+            return <MenuItem value={item}>{item.B+'('+item.E+')'}</MenuItem>;
           })}
         </Select>
       </FormControl>
-      <h3 style={{ textAlign: 'center' }}>Slot : {selectedSlot}</h3>
-      <h3 style={{ textAlign: 'center' }}>Course : {selectedCourse}</h3>
-    </div>
+      <h3 style={{ textAlign: 'center' }}>
+        Slot : {this.state.selectedSlot}
+        <span style={{ padding: '6px'}}></span>
+        Course : {this.state.selectedCourse.A}
+      </h3>
+      <center>
+      <Button style={{ marginTop: '15px'}}variant="contained" color="secondary" onClick={this.joinnow}>JOIN NOW</Button>
+      <Button style={{ marginTop: '15px', marginLeft: '10px'}}variant="contained" onClick={this.AddAlarm}color="secondary">ADD Alarm</Button>
+      </center>
+  </div>
   );
 };
-
+}
 export default Popup;
