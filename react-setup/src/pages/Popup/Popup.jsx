@@ -24,16 +24,11 @@ const useStyles = (theme) => ({
   button : {
     borderRadius: 30,
     margin: theme.spacing(2),
-    background: "#08645A",
+    background: "#3f51b5",
     color: "white",
     "&:hover": {
-      background: "#08645A",
+      background: "#3f51b5",
       color: "white",
-    }
-  },
-  select: {
-    '&:after': {
-        borderColor: "black",
     }
   },
   icon: {
@@ -131,13 +126,12 @@ render() {
   const { classes } = this.props;
   return (
     <div>
-      <h1 style={{ textAlign: 'center', color:"#08645A" }}>
+      <h1 style={{ textAlign: 'center'}}>
         Auto Join
       </h1>
       <FormControl style={{ width: '90%', margin: '5%' }} disabled={this.state.slotDisabled}>
         <InputLabel id="demo-controlled-open-select-label">Slot</InputLabel>
         <Select
-          className={classes.select}
           labelId="demo-controlled-open-select-label"
           id="demo-controlled-open-select"
           value={this.state.selectedSlot}
@@ -151,7 +145,6 @@ render() {
       <FormControl style={{ width: '90%', margin: '5%' }} disabled={this.state.courseDisabled}>
         <InputLabel id="demo-controlled-open-select-label">Course</InputLabel>
         <Select
-          className={classes.select}
           labelId="demo-controlled-open-select-label"
           id="demo-controlled-open-select"
           onChange={this.handleCourseChange}
