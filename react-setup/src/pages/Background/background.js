@@ -56,8 +56,9 @@ function createTab (link) {
     });
   }
   
-  async function receiveMessage(request, sender) {
+  async function receiveMessage(request, sender, sendresponse) {
     // all request from extension
+    sendresponse({status: true});
     console.log(`message::key=${request.key}`);
     if (!sender.tab) {
       if (request.type == "ADD_ALARM") {
@@ -84,7 +85,7 @@ function createTab (link) {
       }
     }
   }
-  
+
   async function syncAlarms() {
     let data = await getAllDataFromStorage();
   
