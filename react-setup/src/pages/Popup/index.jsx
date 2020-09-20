@@ -5,5 +5,3 @@ import Popup from './Popup';
 import './index.css';
 
 render(<Popup />, document.querySelector('#extension-app-container'));
-
-console.log('This comes from popup index jsx');
