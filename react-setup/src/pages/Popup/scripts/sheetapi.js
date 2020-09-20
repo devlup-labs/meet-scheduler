@@ -62,6 +62,9 @@ async function get_slots() {
       };
       var classes = {};
       for(var key in formatteddata){
+          if(key==2){
+            continue;
+          }
           for(var col in formatteddata[key]){
               if(formatteddata[key][col][0] == slot[0]){
                   if(!classes[cols[col]]) classes[cols[col]] = []
