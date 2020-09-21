@@ -11,6 +11,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Zoom from '@material-ui/core/Zoom';
 
 import { getAllDataFromStorage } from '../scripts/alarm.js';
+import { get_meetlink } from '../scripts/sheetapi.js';
 
 class Alarmview extends Component {
   constructor() {
@@ -31,10 +32,12 @@ class Alarmview extends Component {
       var time = new Date();
       time.setTime(alarms[i].scheduledTime);
       time = time.toLocaleString();
+      var link = await get_meetlink(data[alarms[i].name].course['A']);
       setalarms.push({
         time: time,
         id: i,
         data: data[alarms[i].name].course,
+        link: link,
       });
     }
     this.setState({ alarms: setalarms });
@@ -47,7 +50,7 @@ class Alarmview extends Component {
           {this.state.alarms.map((alarm) => {
             return (
               <Link
-                href={alarm.data.G}
+                href={alarm.link}
                 target="_blank"
                 rel="noopener"
                 underline="none"
