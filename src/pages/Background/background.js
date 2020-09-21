@@ -127,6 +127,12 @@ async function syncAlarms() {
 function onStart() {
   console.log('extension:started');
   console.log(`time::${Date.now()}`);
+  var values = {
+    'Authuser': 0,
+    'BeforeMinutes': 0,
+    'BeforeSeconds': 30,
+  };
+  chrome.storage.sync.set({ 'Defaults': values });
   syncAlarms();
 }
 
