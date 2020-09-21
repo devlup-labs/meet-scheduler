@@ -8,7 +8,6 @@ import AlarmOnIcon from '@material-ui/icons/AlarmOn';
 const useStyles = makeStyles({
   root: {
     width: '100%',
-    /* borderTop: '2px solid', */
   },
 });
 export default function BottomNav(props) {
