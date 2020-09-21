@@ -6,8 +6,12 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import Avatar from '@material-ui/core/Avatar';
+import Link from '@material-ui/core/Link';
+import Tooltip from '@material-ui/core/Tooltip';
+import Zoom from '@material-ui/core/Zoom';
 
 import { getAllDataFromStorage } from '../scripts/alarm.js';
+import { get_meetlink } from '../scripts/sheetapi.js';
 
 class Alarmview extends Component {
   constructor() {
@@ -28,10 +32,12 @@ class Alarmview extends Component {
       var time = new Date();
       time.setTime(alarms[i].scheduledTime);
       time = time.toLocaleString();
+      var link = await get_meetlink(data[alarms[i].name].course['A']);
       setalarms.push({
         time: time,
         id: i,
         data: data[alarms[i].name].course,
+        link: link,
       });
     }
     this.setState({ alarms: setalarms });
@@ -43,19 +49,32 @@ class Alarmview extends Component {
         <List dense>
           {this.state.alarms.map((alarm) => {
             return (
-              <ListItem key={alarm.id}>
-                <ListItemIcon edge="start">
-                  <AccessTimeIcon style={{ color: 'black' }} />
-                </ListItemIcon>
-                <ListItemText
-                  id={alarm.id}
-                  primary={`${alarm.data.A}`}
-                  secondary={`${alarm.time}`}
-                />
-                <ListItemSecondaryAction>
-                  <Avatar edge="end">{alarm.data.F}</Avatar>
-                </ListItemSecondaryAction>
-              </ListItem>
+              <Link
+                href={alarm.link}
+                target="_blank"
+                rel="noopener"
+                underline="none"
+              >
+                <ListItem button focusRipple key={alarm.id}>
+                  <ListItemIcon edge="start">
+                    <AccessTimeIcon style={{ color: 'black' }} />
+                  </ListItemIcon>
+                  <Tooltip
+                    placement="bottom-start"
+                    TransitionComponent={Zoom}
+                    title="Join now"
+                  >
+                    <ListItemText
+                      id={alarm.id}
+                      primary={`${alarm.data.A}`}
+                      secondary={`${alarm.time}`}
+                    />
+                  </Tooltip>
+                  <ListItemSecondaryAction>
+                    <Avatar edge="end">{alarm.data.F}</Avatar>
+                  </ListItemSecondaryAction>
+                </ListItem>
+              </Link>
             );
           })}
         </List>
