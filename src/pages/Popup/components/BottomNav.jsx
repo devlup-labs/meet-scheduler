@@ -5,6 +5,7 @@ import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import HomeIcon from '@material-ui/icons/Home';
 import AlarmIcon from '@material-ui/icons/Alarm';
 import AlarmOnIcon from '@material-ui/icons/AlarmOn';
+import SettingsIcon from '@material-ui/icons/Settings';
 const useStyles = makeStyles({
   root: {
     width: '100%',
@@ -27,6 +28,7 @@ export default function BottomNav(props) {
       <BottomNavigationAction label="Home" icon={<HomeIcon />} />
       <BottomNavigationAction label="Alarms" icon={<AlarmIcon />} />
       <BottomNavigationAction label="Upcoming" icon={<AlarmOnIcon />} />
+      <BottomNavigationAction label="Settings" icon={<SettingsIcon />} />
     </BottomNavigation>
   );
 }
