@@ -39,19 +39,19 @@ class Settings extends Component {
   }
 
   handleMinChange = async (event) => {
-    this.setState({ selectedMin: event.target.value });
+    await this.setState({ selectedMin: event.target.value });
     this.checkInput();
   }
 
   handleSecChange = async (event) => {
-    this.setState({ selectedSec: event.target.value });
+    await this.setState({ selectedSec: event.target.value });
     this.checkInput();
   }
 
   checkInput = () => {
     var Min = this.state.selectedMin;
     var Sec = this.state.selectedSec;
-    if (!/[^0-9]/.test(Min) && Min != '' && !/[^0-9]/.test(Sec) && Sec != '') {
+    if ((!/[^0-9]/.test(Min) && Min != '') && (!/[^0-9]/.test(Sec) && Sec != '')) {
       this.setState({ buttonDisabled: false })
     } else {
       this.setState({ buttonDisabled: true })

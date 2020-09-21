@@ -1,8 +1,8 @@
 import { get_meetlink } from '../Popup/scripts/sheetapi.js';
 
-function createTab(link) {
+function createTab(link, authuser) {
   var link = link.split('?')[0];
-  link = link + '?authuser=0&pil=1';
+  link = link + `?authuser=${authuser}&pli=1`;
   return new Promise((resolve) => {
     chrome.tabs.create({ url: link }, async (tab) => {
       chrome.tabs.onUpdated.addListener(function listener(tabId, info) {
@@ -50,9 +50,10 @@ function createTab(link) {
 async function onAlarm(alarm) {
   console.log(`alarm::${alarm.name}`);
   let data = await getDataFromStorage(alarm.name);
-  console.log(data);
+  let details = await getDataFromStorage('Defaults');
+  console.log(details);
   let link = await get_meetlink(data.course['A']);
-  let tab = await createTab(link);
+  let tab = await createTab(link, details.Authuser);
 }
 
 async function getAllDataFromStorage() {
@@ -98,7 +99,7 @@ async function receiveMessage(request, sender, sendresponse) {
 
 async function syncAlarms() {
   let data = await getAllDataFromStorage();
-
+  delete data.Defaults;
   // remove all alarms that are not in storage
   let alarms = await new Promise((resolve) => chrome.alarms.getAll(resolve));
   for (let i = 0; i < alarms.length; i++) {
