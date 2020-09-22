@@ -52,7 +52,7 @@ async function onAlarm(alarm) {
   let data = await getDataFromStorage(alarm.name);
   console.log(data);
   var ctime = new Date().getTime();
-  if ((ctime - data.time) > 5000) {
+  if ((ctime - data.time) > 5000 || !data.status) {
     console.log(` passed by alarm::${alarm.name}`);
     return;
   }

@@ -2,7 +2,7 @@ function sendMessage(type, key) {
   let message = {};
   message['type'] = type;
   message['key'] = key;
-  chrome.runtime.sendMessage(message, () => {});
+  chrome.runtime.sendMessage(message, () => { });
 }
 
 async function setDataIntoStorage(key, value) {
@@ -57,6 +57,7 @@ class Alarm {
     this.course = course;
     this.startdata = startdata.toString();
     this.time = startdata.getTime();
+    this.status = true;
   }
 }
 
