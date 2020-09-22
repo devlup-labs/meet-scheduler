@@ -4,6 +4,7 @@ import AddAlarmForm from './components/AddAlarmForm';
 import Alarmview from './components/Alarmview';
 import AlarmUp from './components/AlarmUp';
 import BottomNav from './components/BottomNav';
+import Settings from './components/Settings';
 
 class Popup extends Component {
   constructor() {
@@ -20,6 +21,7 @@ class Popup extends Component {
     if (this.state.tab == 0) pannel = <AddAlarmForm />;
     if (this.state.tab == 1) pannel = <Alarmview />;
     if (this.state.tab == 2) pannel = <AlarmUp />;
+    if (this.state.tab == 3) pannel = <Settings />;
     return (
       <div>
         <h1 style={{ textAlign: 'center' }}>Auto Join</h1>

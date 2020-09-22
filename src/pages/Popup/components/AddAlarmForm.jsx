@@ -130,7 +130,7 @@ class AddAlarmForm extends Component {
             onChange={this.handleSlotChange}
           >
             {this.state.slots.map((item) => {
-              return <MenuItem value={item} key={item}>{item}</MenuItem>;
+              return <MenuItem key={item} value={item}>{item}</MenuItem>;
             })}
           </Select>
         </FormControl>
@@ -147,7 +147,7 @@ class AddAlarmForm extends Component {
           >
             {this.state.courses.map((item) => {
               return (
-                <MenuItem value={item}>{item.B + ' (' + item.E + ')'}</MenuItem>
+                <MenuItem key={item} value={item}>{item.B + ' (' + item.E + ')'}</MenuItem>
               );
             })}
           </Select>
