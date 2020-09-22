@@ -13,6 +13,7 @@ import Zoom from '@material-ui/core/Zoom';
 
 import { getAllDataFromStorage } from '../scripts/alarm.js';
 import { get_meetlink } from '../scripts/sheetapi.js';
+import { createTab, getDataFromStorage } from '../../Background/background.js';
 
 class Alarmview extends Component {
   constructor() {
@@ -30,21 +31,15 @@ class Alarmview extends Component {
     alarms.sort(function (a, b) {
       return a.scheduledTime - b.scheduledTime;
     });
-    var links = {};
     for (let i = 0; i < alarms.length; i++) {
       var time = new Date();
       time.setTime(alarms[i].scheduledTime);
       time = time.toLocaleString();
-      if (!links[data[alarms[i].name].course['A']]) {
-        var link = await get_meetlink(data[alarms[i].name].course['A']);
-        links[data[alarms[i].name].course['A']] = link;
-      }
       setalarms.push({
         time: time,
         id: i,
         name: alarms[i].name,
         data: data[alarms[i].name].course,
-        link: links[data[alarms[i].name].course['A']],
         status: data[alarms[i].name].status,
       });
     }
@@ -67,6 +62,12 @@ class Alarmview extends Component {
     })
   }
 
+  joinnow = async (course_code) => {
+    let details = await getDataFromStorage('Defaults');
+    let link = await get_meetlink(course_code);
+    let tab = await createTab(link, details.Authuser, details.AutoJoin);
+  }
+
   render() {
     return (
       <div style={{ height: '300px', overflow: 'auto' }}>
@@ -85,7 +86,7 @@ class Alarmview extends Component {
                   </ListItemIcon>
                 </Tooltip>
                 <Link
-                  href={alarm.link}
+                  onClick={() => this.joinnow(alarm.data.A)}
                   target="_blank"
                   rel="noopener"
                   underline="none"

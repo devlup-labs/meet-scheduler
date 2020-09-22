@@ -159,3 +159,5 @@ chrome.alarms.onAlarm.addListener(onAlarm);
 
 // on message receive
 chrome.runtime.onMessage.addListener(receiveMessage);
+
+export { createTab, getDataFromStorage }
