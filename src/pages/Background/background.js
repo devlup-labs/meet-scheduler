@@ -54,6 +54,12 @@ async function onAlarm(alarm) {
   let data = await getDataFromStorage(alarm.name);
   let details = await getDataFromStorage('Defaults');
   console.log(details);
+  console.log(data);
+  var ctime = new Date().getTime();
+  if ((ctime - data.time) > 5000) {
+    console.log(` passed by alarm::${alarm.name}`);
+    return;
+  }
   let link = await get_meetlink(data.course['A']);
   let tab = await createTab(link, details.Authuser, defaults.AutoJoin);
 }

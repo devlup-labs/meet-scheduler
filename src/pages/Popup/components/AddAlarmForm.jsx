@@ -83,7 +83,7 @@ class AddAlarmForm extends Component {
     var dataExist = this.state.existingAlarms.filter((alarm) => {
       return alarm['course'] == this.state.selectedCourse.B;
     });
-    if (dataExist.length == 0) {
+    if (dataExist.length === 0) {
       AddAlarm_click(this.state.selectedCourse, classes);
       this.getAlarmData();
     } else {
