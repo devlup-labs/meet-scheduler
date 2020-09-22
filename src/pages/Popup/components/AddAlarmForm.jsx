@@ -72,7 +72,6 @@ class AddAlarmForm extends Component {
         alarmAll.push(alarm);
       }
     }
-    console.log(alarmAll);
     this.setState({
       existingAlarms: alarmAll,
     });
