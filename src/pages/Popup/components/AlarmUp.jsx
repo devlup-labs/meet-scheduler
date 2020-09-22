@@ -5,6 +5,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
+import AlarmOffIcon from '@material-ui/icons/AlarmOff'
 import Avatar from '@material-ui/core/Avatar';
 import Link from '@material-ui/core/Link';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -23,6 +24,7 @@ class Alarmview extends Component {
 
   async componentDidMount() {
     let data = await getAllDataFromStorage();
+    console.log(data)
     var alarms = await new Promise((resolve) => chrome.alarms.getAll(resolve));
     var setalarms = [];
     alarms.sort(function (a, b) {
@@ -40,11 +42,29 @@ class Alarmview extends Component {
       setalarms.push({
         time: time,
         id: i,
+        name: alarms[i].name,
         data: data[alarms[i].name].course,
         link: links[data[alarms[i].name].course['A']],
+        status: data[alarms[i].name].status,
       });
     }
     this.setState({ alarms: setalarms });
+  }
+
+  updatestatus = async (alarm_id) => {
+    var state = this.state.alarms;
+    state[alarm_id].status = !state[alarm_id].status
+    this.setState({ alarms: state });
+    let data = await getAllDataFromStorage();
+    var key = state[alarm_id].name;
+    var val = data[state[alarm_id].name]
+    val.status = state[alarm_id].status;
+    var st = {}
+    st[key] = val;
+    chrome.storage.sync.set(st, () => {
+      console.log("changed alarm status")
+      console.log(st);
+    })
   }
 
   render() {
@@ -53,16 +73,23 @@ class Alarmview extends Component {
         <List dense>
           {this.state.alarms.map((alarm) => {
             return (
-              <Link
-                href={alarm.link}
-                target="_blank"
-                rel="noopener"
-                underline="none"
-              >
-                <ListItem button focusRipple key={alarm.id}>
-                  <ListItemIcon edge="start">
-                    <AccessTimeIcon style={{ color: 'black' }} />
+              <ListItem button focusRipple key={alarm.id}>
+                <Tooltip
+                  placement="bottom-start"
+                  TransitionComponent={Zoom}
+                  title="Toggle Alarm"
+                >
+                  <ListItemIcon edge="start" onClick={() => this.updatestatus(alarm.id)}>
+                    {alarm.status ? <AccessTimeIcon style={{ color: 'black' }} /> :
+                      <AlarmOffIcon style={{ color: 'black' }} />}
                   </ListItemIcon>
+                </Tooltip>
+                <Link
+                  href={alarm.link}
+                  target="_blank"
+                  rel="noopener"
+                  underline="none"
+                >
                   <Tooltip
                     placement="bottom-start"
                     TransitionComponent={Zoom}
@@ -77,12 +104,12 @@ class Alarmview extends Component {
                   <ListItemSecondaryAction>
                     <Avatar edge="end">{alarm.data.F}</Avatar>
                   </ListItemSecondaryAction>
-                </ListItem>
-              </Link>
+                </Link>
+              </ListItem>
             );
           })}
         </List>
-      </div>
+      </div >
     );
   }
 }
