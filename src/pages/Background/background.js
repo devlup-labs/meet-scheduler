@@ -1,8 +1,9 @@
 import { get_meetlink } from '../Popup/scripts/sheetapi.js';
+import { getAllDataFromStorage } from '../Popup/scripts/alarm.js';
 
-function createTab(link) {
+function createTab(link, authuser, autojoin) {
   var link = link.split('?')[0];
-  link = link + '?authuser=0&pil=1';
+  link = link + `?authuser=${authuser}&pli=1`;
   return new Promise((resolve) => {
     chrome.tabs.create({ url: link }, async (tab) => {
       chrome.tabs.onUpdated.addListener(function listener(tabId, info) {
@@ -10,30 +11,31 @@ function createTab(link) {
           const regexExp = 'https://meet.google.com/[a-zA-Z0-9?&=]+';
           if (link.match(regexExp)) {
             console.log('URL matched the regex');
-
-            chrome.tabs.executeScript(tab.id, {
-              code: `
-                        setInterval(function() {
-
-                        try{
-                          let micButton = document.getElementsByClassName("U26fgb JRY2Pb mUbCce kpROve uJNmj HNeRed QmxbVb")[0];
-                          micButton.click();
-                          console.log("Clicked mic button");
-                        } catch (err) { console.log(err); }
-                        try{
-                          let camButton = document.getElementsByClassName("U26fgb JRY2Pb mUbCce kpROve uJNmj HNeRed QmxbVb")[0];
-                          camButton.click();
-                          console.log("Clicked cam button");
-                        } catch (err) { console.log(err); }
-                        try{
-                          let joinButton = document.getElementsByClassName("uArJ5e UQuaGc Y5sE8d uyXBBb xKiqt")[0];
-                          joinButton.click();
-                          console.log("Clicked join button");
-                        } catch (err) {console.log(err);}
-                        }, 8000);
-                        `,
-            });
-
+            if (autojoin) {
+              console.log('Intiating autojoin');
+              chrome.tabs.executeScript(tab.id, {
+                code: `
+                          setInterval(function() {
+  
+                          try{
+                            let micButton = document.getElementsByClassName("U26fgb JRY2Pb mUbCce kpROve uJNmj HNeRed QmxbVb")[0];
+                            micButton.click();
+                            console.log("Clicked mic button");
+                          } catch (err) { console.log(err); }
+                          try{
+                            let camButton = document.getElementsByClassName("U26fgb JRY2Pb mUbCce kpROve uJNmj HNeRed QmxbVb")[0];
+                            camButton.click();
+                            console.log("Clicked cam button");
+                          } catch (err) { console.log(err); }
+                          try{
+                            let joinButton = document.getElementsByClassName("uArJ5e UQuaGc Y5sE8d uyXBBb xKiqt")[0];
+                            joinButton.click();
+                            console.log("Clicked join button");
+                          } catch (err) {console.log(err);}
+                          }, 8000);
+                          `,
+              });
+            }
             console.log(`Status : ${info.status} and ID : ${tab.id}`);
           } else {
             console.log('URL did not mtach the regex');
@@ -50,6 +52,8 @@ function createTab(link) {
 async function onAlarm(alarm) {
   console.log(`alarm::${alarm.name}`);
   let data = await getDataFromStorage(alarm.name);
+  let details = await getDataFromStorage('Defaults');
+  console.log(details);
   console.log(data);
   var ctime = new Date().getTime();
   if ((ctime - data.time) > 5000 || !data.status) {
@@ -57,13 +61,7 @@ async function onAlarm(alarm) {
     return;
   }
   let link = await get_meetlink(data.course['A']);
-  let tab = await createTab(link);
-}
-
-async function getAllDataFromStorage() {
-  return await new Promise((resolve) => {
-    chrome.storage.sync.get(null, (result) => resolve(result || {}));
-  });
+  let tab = await createTab(link, details.Authuser, defaults.AutoJoin);
 }
 
 async function getDataFromStorage(key) {
@@ -103,7 +101,6 @@ async function receiveMessage(request, sender, sendresponse) {
 
 async function syncAlarms() {
   let data = await getAllDataFromStorage();
-
   // remove all alarms that are not in storage
   let alarms = await new Promise((resolve) => chrome.alarms.getAll(resolve));
   for (let i = 0; i < alarms.length; i++) {
@@ -129,9 +126,20 @@ async function syncAlarms() {
   }
 }
 
-function onStart() {
+async function onStart() {
   console.log('extension:started');
   console.log(`time::${Date.now()}`);
+  var values = {
+    'Authuser': 0,
+    'BeforeMinutes': 0,
+    'BeforeSeconds': 30,
+    'AutoJoin': true,
+  };
+  let details = await getDataFromStorage('Defaults');
+  if (!details) {
+    chrome.storage.sync.set({ 'Defaults': values });
+    console.log('Default values Added')
+  }
   syncAlarms();
 }
 

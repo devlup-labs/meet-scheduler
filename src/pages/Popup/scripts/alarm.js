@@ -14,9 +14,11 @@ async function setDataIntoStorage(key, value) {
 }
 
 async function getAllDataFromStorage() {
-  return await new Promise((resolve) => {
+  var resp = await new Promise((resolve) => {
     chrome.storage.sync.get(null, (result) => resolve(result || {}));
   });
+  delete resp.Defaults;
+  return resp
 }
 
 async function removeDataFromStorage(key) {
@@ -64,9 +66,13 @@ class Alarm {
 //returns <Date> the nearest date corrosponding to data provided
 //day : <string>, day to be found
 //time: <string>, time to be found
-function get_nearestDate(day, time) {
+async function get_nearestDate(day, time) {
+  var resp = await new Promise((resolve) => chrome.storage.sync.get(resolve));
+  var data = resp['Defaults'];
+  var beforeminutes = data['BeforeMinutes'];
+  var beforeseconds = data['BeforeSeconds'];
   var alarmHours = parseInt(time.split(':')[0]);
-  var alarmMinutes = parseInt(time.split(':')[1]) - 1;
+  var alarmMinutes = parseInt(time.split(':')[1]);
   var currentDate = new Date();
   var days = [
     'Sunday',
@@ -80,20 +86,19 @@ function get_nearestDate(day, time) {
   var alarmDay = days.indexOf(day);
   var currentDay = currentDate.getDay();
   var diff = alarmDay - currentDay;
-  console.log(diff);
   if (diff < 0) diff = 7 + diff;
   if (diff == 0) {
-    if (
-      currentDate.getHours() > alarmHours &&
-      currentDate.getMinutes() > alarmMinutes
-    )
-      diff = 7;
+    if (currentDate.getHours() > alarmHours) diff = 7;
+    if (currentDate.getHours() == alarmHours && currentDate.getMinutes() > alarmMinutes) diff = 7;
   }
   var numberOfDaysToAdd = diff;
   currentDate.setDate(currentDate.getDate() + numberOfDaysToAdd);
   currentDate.setHours(alarmHours);
   currentDate.setMinutes(alarmMinutes);
-  currentDate.setSeconds(30);
+  currentDate.setSeconds(0);
+  var settime = currentDate.getTime();
+  settime = settime - ((60 * beforeminutes) + beforeseconds) * 1000;
+  currentDate.setTime(settime);
   return currentDate;
 }
 
@@ -116,12 +121,12 @@ function get_nearestDate(day, time) {
     1: {start: "14:30", end: "14:55"} 
     }
 */
-function AddAlarm_click(course, dates) {
+async function AddAlarm_click(course, dates) {
   for (var day in dates) {
     for (var i = 0; i < dates[day].length; i++) {
       course['time'] = dates[day][i];
       var start_time = dates[day][i]['start'];
-      var start_date = get_nearestDate(day, start_time);
+      var start_date = await get_nearestDate(day, start_time);
       var alarm_data = new Alarm(course, start_date);
       setDataIntoStorage(alarm_data.id, alarm_data);
       sendMessage('ADD_ALARM', alarm_data.id);
