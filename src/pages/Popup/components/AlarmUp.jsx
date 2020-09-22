@@ -70,7 +70,7 @@ class Alarmview extends Component {
 
   render() {
     return (
-      <div style={{ height: '300px', overflow: 'auto' }}>
+      <div style={{ height: '348px', overflow: 'auto' }}>
         <List dense>
           {this.state.alarms.map((alarm) => {
             return (

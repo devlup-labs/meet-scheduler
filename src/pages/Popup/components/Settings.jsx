@@ -89,7 +89,7 @@ class Settings extends Component {
 
   render() {
     return (
-      <div style={{ height: '300px' }}>
+      <div style={{ height: '348px' }}>
         <FormControl
           style={{ width: '90%', margin: '5%' }}
           disabled={this.state.userDisabled}
