@@ -72,7 +72,6 @@ class AddAlarmForm extends Component {
         alarmAll.push(alarm);
       }
     }
-    console.log(alarmAll);
     this.setState({
       existingAlarms: alarmAll,
     });
@@ -131,7 +130,7 @@ class AddAlarmForm extends Component {
             onChange={this.handleSlotChange}
           >
             {this.state.slots.map((item) => {
-              return <MenuItem value={item}>{item}</MenuItem>;
+              return <MenuItem value={item} key={item}>{item}</MenuItem>;
             })}
           </Select>
         </FormControl>

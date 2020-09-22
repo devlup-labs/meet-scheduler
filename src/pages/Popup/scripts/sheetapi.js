@@ -1,8 +1,9 @@
-//returns lists of slots available
+import { sheetManager } from './fetchSheet';
+
 async function get_slots() {
-  let response = await fetch(
-    'https://spreadsheets.google.com/feeds/cells/1CT8YGYORrT-DXoIC4rmmzfvCklcbpm3S-O0yS8OcIH0/od6/public/basic?alt=json'
-  );
+  const link =
+    'https://spreadsheets.google.com/feeds/cells/1CT8YGYORrT-DXoIC4rmmzfvCklcbpm3S-O0yS8OcIH0/od6/public/basic?alt=json';
+  let response = await sheetManager.getSheet(link);
   if (response.ok) {
     let resp = await response.json();
     let data = resp.feed.entry;
