@@ -9,15 +9,20 @@ class Sheet {
     if (!this.response || Date.now() - this.last_accessed > min * 60000) {
       await this.hardFetch();
     }
-    else{
-        console.debug("cache:: used sheet from cache")
+    else {
+      console.debug("cache:: used sheet from cache")
     }
     return this.response;
   }
 
   async hardFetch() {
-    this.response = await fetch(this.url);
-    this.last_accessed = Date.now();
+    var resp = await fetch(this.url);
+    if (resp.ok) {
+      this.response = resp.json();
+      this.last_accessed = Date.now();
+    } else {
+      this.response = false;
+    }
   }
 }
 
