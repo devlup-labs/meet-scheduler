@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import InputLabel from '@material-ui/core/InputLabel';
-import Input from '@material-ui/core/Input';
+import Switch from '@material-ui/core/Switch';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -15,6 +16,7 @@ class Settings extends Component {
       selectedUser: 0,
       selectedMin: 0,
       selectedSec: 30,
+      selectedSwi: true,
       userDisabled: false,
       buttonDisabled: true,
     }
@@ -26,7 +28,8 @@ class Settings extends Component {
     this.setState({
       selectedUser: data['Authuser'],
       selectedMin: data['BeforeMinutes'],
-      selectedSec: data['BeforeSeconds']
+      selectedSec: data['BeforeSeconds'],
+      selectedSwi: data['AutoJoin'],
     });
     console.log(this.state);
   }
@@ -46,6 +49,11 @@ class Settings extends Component {
   handleSecChange = async (event) => {
     await this.setState({ selectedSec: event.target.value });
     this.checkInput();
+  }
+
+  handleSwiChange = async (event) => {
+    await this.setState({ selectedSwi: event.target.checked });
+    this.setState({ buttonDisabled: false })
   }
 
   checkInput = () => {
@@ -70,6 +78,7 @@ class Settings extends Component {
       'Authuser': this.state.selectedUser,
       'BeforeMinutes': parseInt(this.state.selectedMin),
       'BeforeSeconds': parseInt(this.state.selectedSec),
+      'AutoJoin': this.state.selectedSwi
     };
     chrome.storage.sync.set({ 'Defaults': values }, function () {
       console.log('Updated Defaults settings to');
@@ -107,6 +116,17 @@ class Settings extends Component {
             id="standard-basi" label="Seconds"
             value={this.state.selectedSec}
             onChange={this.handleSecChange} />
+          <br />
+          <FormControlLabel style={{ marginTop: '20px' }}
+            control={
+              <Switch
+                checked={this.state.selectedSwi}
+                onChange={this.handleSwiChange}
+                color="primary"
+              />
+            }
+            label="Auto Join"
+          />
         </center>
         <center style={{ marginTop: '25px' }}>
           <Button
