@@ -51,6 +51,11 @@ async function onAlarm(alarm) {
   console.log(`alarm::${alarm.name}`);
   let data = await getDataFromStorage(alarm.name);
   console.log(data);
+  var ctime = new Date().getTime();
+  if ((ctime - data.time) > 5000) {
+    console.log(` passed by alarm::${alarm.name}`);
+    return;
+  }
   let link = await get_meetlink(data.course['A']);
   let tab = await createTab(link);
 }

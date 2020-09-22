@@ -28,16 +28,20 @@ class Alarmview extends Component {
     alarms.sort(function (a, b) {
       return a.scheduledTime - b.scheduledTime;
     });
+    var links = {};
     for (let i = 0; i < alarms.length; i++) {
       var time = new Date();
       time.setTime(alarms[i].scheduledTime);
       time = time.toLocaleString();
-      var link = await get_meetlink(data[alarms[i].name].course['A']);
+      if (!links[data[alarms[i].name].course['A']]) {
+        var link = await get_meetlink(data[alarms[i].name].course['A']);
+        links[data[alarms[i].name].course['A']] = link;
+      }
       setalarms.push({
         time: time,
         id: i,
         data: data[alarms[i].name].course,
-        link: link,
+        link: links[data[alarms[i].name].course['A']],
       });
     }
     this.setState({ alarms: setalarms });
