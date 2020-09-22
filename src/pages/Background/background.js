@@ -51,17 +51,20 @@ function createTab(link, authuser, autojoin) {
 
 async function onAlarm(alarm) {
   console.log(`alarm::${alarm.name}`);
-  let data = await getDataFromStorage(alarm.name);
-  let details = await getDataFromStorage('Defaults');
-  console.log(details);
-  console.log(data);
-  var ctime = new Date().getTime();
-  if ((ctime - data.time) > 5000 || !data.status) {
-    console.log(` passed by alarm::${alarm.name}`);
-    return;
+  let extensionToggle = await getDataFromStorage('extensionToggle');
+  if (extensionToggle) {
+    let data = await getDataFromStorage(alarm.name);
+    let details = await getDataFromStorage('Defaults');
+    console.log(details);
+    console.log(data);
+    var ctime = new Date().getTime();
+    if (ctime - data.time > 5000 || !data.status) {
+      console.log(` passed by alarm::${alarm.name}`);
+      return;
+    }
+    let link = await get_meetlink(data.course['A']);
+    let tab = await createTab(link, details.Authuser, defaults.AutoJoin);
   }
-  let link = await get_meetlink(data.course['A']);
-  let tab = await createTab(link, details.Authuser, details.AutoJoin);
 }
 
 async function getDataFromStorage(key) {
@@ -130,16 +133,19 @@ async function onStart() {
   console.log('extension:started');
   console.log(`time::${Date.now()}`);
   var values = {
-    'Authuser': 0,
-    'BeforeMinutes': 0,
-    'BeforeSeconds': 30,
-    'AutoJoin': true,
+    Authuser: 0,
+    BeforeMinutes: 0,
+    BeforeSeconds: 30,
+    AutoJoin: true,
   };
   let details = await getDataFromStorage('Defaults');
   if (!details) {
-    chrome.storage.sync.set({ 'Defaults': values });
-    console.log('Default values Added')
+    chrome.storage.sync.set({ Defaults: values });
+    console.log('Default values Added');
   }
+  chrome.storage.sync.set({ extensionToggle: true }, () => {
+    console.log('extension Toggled to true');
+  });
   syncAlarms();
 }
 
