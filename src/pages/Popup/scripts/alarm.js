@@ -2,7 +2,7 @@ function sendMessage(type, key) {
   let message = {};
   message['type'] = type;
   message['key'] = key;
-  chrome.runtime.sendMessage(message, () => { });
+  chrome.runtime.sendMessage(message, () => {});
 }
 
 async function setDataIntoStorage(key, value) {
@@ -18,7 +18,8 @@ async function getAllDataFromStorage() {
     chrome.storage.sync.get(null, (result) => resolve(result || {}));
   });
   delete resp.Defaults;
-  return resp
+  delete resp.extensionToggle;
+  return resp;
 }
 
 async function removeDataFromStorage(key) {
@@ -89,7 +90,11 @@ async function get_nearestDate(day, time) {
   if (diff < 0) diff = 7 + diff;
   if (diff == 0) {
     if (currentDate.getHours() > alarmHours) diff = 7;
-    if (currentDate.getHours() == alarmHours && currentDate.getMinutes() > alarmMinutes) diff = 7;
+    if (
+      currentDate.getHours() == alarmHours &&
+      currentDate.getMinutes() > alarmMinutes
+    )
+      diff = 7;
   }
   var numberOfDaysToAdd = diff;
   currentDate.setDate(currentDate.getDate() + numberOfDaysToAdd);
@@ -97,7 +102,7 @@ async function get_nearestDate(day, time) {
   currentDate.setMinutes(alarmMinutes);
   currentDate.setSeconds(0);
   var settime = currentDate.getTime();
-  settime = settime - ((60 * beforeminutes) + beforeseconds) * 1000;
+  settime = settime - (60 * beforeminutes + beforeseconds) * 1000;
   currentDate.setTime(settime);
   return currentDate;
 }
