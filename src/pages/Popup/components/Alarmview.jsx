@@ -22,7 +22,6 @@ class Alarmview extends Component {
   async componentDidMount() {
     let data = await getAllDataFromStorage();
     if (data.length != 0) {
-      delete data.Defaults;
       var alarmAll = [];
       for (var key in data) {
         var alarm = {

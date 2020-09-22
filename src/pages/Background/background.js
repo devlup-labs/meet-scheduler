@@ -1,4 +1,5 @@
 import { get_meetlink } from '../Popup/scripts/sheetapi.js';
+import { getAllDataFromStorage } from '../Popup/scripts/alarm.js';
 
 function createTab(link, authuser) {
   var link = link.split('?')[0];
@@ -56,12 +57,6 @@ async function onAlarm(alarm) {
   let tab = await createTab(link, details.Authuser);
 }
 
-async function getAllDataFromStorage() {
-  return await new Promise((resolve) => {
-    chrome.storage.sync.get(null, (result) => resolve(result || {}));
-  });
-}
-
 async function getDataFromStorage(key) {
   return await new Promise((resolve) => {
     chrome.storage.sync.get(key, (result) => resolve(result[key]));
@@ -99,7 +94,6 @@ async function receiveMessage(request, sender, sendresponse) {
 
 async function syncAlarms() {
   let data = await getAllDataFromStorage();
-  delete data.Defaults;
   // remove all alarms that are not in storage
   let alarms = await new Promise((resolve) => chrome.alarms.getAll(resolve));
   for (let i = 0; i < alarms.length; i++) {
@@ -125,7 +119,7 @@ async function syncAlarms() {
   }
 }
 
-function onStart() {
+async function onStart() {
   console.log('extension:started');
   console.log(`time::${Date.now()}`);
   var values = {
@@ -133,7 +127,11 @@ function onStart() {
     'BeforeMinutes': 0,
     'BeforeSeconds': 30,
   };
-  chrome.storage.sync.set({ 'Defaults': values });
+  let details = await getDataFromStorage('Defaults');
+  if (!details) {
+    chrome.storage.sync.set({ 'Defaults': values });
+    console.log('Default values Added')
+  }
   syncAlarms();
 }
 

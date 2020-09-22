@@ -62,7 +62,6 @@ class AddAlarmForm extends Component {
   getAlarmData = async () => {
     let data = await getAllDataFromStorage();
     if (data.length != 0) {
-      delete data.Defaults;
       var alarmAll = [];
       for (var key in data) {
         var alarm = {

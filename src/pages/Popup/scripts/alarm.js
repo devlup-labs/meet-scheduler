@@ -14,9 +14,11 @@ async function setDataIntoStorage(key, value) {
 }
 
 async function getAllDataFromStorage() {
-  return await new Promise((resolve) => {
+  var resp = await new Promise((resolve) => {
     chrome.storage.sync.get(null, (result) => resolve(result || {}));
   });
+  delete resp.Defaults;
+  return resp
 }
 
 async function removeDataFromStorage(key) {
