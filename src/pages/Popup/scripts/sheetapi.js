@@ -3,9 +3,8 @@ import { sheetManager } from './fetchSheet';
 async function get_slots() {
   const link =
     'https://spreadsheets.google.com/feeds/cells/1CT8YGYORrT-DXoIC4rmmzfvCklcbpm3S-O0yS8OcIH0/od6/public/basic?alt=json';
-  let response = await sheetManager.getSheet(link);
-  if (response.ok) {
-    let resp = await response.json();
+  let resp = await sheetManager.getSheet(link);
+  if (resp) {
     let data = resp.feed.entry;
     var formatteddata = {};
     for (var key in data) {
@@ -29,11 +28,10 @@ async function get_slots() {
 
 //returns list of all the courses(detailed object) of a slot
 async function get_courses(slot) {
-  let response = await fetch(
+  let link =
     'https://spreadsheets.google.com/feeds/cells/1CT8YGYORrT-DXoIC4rmmzfvCklcbpm3S-O0yS8OcIH0/od6/public/basic?alt=json'
-  );
-  if (response.ok) {
-    let resp = await response.json();
+  let resp = await sheetManager.getSheet(link);
+  if (resp) {
     let data = resp.feed.entry;
     var formatteddata = {};
     for (var key in data) {
@@ -55,11 +53,10 @@ async function get_courses(slot) {
 
 //returns list of time slots of each day
 async function get_classes(slot) {
-  let response = await fetch(
+  let link =
     'https://spreadsheets.google.com/feeds/cells/1pEAMgjUp2eSSYmu__Szz6weCPsXd3Rtkv8MCnXT6rXw/od6/public/basic?alt=json'
-  );
-  if (response.ok) {
-    let resp = await response.json();
+  let resp = await sheetManager.getSheet(link);
+  if (resp) {
     var data = resp.feed.entry;
     var formatteddata = {};
     for (var key in data) {
@@ -110,11 +107,10 @@ async function get_classes(slot) {
 
 //returns the meet_link given the course code
 async function get_meetlink(course_code) {
-  var response = await fetch(
+  var link =
     'https://spreadsheets.google.com/feeds/cells/1CT8YGYORrT-DXoIC4rmmzfvCklcbpm3S-O0yS8OcIH0/od6/public/basic?alt=json'
-  );
-  if (response.ok) {
-    var resp = await response.json();
+  let resp = await sheetManager.getSheet(link);
+  if (resp) {
     var data = resp.feed.entry;
     var formatteddata = {};
     for (var key in data) {
