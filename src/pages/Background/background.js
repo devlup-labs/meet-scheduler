@@ -61,7 +61,7 @@ async function onAlarm(alarm) {
     return;
   }
   let link = await get_meetlink(data.course['A']);
-  let tab = await createTab(link, details.Authuser, defaults.AutoJoin);
+  let tab = await createTab(link, details.Authuser, details.AutoJoin);
 }
 
 async function getDataFromStorage(key) {
