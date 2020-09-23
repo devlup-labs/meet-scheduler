@@ -50,10 +50,6 @@ async function receiveMessage(request, sender, sendresponse) {
       2((resolve) => chrome.alarms.clearAll(resolve));
       // clear all storage
       await new Promise((resolve) => chrome.storage.sync.clear(resolve));
-    } else if (request.type == 'Join_Now') {
-      console.log('Join_Now')
-      let details = await getDataFromStorage('Defaults');
-      let tab = await createTab(request.key, details.Authuser, details.AutoJoin);
     }
   }
 }
