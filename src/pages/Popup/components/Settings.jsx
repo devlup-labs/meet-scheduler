@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import SaveAltIcon from '@material-ui/icons/SaveAlt';
 
-import { setDataIntoStorage } from '../scripts/alarm.js';
+import { setDataIntoStorage } from '../scripts/storage.js';
 
 const useStyles = (theme) => ({
   button: {
@@ -141,7 +141,7 @@ class Settings extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <div style={{ height: '300px' }}>
+      <div style={{ height: '348px' }}>
         <FormControl
           style={{ width: '90%', margin: '5%' }}
           disabled={this.state.userDisabled}
