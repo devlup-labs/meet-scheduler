@@ -10,10 +10,12 @@ import Avatar from '@material-ui/core/Avatar';
 import Link from '@material-ui/core/Link';
 import Tooltip from '@material-ui/core/Tooltip';
 import Zoom from '@material-ui/core/Zoom';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
 
-import { getAllDataFromStorage } from '../scripts/alarm.js';
+import { getAllDataFromStorage, getDataFromStorage } from '../scripts/storage.js';
 import { get_meetlink } from '../scripts/sheetapi.js';
-import { createTab, getDataFromStorage } from '../../Background/background.js';
+import { createTab } from '../scripts/utils.js';
+
 
 class Alarmview extends Component {
   constructor() {
@@ -41,6 +43,7 @@ class Alarmview extends Component {
         name: alarms[i].name,
         data: data[alarms[i].name].course,
         status: data[alarms[i].name].status,
+        custom: data[alarms[i].name].course.type === 'custom'
       });
     }
     this.setState({ alarms: setalarms });
@@ -62,11 +65,18 @@ class Alarmview extends Component {
     })
   }
 
-  joinnow = async (course_code) => {
+  joinnow = async (data) => {
+    var link;
+    if (data.type == 'custom') {
+      link = data.Link
+    } else {
+      link = await get_meetlink(data.A);
+    }
     let details = await getDataFromStorage('Defaults');
-    let link = await get_meetlink(course_code);
     let tab = await createTab(link, details.Authuser, details.AutoJoin);
   }
+
+  getname = (alarm) => { console.log(alarm); return alarm.custom ? `${alarm.data.Name}` : `${alarm.data.A}` }
 
   render() {
     return (
@@ -86,7 +96,7 @@ class Alarmview extends Component {
                   </ListItemIcon>
                 </Tooltip>
                 <Link
-                  onClick={() => this.joinnow(alarm.data.A)}
+                  onClick={() => this.joinnow(alarm.data)}
                   target="_blank"
                   rel="noopener"
                   underline="none"
@@ -98,12 +108,12 @@ class Alarmview extends Component {
                   >
                     <ListItemText
                       id={alarm.id}
-                      primary={`${alarm.data.A}`}
+                      primary={alarm.custom ? `${alarm.data.Name}` : `${alarm.data.A}`}
                       secondary={`${alarm.time}`}
                     />
                   </Tooltip>
                   <ListItemSecondaryAction>
-                    <Avatar edge="end">{alarm.data.F}</Avatar>
+                    <Avatar edge="end">{alarm.custom ? <PersonAddIcon /> : alarm.data.F}</Avatar>
                   </ListItemSecondaryAction>
                 </Link>
               </ListItem>

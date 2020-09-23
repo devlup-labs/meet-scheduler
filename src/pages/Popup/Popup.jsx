@@ -9,7 +9,7 @@ import Settings from './components/Settings';
 import Switch from '@material-ui/core/Switch';
 import Grid from '@material-ui/core/Grid';
 
-import { getDataFromStorage } from '../Background/background.js';
+import { getDataFromStorage } from './scripts/storage.js';
 
 class Popup extends Component {
   constructor() {

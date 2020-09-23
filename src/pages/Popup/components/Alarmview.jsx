@@ -8,7 +8,8 @@ import IconButton from '@material-ui/core/IconButton';
 import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-import { getAllDataFromStorage, RemoveAlarms } from '../scripts/alarm.js';
+import { RemoveAlarms } from '../scripts/alarm.js';
+import { getAllDataFromStorage } from '../scripts/storage.js';
 
 class Alarmview extends Component {
   constructor() {
@@ -24,11 +25,19 @@ class Alarmview extends Component {
     if (data.length != 0) {
       var alarmAll = [];
       for (var key in data) {
-        var alarm = {
-          key: key,
-          code: data[key].course['A'],
-          course: data[key].course['B'],
-        };
+        if (data[key].course.type == 'custom') {
+          var alarm = {
+            key: key,
+            code: data[key].course.Name,
+            course: "custom",
+          };
+        } else {
+          var alarm = {
+            key: key,
+            code: data[key].course['A'],
+            course: data[key].course['B'],
+          };
+        }
         alarmAll.push(alarm);
       }
       var alarmCodeWise = {};
@@ -79,8 +88,8 @@ class Alarmview extends Component {
                 </ListItemIcon>
                 <ListItemText
                   id={alarm.code}
-                  primary={`${alarm.course}`}
-                  secondary={`${alarm.code}`}
+                  primary={alarm.course == 'custom' ? `${alarm.code}` : `${alarm.course}`}
+                  secondary={alarm.course == 'custom' ? `Custom User alarm` : `${alarm.code}`}
                 />
                 <ListItemSecondaryAction>
                   <IconButton

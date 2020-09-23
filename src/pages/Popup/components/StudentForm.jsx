@@ -9,7 +9,8 @@ import AlarmAddIcon from '@material-ui/icons/AlarmAdd';
 import ClearIcon from '@material-ui/icons/Clear';
 
 import * as sheet from '../scripts/sheetapi.js';
-import { AddAlarm_click, getAllDataFromStorage } from '../scripts/alarm.js';
+import { AddAlarm_click } from '../scripts/alarm.js';
+import { getAllDataFromStorage } from '../scripts/storage.js';
 
 const useStyles = (theme) => ({
   button: {
@@ -65,12 +66,14 @@ class AddAlarmForm extends Component {
     if (data.length != 0) {
       var alarmAll = [];
       for (var key in data) {
-        var alarm = {
-          key: key,
-          code: data[key].course['A'],
-          course: data[key].course['B'],
-        };
-        alarmAll.push(alarm);
+        if (data[key].type == 'student') {
+          var alarm = {
+            key: key,
+            code: data[key].course['A'],
+            course: data[key].course['B'],
+          };
+          alarmAll.push(alarm);
+        }
       }
     }
     this.setState({
