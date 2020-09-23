@@ -5,11 +5,12 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
-import AlarmOffIcon from '@material-ui/icons/AlarmOff'
+import AlarmOffIcon from '@material-ui/icons/AlarmOff';
 import Avatar from '@material-ui/core/Avatar';
 import Link from '@material-ui/core/Link';
 import Tooltip from '@material-ui/core/Tooltip';
 import Zoom from '@material-ui/core/Zoom';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { getAllDataFromStorage } from '../scripts/alarm.js';
 import { get_meetlink } from '../scripts/sheetapi.js';
@@ -25,7 +26,7 @@ class Alarmview extends Component {
 
   async componentDidMount() {
     let data = await getAllDataFromStorage();
-    console.log(data)
+    console.log(data);
     var alarms = await new Promise((resolve) => chrome.alarms.getAll(resolve));
     var setalarms = [];
     alarms.sort(function (a, b) {
@@ -48,25 +49,25 @@ class Alarmview extends Component {
 
   updatestatus = async (alarm_id) => {
     var state = this.state.alarms;
-    state[alarm_id].status = !state[alarm_id].status
+    state[alarm_id].status = !state[alarm_id].status;
     this.setState({ alarms: state });
     let data = await getAllDataFromStorage();
     var key = state[alarm_id].name;
-    var val = data[state[alarm_id].name]
+    var val = data[state[alarm_id].name];
     val.status = state[alarm_id].status;
-    var st = {}
+    var st = {};
     st[key] = val;
     chrome.storage.sync.set(st, () => {
-      console.log("changed alarm status")
+      console.log('changed alarm status');
       console.log(st);
-    })
-  }
+    });
+  };
 
   joinnow = async (course_code) => {
     let details = await getDataFromStorage('Defaults');
     let link = await get_meetlink(course_code);
     let tab = await createTab(link, details.Authuser, details.AutoJoin);
-  }
+  };
 
   render() {
     return (
@@ -80,9 +81,15 @@ class Alarmview extends Component {
                   TransitionComponent={Zoom}
                   title="Toggle Alarm"
                 >
-                  <ListItemIcon edge="start" onClick={() => this.updatestatus(alarm.id)}>
-                    {alarm.status ? <AccessTimeIcon style={{ color: 'black' }} /> :
-                      <AlarmOffIcon style={{ color: 'black' }} />}
+                  <ListItemIcon
+                    edge="start"
+                    onClick={() => this.updatestatus(alarm.id)}
+                  >
+                    {alarm.status ? (
+                      <AccessTimeIcon style={{ color: 'black' }} />
+                    ) : (
+                      <AlarmOffIcon style={{ color: 'black' }} />
+                    )}
                   </ListItemIcon>
                 </Tooltip>
                 <Link
@@ -110,7 +117,7 @@ class Alarmview extends Component {
             );
           })}
         </List>
-      </div >
+      </div>
     );
   }
 }

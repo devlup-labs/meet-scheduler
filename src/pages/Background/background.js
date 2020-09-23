@@ -63,7 +63,7 @@ async function onAlarm(alarm) {
       return;
     }
     let link = await get_meetlink(data.course['A']);
-    let tab = await createTab(link, details.Authuser, defaults.AutoJoin);
+    let tab = await createTab(link, details.Authuser, details.AutoJoin);
   }
 }
 
@@ -166,4 +166,4 @@ chrome.alarms.onAlarm.addListener(onAlarm);
 // on message receive
 chrome.runtime.onMessage.addListener(receiveMessage);
 
-export { createTab, getDataFromStorage }
+export { createTab, getDataFromStorage };

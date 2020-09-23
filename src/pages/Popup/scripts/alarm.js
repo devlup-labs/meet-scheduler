@@ -139,4 +139,9 @@ async function AddAlarm_click(course, dates) {
   }
 }
 
-export { AddAlarm_click, getAllDataFromStorage, RemoveAlarms };
+export {
+  AddAlarm_click,
+  getAllDataFromStorage,
+  RemoveAlarms,
+  setDataIntoStorage,
+};
