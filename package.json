@@ -1,6 +1,6 @@
 {
   "name": "auto-join-chrome-extension",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A chrome extension that lets you auto join your google meet links",
   "license": "MIT",
   "repository": {
