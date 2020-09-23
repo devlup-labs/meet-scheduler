@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-duplicate-props */
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -11,6 +12,7 @@ import TextField from '@material-ui/core/TextField';
 import SaveAltIcon from '@material-ui/icons/SaveAlt';
 
 import { setDataIntoStorage } from '../scripts/alarm.js';
+import { NoEncryption } from '@material-ui/icons';
 
 const useStyles = (theme) => ({
   button: {
@@ -35,6 +37,7 @@ class Settings extends Component {
       selectedSwi: true,
       userDisabled: false,
       buttonDisabled: true,
+      background: '#3f51b5',
       alarmData: {},
     };
   }
@@ -59,6 +62,9 @@ class Settings extends Component {
   handleSwiChange = async (event) => {
     await this.setState({ selectedSwi: event.target.checked });
     this.setState({ buttonDisabled: false });
+    this.setState({
+      background: '#3f51b5',
+    });
   };
 
   checkInput = () => {
@@ -123,6 +129,9 @@ class Settings extends Component {
       chrome.storage.sync.get(resolve)
     );
     await this.setState({ buttonDisabled: true, alarmData: Newresponse });
+    await this.setState({
+      background: '#E8EAF6',
+    });
   };
 
   async componentDidMount() {
@@ -135,11 +144,15 @@ class Settings extends Component {
       selectedSec: data['BeforeSeconds'],
       selectedSwi: data['AutoJoin'],
     });
+
     console.log(this.state);
   }
 
   render() {
     const { classes } = this.props;
+    const styleobj = {
+      background: this.state.background,
+    };
     return (
       <div style={{ height: '300px' }}>
         <FormControl
@@ -196,6 +209,7 @@ class Settings extends Component {
             id="submit_button"
             disabled={this.state.buttonDisabled}
             variant="contained"
+            style={styleobj}
             onClick={this.Save}
             endIcon={<SaveAltIcon />}
           >
