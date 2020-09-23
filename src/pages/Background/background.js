@@ -1,27 +1,30 @@
 import { get_meetlink } from '../Popup/scripts/sheetapi.js';
-import { getAllDataFromStorage, getDataFromStorage } from '../Popup/scripts/storage.js';
+import { getAllDataFromStorage, getDataFromStorage, setDataIntoStorage, removeDataFromStorage } from '../Popup/scripts/storage.js';
 import { createTab } from '../Popup/scripts/utils.js';
 
 async function onAlarm(alarm) {
-  console.log(`alarm::${alarm.name}`);
   let extensionToggle = await getDataFromStorage('extensionToggle');
-  if (extensionToggle) {
-    let data = await getDataFromStorage(alarm.name);
-    let details = await getDataFromStorage('Defaults');
-    console.log(details);
-    console.log(data);
-    var ctime = new Date().getTime();
-    if (ctime - data.time > 5000 || !data.status) {
-      console.log(` passed by alarm::${alarm.name}`);
-      return;
-    }
+  let data = await getDataFromStorage(alarm.name);
+  let details = await getDataFromStorage('Defaults');
+  var ctime = new Date().getTime();
+  if (extensionToggle && data.status && ctime - data.time < 5000) {
+    console.log(`alarm::${alarm.name} initiated`);
     var link;
     if (data.course.type == 'custom') {
       link = data.course.Link
     } else {
       link = await get_meetlink(data.course.A);
     }
-    let tab = await createTab(link, details.Authuser, details.AutoJoin);
+    createTab(link, details.Authuser, details.AutoJoin);
+  } else console.log(` passed by alarm::${alarm.name}`);
+  if (alarm.periodInMinutes) {
+    console.log(` resceduled alarm::${alarm.name} by ${alarm.periodInMinutes}`)
+    var nextTime = alarm.scheduledTime + alarm.periodInMinutes * 60000
+    data.time = nextTime;
+    data.status = true;
+    setDataIntoStorage(alarm.name, data)
+  } else {
+    removeDataFromStorage(alarm.name)
   }
 }
 
