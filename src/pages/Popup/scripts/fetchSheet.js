@@ -4,8 +4,16 @@ class Sheet {
   }
 
   async getResponse() {
-    // if sheet is older than 5 min then re fetch it
-    const min = 5;
+    //get response form local database
+    var data = await new Promise((resolve) => {
+      chrome.storage.local.get(this.url, (result) => resolve(result[this.url]));
+    });
+    if (data) {
+      this.response = data.response
+      this.last_accessed = data.last_access
+    }
+    // if sheet is older than 4 hrs. then re fetch it
+    const min = 240;
     if (!this.response || Date.now() - this.last_accessed > min * 60000) {
       await this.hardFetch();
     }
@@ -16,10 +24,21 @@ class Sheet {
   }
 
   async hardFetch() {
+    //fetch data
     var resp = await fetch(this.url);
     if (resp.ok) {
-      this.response = resp.json();
+      this.response = await resp.json();
       this.last_accessed = Date.now();
+      //set data in local storage
+      var val = {};
+      val[this.url] = {
+        response: this.response,
+        last_accessed: this.last_accessed
+      }
+      await chrome.storage.local.remove(this.url)
+      chrome.storage.local.set(val, function () {
+        console.log('Sheet refected and set to' + val);
+      });
     } else {
       this.response = false;
     }
