@@ -1,7 +1,14 @@
 {
   "name": "Auto Join Chrome Extension",
+  "version": "2.0.0",
   "browser_action": {
-    "default_popup": "popup.html"
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icon16.png",
+      "32": "icon32.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
   },
   "background": {
     "scripts": ["background.bundle.js"],
@@ -9,5 +16,11 @@
   },
   "permissions": ["storage", "alarms", "tabs", "http://*/", "https://*/"],
   "manifest_version": 2,
+  "icons": {
+    "16": "icon16.png",
+    "32": "icon32.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }
