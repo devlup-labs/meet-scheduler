@@ -86,7 +86,9 @@ class Alarmview extends Component {
                     onClick={() => this.updatestatus(alarm.id)}
                   >
                     {alarm.status ? (
-                      <AccessTimeIcon style={{ color: 'black' }} />
+                      <span><AccessTimeIcon style={{ color: 'black' }} />
+                        <i class="fa fa-check-circle"></i>
+                      </span>
                     ) : (
                       <AlarmOffIcon style={{ color: 'black' }} />
                     )}
