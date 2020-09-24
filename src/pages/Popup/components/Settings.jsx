@@ -195,7 +195,7 @@ class Settings extends Component {
                 color="primary"
               />
             }
-            label="Auto Join"
+            label="Auto Join Class"
           />
         </center>
         <center>
