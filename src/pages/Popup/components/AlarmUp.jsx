@@ -12,6 +12,8 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Zoom from '@material-ui/core/Zoom';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import CloseIcon from '@material-ui/icons/Close';
+import DoneIcon from '@material-ui/icons/Done';
 
 import { getAllDataFromStorage, getDataFromStorage } from '../scripts/storage.js';
 import { get_meetlink } from '../scripts/sheetapi.js';
@@ -96,11 +98,9 @@ class Alarmview extends Component {
                     onClick={() => this.updatestatus(alarm.id)}
                   >
                     {alarm.status ? (
-                      <span><AccessTimeIcon style={{ color: 'black' }} />
-                        <i class="fa fa-check-circle"></i>
-                      </span>
+                      <DoneIcon style={{ color: 'green' }} />
                     ) : (
-                        <AlarmOffIcon style={{ color: 'black' }} />
+                        <CloseIcon style={{ color: 'red' }} />
                       )}
                   </ListItemIcon>
                 </Tooltip>
