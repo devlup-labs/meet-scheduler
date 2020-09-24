@@ -36,7 +36,7 @@ class Settings extends Component {
       selectedSwi: true,
       userDisabled: false,
       buttonDisabled: true,
-      background: '#3f51b5',
+      background: '#E8EAF6',
       alarmData: {},
     };
   }
