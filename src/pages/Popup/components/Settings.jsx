@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-no-duplicate-props */
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -11,9 +10,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import SaveAltIcon from '@material-ui/icons/SaveAlt';
 
-
-
-import { setDataIntoStorage } from '../scripts/storage.js';
+import { setDataIntoStorage } from '../scripts/alarm.js';
 
 
 const useStyles = (theme) => ({
@@ -63,10 +60,8 @@ class Settings extends Component {
 
   handleSwiChange = async (event) => {
     await this.setState({ selectedSwi: event.target.checked });
-    this.setState({ buttonDisabled: false });
-    this.setState({
-      background: '#3f51b5',
-    });
+    this.setState({ buttonDisabled: false, background: '#3f51b5'});
+    
   };
 
   checkInput = () => {
@@ -130,10 +125,8 @@ class Settings extends Component {
     var Newresponse = await new Promise((resolve) =>
       chrome.storage.sync.get(resolve)
     );
-    await this.setState({ buttonDisabled: true, alarmData: Newresponse });
-    await this.setState({
-      background: '#E8EAF6',
-    });
+    await this.setState({ buttonDisabled: true, alarmData: Newresponse,background: '#E8EAF6' });
+   
   };
 
   async componentDidMount() {
