@@ -127,6 +127,10 @@ var options = {
             );
           },
         },
+        {
+          from: 'src/assets',
+          to: path.join(__dirname, 'build'),
+        },
       ],
       {
         logLevel: 'info',

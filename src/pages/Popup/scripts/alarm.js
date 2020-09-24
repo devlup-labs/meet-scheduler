@@ -1,32 +1,5 @@
-function sendMessage(type, key) {
-  let message = {};
-  message['type'] = type;
-  message['key'] = key;
-  chrome.runtime.sendMessage(message, () => {});
-}
-
-async function setDataIntoStorage(key, value) {
-  const dict = {};
-  dict[key] = value;
-  return await new Promise((resolve) => {
-    chrome.storage.sync.set(dict, resolve);
-  });
-}
-
-async function getAllDataFromStorage() {
-  var resp = await new Promise((resolve) => {
-    chrome.storage.sync.get(null, (result) => resolve(result || {}));
-  });
-  delete resp.Defaults;
-  delete resp.extensionToggle;
-  return resp;
-}
-
-async function removeDataFromStorage(key) {
-  return await new Promise((resolve) => {
-    chrome.storage.sync.remove(key, resolve);
-  });
-}
+import { sendMessage } from './utils'
+import { removeDataFromStorage, setDataIntoStorage } from './storage'
 
 //called from popup to removes alarms associated to a particular course id
 //alarmsKeyList : Array of alarms ids
@@ -130,6 +103,7 @@ async function AddAlarm_click(course, dates) {
   for (var day in dates) {
     for (var i = 0; i < dates[day].length; i++) {
       course['time'] = dates[day][i];
+      course['type'] = 'student';
       var start_time = dates[day][i]['start'];
       var start_date = await get_nearestDate(day, start_time);
       var alarm_data = new Alarm(course, start_date);
@@ -139,9 +113,19 @@ async function AddAlarm_click(course, dates) {
   }
 }
 
-export {
-  AddAlarm_click,
-  getAllDataFromStorage,
-  RemoveAlarms,
-  setDataIntoStorage,
-};
+async function AddCustomAlarm(alarm) {
+  var course = alarm;
+  course['type'] = 'custom';
+  var start_date = new Date(alarm.Time);
+  var alarm_data = new Alarm(course, start_date);
+  setDataIntoStorage(alarm_data.id, alarm_data);
+  var time = { when: alarm_data.time }
+  console.log(alarm_data.course.Repeat);
+  if (alarm_data.course.Repeat != 0) {
+    console.log('repeat')
+    time['periodInMinutes'] = 1440 * alarm_data.course.Repeat
+  }
+  chrome.alarms.create(alarm_data.id, time);;
+}
+
+export { AddAlarm_click, AddCustomAlarm, RemoveAlarms };
