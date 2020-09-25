@@ -10,7 +10,7 @@ class Sheet {
     });
     if (data) {
       this.response = data.response
-      this.last_accessed = data.last_access
+      this.last_accessed = data.last_accessed
     }
     // if sheet is older than 4 hrs. then re fetch it
     const min = 240;
