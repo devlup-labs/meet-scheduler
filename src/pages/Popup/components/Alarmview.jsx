@@ -62,7 +62,7 @@ class Alarmview extends Component {
     }
   }
   
-  trunc(string,num) { 
+  trunc(string, num) { 
     return string.length > num ? `${ string.slice(0,num)}..` : string
   }
 
