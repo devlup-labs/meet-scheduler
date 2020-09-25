@@ -28,9 +28,12 @@ React JS has been used for the frontend and the backend workflow is established 
 ![extension4](https://user-images.githubusercontent.com/56914284/94226383-192d0b80-ff15-11ea-89bc-d709a6bedaa1.png)
 
 - The most important thing for the auto join feature to work is the `Auth User` and the `Auto Join` toggle in the <b>Settings</b> tab
+
   ![accounts2](https://user-images.githubusercontent.com/56914284/94233534-aa0be300-ff25-11ea-96de-c153750028a0.jpeg)
+
   - The image shows some of the accounts a user might have registered in chrome. To use the <b>auto join</b> feature, the user must see the index of his/ her IITJ account and select that number in the `Auth User` dropdown list. Here, the index shown is 2 and therefore 2 is selected in the `Auth User` dropdown list.
   - If the Auto Join switch is turned off in the Settings tab, alarm will ring and the link will get opened but it won't auto join the meeting for you.
+
 - You can even customize the start time according to you. By default the start time is set to 30 seconds before the lecture time. One can change it to anything according to his/ her convenience.
 
 #### If you want to contribute to this project:
