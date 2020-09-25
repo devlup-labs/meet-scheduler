@@ -12,6 +12,8 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Zoom from '@material-ui/core/Zoom';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import CloseIcon from '@material-ui/icons/Close';
+import DoneIcon from '@material-ui/icons/Done';
 
 import { getAllDataFromStorage, getDataFromStorage } from '../scripts/storage.js';
 import { get_meetlink } from '../scripts/sheetapi.js';
@@ -96,9 +98,9 @@ class Alarmview extends Component {
                     onClick={() => this.updatestatus(alarm.id)}
                   >
                     {alarm.status ? (
-                      <AccessTimeIcon style={{ color: 'black' }} />
+                      <DoneIcon style={{ color: 'green' }} />
                     ) : (
-                        <AlarmOffIcon style={{ color: 'black' }} />
+                        <CloseIcon style={{ color: 'red' }} />
                       )}
                   </ListItemIcon>
                 </Tooltip>
@@ -115,7 +117,7 @@ class Alarmview extends Component {
                   >
                     <ListItemText
                       id={alarm.id}
-                      primary={alarm.custom ? `${alarm.data.Name}` : `${alarm.data.A}`}
+                       primary={alarm.custom ? `${alarm.data.Name}` : `${alarm.data.A} ${alarm.data.B.slice(0,22)}..`}
                       secondary={`${alarm.time}`}
                     />
                   </Tooltip>
