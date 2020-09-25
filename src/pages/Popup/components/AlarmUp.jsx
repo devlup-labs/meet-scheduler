@@ -52,8 +52,8 @@ class Alarmview extends Component {
     this.setState({ alarms: setalarms });
   }
   
-  trunc(string,num) { 
-    return string.length > num ? `${ string.slice(0, 18)}..` : string
+  trunc(string, num) { 
+    return string.length > num ? `${ string.slice(0, num)}..` : string
   }
 
   updatestatus = async (alarm_id) => {
