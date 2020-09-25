@@ -1,9 +1,7 @@
-# Auto Join Chrome Extension
+# [Auto Join Chrome Extension](https://chrome.google.com/webstore/detail/auto-join-chrome-extensio/djlpjopjnkojimgiaefgbenbbkkknnln?hl=en) ![output-onlinepngtools (1)](https://user-images.githubusercontent.com/56914284/94237918-31108980-ff2d-11ea-9133-1a3718e1b2a5.png)
 
 We are all fed up of keeping track of google meet links for our lectures. This chrome extension tries to make your life a bit easy!
 You just have to select the slot and the course and this extension opens the link at the given time ( you can customize the start time ) and also lets you auto join it!
-
-<b>Link : <b/>[Auto Join Chrome Extension](https://chrome.google.com/webstore/detail/auto-join-chrome-extensio/djlpjopjnkojimgiaefgbenbbkkknnln?hl=en)
 
 ## Tech stack
 
