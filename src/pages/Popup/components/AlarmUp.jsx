@@ -51,6 +51,10 @@ class Alarmview extends Component {
     }
     this.setState({ alarms: setalarms });
   }
+  
+  trunc(string, num) { 
+    return string.length > num ? `${ string.slice(0, num)}..` : string
+  }
 
   updatestatus = async (alarm_id) => {
     var state = this.state.alarms;
@@ -117,7 +121,7 @@ class Alarmview extends Component {
                   >
                     <ListItemText
                       id={alarm.id}
-                       primary={alarm.custom ? `${alarm.data.Name}` : `${alarm.data.A} ${alarm.data.B.slice(0,22)}..`}
+                      primary={alarm.custom ? `${this.trunc(alarm.data.Name, 22)}` : `${alarm.data.A} ${this.trunc(alarm.data.B, 18)}`}
                       secondary={`${alarm.time}`}
                     />
                   </Tooltip>
