@@ -117,7 +117,7 @@ class Alarmview extends Component {
                   >
                     <ListItemText
                       id={alarm.id}
-                      primary={alarm.custom ? `${alarm.data.Name}` : `${alarm.data.A}`}
+                       primary={alarm.custom ? `${alarm.data.Name}` : `${alarm.data.A} ${alarm.data.B.slice(0,22)}..`}
                       secondary={`${alarm.time}`}
                     />
                   </Tooltip>
