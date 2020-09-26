@@ -10,7 +10,8 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import SaveAltIcon from '@material-ui/icons/SaveAlt';
 
-import { setDataIntoStorage } from '../scripts/storage.js';
+import { setDataIntoStorage } from '../scripts/alarm.js';
+
 
 const useStyles = (theme) => ({
   button: {
@@ -35,6 +36,7 @@ class Settings extends Component {
       selectedSwi: true,
       userDisabled: false,
       buttonDisabled: true,
+      background: '#E8EAF6',
       alarmData: {},
     };
   }
@@ -58,7 +60,8 @@ class Settings extends Component {
 
   handleSwiChange = async (event) => {
     await this.setState({ selectedSwi: event.target.checked });
-    this.setState({ buttonDisabled: false });
+    this.setState({ buttonDisabled: false, background: '#3f51b5'});
+    
   };
 
   checkInput = () => {
@@ -122,7 +125,8 @@ class Settings extends Component {
     var Newresponse = await new Promise((resolve) =>
       chrome.storage.sync.get(resolve)
     );
-    await this.setState({ buttonDisabled: true, alarmData: Newresponse });
+    await this.setState({ buttonDisabled: true, alarmData: Newresponse,background: '#E8EAF6' });
+   
   };
 
   async componentDidMount() {
@@ -135,11 +139,15 @@ class Settings extends Component {
       selectedSec: data['BeforeSeconds'],
       selectedSwi: data['AutoJoin'],
     });
+
     console.log(this.state);
   }
 
   render() {
     const { classes } = this.props;
+    const styleobj = {
+      background: this.state.background,
+    };
     return (
       <div style={{ height: '348px' }}>
         <FormControl
@@ -187,7 +195,7 @@ class Settings extends Component {
                 color="primary"
               />
             }
-            label="Auto Join"
+            label="Auto Join Class"
           />
         </center>
         <center>
@@ -196,6 +204,7 @@ class Settings extends Component {
             id="submit_button"
             disabled={this.state.buttonDisabled}
             variant="contained"
+            style={styleobj}
             onClick={this.Save}
             endIcon={<SaveAltIcon />}
           >
