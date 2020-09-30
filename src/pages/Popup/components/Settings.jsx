@@ -27,16 +27,6 @@ const useStyles = (theme) => ({
       color: '#9fa8da',
     },
   },
-  // disabledButton: {
-  //   borderRadius: 30,
-  //   margin: theme.spacing(3),
-  //   background: '#E8EAF6',
-  //   color: 'red',
-  //   '&:hover': {
-  //     background: '#E8EAF6',
-  //     color: 'red',
-  //   },
-  // },
 });
 
 class Settings extends Component {
