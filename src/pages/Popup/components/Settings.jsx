@@ -10,20 +10,33 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import SaveAltIcon from '@material-ui/icons/SaveAlt';
 
-import { setDataIntoStorage } from '../scripts/alarm.js';
-
+import { setDataIntoStorage } from '../scripts/storage.js';
 
 const useStyles = (theme) => ({
   button: {
     borderRadius: 30,
-    margin: theme.spacing(2),
+    margin: theme.spacing(3),
     background: '#3f51b5',
     color: 'white',
     '&:hover': {
       background: '#3f51b5',
       color: 'white',
     },
+    '&:disabled': {
+      background: '#E8EAF6',
+      color: '#9fa8da',
+    },
   },
+  // disabledButton: {
+  //   borderRadius: 30,
+  //   margin: theme.spacing(3),
+  //   background: '#E8EAF6',
+  //   color: 'red',
+  //   '&:hover': {
+  //     background: '#E8EAF6',
+  //     color: 'red',
+  //   },
+  // },
 });
 
 class Settings extends Component {
@@ -36,7 +49,6 @@ class Settings extends Component {
       selectedSwi: true,
       userDisabled: false,
       buttonDisabled: true,
-      background: '#E8EAF6',
       alarmData: {},
     };
   }
@@ -60,8 +72,7 @@ class Settings extends Component {
 
   handleSwiChange = async (event) => {
     await this.setState({ selectedSwi: event.target.checked });
-    this.setState({ buttonDisabled: false, background: '#3f51b5'});
-    
+    this.setState({ buttonDisabled: false });
   };
 
   checkInput = () => {
@@ -125,8 +136,10 @@ class Settings extends Component {
     var Newresponse = await new Promise((resolve) =>
       chrome.storage.sync.get(resolve)
     );
-    await this.setState({ buttonDisabled: true, alarmData: Newresponse,background: '#E8EAF6' });
-   
+    await this.setState({
+      buttonDisabled: true,
+      alarmData: Newresponse,
+    });
   };
 
   async componentDidMount() {
@@ -145,9 +158,6 @@ class Settings extends Component {
 
   render() {
     const { classes } = this.props;
-    const styleobj = {
-      background: this.state.background,
-    };
     return (
       <div style={{ height: '348px' }}>
         <FormControl
@@ -204,7 +214,6 @@ class Settings extends Component {
             id="submit_button"
             disabled={this.state.buttonDisabled}
             variant="contained"
-            style={styleobj}
             onClick={this.Save}
             endIcon={<SaveAltIcon />}
           >

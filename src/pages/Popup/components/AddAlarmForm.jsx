@@ -14,10 +14,12 @@ class AddAlarmForm extends Component {
     };
   }
 
-  changeTab = (event, newValue) => { console.log(eve); this.setState({ tab: newValue }); }
+  changeTab = (event, newValue) => {
+    console.log(eve);
+    this.setState({ tab: newValue });
+  };
 
-  async componentDidMount() {
-  }
+  async componentDidMount() {}
 
   render() {
     var pannel;
@@ -30,7 +32,9 @@ class AddAlarmForm extends Component {
             value={this.state.tab}
             indicatorColor="primary"
             textColor="primary"
-            onChange={(event, value) => { this.setState({ tab: value }) }}
+            onChange={(event, value) => {
+              this.setState({ tab: value });
+            }}
             aria-label="tabs"
             centered
           >

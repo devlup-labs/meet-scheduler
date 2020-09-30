@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button';
 import AlarmAddIcon from '@material-ui/icons/AlarmAdd';
 import ClearIcon from '@material-ui/icons/Clear';
 
-import { AddCustomAlarm } from '../scripts/alarm.js'
+import { AddCustomAlarm } from '../scripts/alarm.js';
 
 const useStyles = (theme) => ({
   button: {
@@ -20,6 +20,10 @@ const useStyles = (theme) => ({
     '&:hover': {
       background: '#3f51b5',
       color: 'white',
+    },
+    '&:disabled': {
+      background: '#E8EAF6',
+      color: '#9fa8da',
     },
   },
   icon: {
@@ -38,11 +42,11 @@ class AddAlarmForm extends Component {
       selectedName: '',
       buttonDisabled: true,
       slots: [
-        { 'count': 0, 'label': 'Once' },
-        { 'count': 1, 'label': 'Daily' },
-        { 'count': 7, 'label': 'Weekly' }
+        { count: 0, label: 'Once' },
+        { count: 1, label: 'Daily' },
+        { count: 7, label: 'Weekly' },
       ],
-      selectedSlot: 0
+      selectedSlot: 0,
     };
   }
 
@@ -54,8 +58,8 @@ class AddAlarmForm extends Component {
     }
     await this.setState({
       selectedName: val,
-      Nameerror: error
-    })
+      Nameerror: error,
+    });
     this.check();
   };
 
@@ -67,8 +71,8 @@ class AddAlarmForm extends Component {
     }
     await this.setState({
       selectedLink: val,
-      Linkerror: error
-    })
+      Linkerror: error,
+    });
     this.check();
   };
 
@@ -82,23 +86,29 @@ class AddAlarmForm extends Component {
     }
     await this.setState({
       selectedTime: val,
-      Dateerror: error
-    })
+      Dateerror: error,
+    });
     this.check();
   };
 
   handleSlotChange = async (event) => {
-    this.setState({ selectedSlot: event.target.value })
-  }
+    this.setState({ selectedSlot: event.target.value });
+  };
 
   check = () => {
-    if (!this.state.Linkerror && !this.state.Dateerror && !this.state.Nameerror &&
-      this.state.selectedLink != '' && this.state.selectedTime != '' && this.state.selectedName != '') {
+    if (
+      !this.state.Linkerror &&
+      !this.state.Dateerror &&
+      !this.state.Nameerror &&
+      this.state.selectedLink != '' &&
+      this.state.selectedTime != '' &&
+      this.state.selectedName != ''
+    ) {
       this.setState({ buttonDisabled: false });
     } else {
       this.setState({ buttonDisabled: true });
     }
-  }
+  };
 
   ClearForm = () => {
     this.setState({
@@ -114,14 +124,14 @@ class AddAlarmForm extends Component {
       Link: this.state.selectedLink,
       Time: this.state.selectedTime,
       Repeat: this.state.selectedSlot,
-    }
+    };
     await AddCustomAlarm(state);
     this.setState({
       selectedLink: '',
       selectedTime: '',
       selectedName: '',
       buttonDisabled: true,
-      selectedSlot: 0
+      selectedSlot: 0,
     });
   };
 
@@ -148,7 +158,7 @@ class AddAlarmForm extends Component {
           error={this.state.Linkerror}
         />
         <TextField
-          style={{ width: '45%', margin: '4%', }}
+          style={{ width: '45%', margin: '4%' }}
           value={this.state.selectedTime}
           onChange={this.handleTimeChange}
           id="date"
@@ -171,7 +181,11 @@ class AddAlarmForm extends Component {
             onChange={this.handleSlotChange}
           >
             {this.state.slots.map((item) => {
-              return <MenuItem key={item.count} value={item.count}>{item.label}</MenuItem>;
+              return (
+                <MenuItem key={item.count} value={item.count}>
+                  {item.label}
+                </MenuItem>
+              );
             })}
           </Select>
         </FormControl>
