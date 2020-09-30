@@ -114,18 +114,41 @@ async function AddAlarm_click(course, dates) {
 }
 
 async function AddCustomAlarm(alarm) {
+  var resp = await new Promise((resolve) => chrome.storage.sync.get(resolve));
+  var data = resp['Defaults'];
+  var beforeminutes = data['BeforeMinutes'];
+  var beforeseconds = data['BeforeSeconds'];
   var course = alarm;
   course['type'] = 'custom';
   var start_date = new Date(alarm.Time);
-  var alarm_data = new Alarm(course, start_date);
-  setDataIntoStorage(alarm_data.id, alarm_data);
-  var time = { when: alarm_data.time }
-  console.log(alarm_data.course.Repeat);
-  if (alarm_data.course.Repeat != 0) {
-    console.log('repeat')
-    time['periodInMinutes'] = 1440 * alarm_data.course.Repeat
+  var settime = start_date.getTime();
+  settime = settime - (60 * beforeminutes + beforeseconds) * 1000;
+  start_date.setTime(settime);
+  alarm.Time = alarm.Time - (60 * beforeminutes + beforeseconds) * 1000;
+  //once an dweekly alarms
+  if (course.Repeat == 0 || course.Repeat == 7) {
+    var alarm_data = new Alarm(course, start_date);
+    setDataIntoStorage(alarm_data.id, alarm_data);
+    var time = { when: alarm_data.time }
+    if (course.Repeat == 7) {
+      console.debug('repeated weekely alarm')
+      time['periodInMinutes'] = 10080
+    }
+    chrome.alarms.create(alarm_data.id, time);
+  } else {
+    //daily alarms
+    for (var i = 0; i < 7; i++) {
+      var alarm_data = new Alarm(course, start_date);
+      setDataIntoStorage(alarm_data.id, alarm_data);
+      start_date.setDate(start_date.getDate() + 1);
+      console.log(start_date);
+      var time = {
+        when: alarm_data.time,
+        periodInMinutes: 10080
+      }
+      chrome.alarms.create(alarm_data.id, time);;
+    }
   }
-  chrome.alarms.create(alarm_data.id, time);;
 }
 
 export { AddAlarm_click, AddCustomAlarm, RemoveAlarms };
