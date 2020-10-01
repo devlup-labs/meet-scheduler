@@ -39,7 +39,7 @@ class Alarmview extends Component {
     for (let i = 0; i < alarms.length; i++) {
       var time = new Date();
       time.setTime(alarms[i].scheduledTime);
-      time = time.toLocaleString();
+      time = time.toLocaleString('en-US', {day:'numeric', month:"numeric", year:'numeric', hour:'numeric', minute:'numeric', hour12:true})
       setalarms.push({
         time: time,
         id: i,
