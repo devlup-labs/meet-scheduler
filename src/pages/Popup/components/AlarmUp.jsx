@@ -4,21 +4,20 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
-import AccessTimeIcon from '@material-ui/icons/AccessTime';
-import AlarmOffIcon from '@material-ui/icons/AlarmOff';
 import Avatar from '@material-ui/core/Avatar';
 import Link from '@material-ui/core/Link';
 import Tooltip from '@material-ui/core/Tooltip';
 import Zoom from '@material-ui/core/Zoom';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import CloseIcon from '@material-ui/icons/Close';
 import DoneIcon from '@material-ui/icons/Done';
 
-import { getAllDataFromStorage, getDataFromStorage } from '../scripts/storage.js';
+import {
+  getAllDataFromStorage,
+  getDataFromStorage,
+} from '../scripts/storage.js';
 import { get_meetlink } from '../scripts/sheetapi.js';
 import { createTab } from '../scripts/utils.js';
-
 
 class Alarmview extends Component {
   constructor() {
@@ -46,14 +45,14 @@ class Alarmview extends Component {
         name: alarms[i].name,
         data: data[alarms[i].name].course,
         status: data[alarms[i].name].status,
-        custom: data[alarms[i].name].course.type === 'custom'
+        custom: data[alarms[i].name].course.type === 'custom',
       });
     }
     this.setState({ alarms: setalarms });
   }
-  
-  trunc(string, num) { 
-    return string.length > num ? `${ string.slice(0, num)}..` : string
+
+  trunc(string, num) {
+    return string.length > num ? `${string.slice(0, num)}..` : string;
   }
 
   updatestatus = async (alarm_id) => {
@@ -75,7 +74,7 @@ class Alarmview extends Component {
   joinnow = async (data) => {
     var link;
     if (data.type == 'custom') {
-      link = data.Link
+      link = data.Link;
     } else {
       link = await get_meetlink(data.A);
     }
@@ -83,7 +82,10 @@ class Alarmview extends Component {
     let tab = await createTab(link, details.Authuser, details.AutoJoin);
   };
 
-  getname = (alarm) => { console.log(alarm); return alarm.custom ? `${alarm.data.Name}` : `${alarm.data.A}` }
+  getname = (alarm) => {
+    console.log(alarm);
+    return alarm.custom ? `${alarm.data.Name}` : `${alarm.data.A}`;
+  };
 
   render() {
     return (
@@ -104,8 +106,8 @@ class Alarmview extends Component {
                     {alarm.status ? (
                       <DoneIcon style={{ color: 'green' }} />
                     ) : (
-                        <CloseIcon style={{ color: 'red' }} />
-                      )}
+                      <CloseIcon style={{ color: 'red' }} />
+                    )}
                   </ListItemIcon>
                 </Tooltip>
                 <Link
@@ -121,12 +123,18 @@ class Alarmview extends Component {
                   >
                     <ListItemText
                       id={alarm.id}
-                      primary={alarm.custom ? `${this.trunc(alarm.data.Name, 22)}` : `${alarm.data.A} ${this.trunc(alarm.data.B, 16)}`}
+                      primary={
+                        alarm.custom
+                          ? `${this.trunc(alarm.data.Name, 22)}`
+                          : `${alarm.data.A} ${this.trunc(alarm.data.B, 16)}`
+                      }
                       secondary={`${alarm.time}`}
                     />
                   </Tooltip>
                   <ListItemSecondaryAction>
-                    <Avatar edge="end">{alarm.custom ? <PersonAddIcon /> : alarm.data.F}</Avatar>
+                    <Avatar edge="end">
+                      {alarm.custom ? <PersonAddIcon /> : alarm.data.F}
+                    </Avatar>
                   </ListItemSecondaryAction>
                 </Link>
               </ListItem>

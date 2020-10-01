@@ -29,7 +29,7 @@ class Alarmview extends Component {
           var alarm = {
             key: key,
             code: data[key].course.Name,
-            course: "custom",
+            course: 'custom',
           };
         } else {
           var alarm = {
@@ -61,9 +61,9 @@ class Alarmview extends Component {
       });
     }
   }
-  
-  trunc(string, num) { 
-    return string.length > num ? `${ string.slice(0,num)}..` : string
+
+  trunc(string, num) {
+    return string.length > num ? `${string.slice(0, num)}..` : string;
   }
 
   DeleteAlarm = (code) => {
@@ -92,8 +92,16 @@ class Alarmview extends Component {
                 </ListItemIcon>
                 <ListItemText
                   id={alarm.code}
-                  primary={alarm.course == 'custom' ? `${this.trunc(alarm.code, 22)}` : `${alarm.course}`}
-                  secondary={alarm.course == 'custom' ? `Custom User alarm` : `${alarm.code}`}
+                  primary={
+                    alarm.course == 'custom'
+                      ? `${this.trunc(alarm.code, 22)}`
+                      : `${alarm.course}`
+                  }
+                  secondary={
+                    alarm.course == 'custom'
+                      ? `Custom User alarm`
+                      : `${alarm.code}`
+                  }
                 />
                 <ListItemSecondaryAction>
                   <IconButton

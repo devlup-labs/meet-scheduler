@@ -22,6 +22,10 @@ const useStyles = (theme) => ({
       background: '#3f51b5',
       color: 'white',
     },
+    '&:disabled': {
+      background: '#E8EAF6',
+      color: '#9fa8da',
+    },
   },
   icon: {
     fill: 'black',
@@ -39,7 +43,7 @@ class AddAlarmForm extends Component {
       courseDisabled: true,
       slotDisabled: true,
       buttonDisabled: true,
-      value: 0
+      value: 0,
     };
   }
 
@@ -134,7 +138,11 @@ class AddAlarmForm extends Component {
             onChange={this.handleSlotChange}
           >
             {this.state.slots.map((item) => {
-              return <MenuItem key={item} value={item}>{item}</MenuItem>;
+              return (
+                <MenuItem key={item} value={item}>
+                  {item}
+                </MenuItem>
+              );
             })}
           </Select>
         </FormControl>
@@ -151,7 +159,9 @@ class AddAlarmForm extends Component {
           >
             {this.state.courses.map((item) => {
               return (
-                <MenuItem key={item} value={item}>{item.B + ' (' + item.E + ')'}</MenuItem>
+                <MenuItem key={item} value={item}>
+                  {item.B + ' (' + item.E + ')'}
+                </MenuItem>
               );
             })}
           </Select>

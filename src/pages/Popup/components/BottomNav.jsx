@@ -6,11 +6,13 @@ import HomeIcon from '@material-ui/icons/Home';
 import AlarmIcon from '@material-ui/icons/Alarm';
 import AlarmOnIcon from '@material-ui/icons/AlarmOn';
 import SettingsIcon from '@material-ui/icons/Settings';
+
 const useStyles = makeStyles({
   root: {
     width: '100%',
   },
 });
+
 export default function BottomNav(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
