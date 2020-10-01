@@ -66,7 +66,7 @@ class AddAlarmForm extends Component {
   handleLinkChange = async (event) => {
     var val = event.target.value;
     var error = false;
-    if (!val.match('https://meet.google.com/[a-zA-Z0-9?&=]+') || val == '') {
+    if ((!val.match('https://meet.google.com/[a-zA-Z0-9?&=]+') && !val.match('https://zoom.us/+')) || val == '') {
       error = true;
     }
     await this.setState({
