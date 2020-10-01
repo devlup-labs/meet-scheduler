@@ -16,12 +16,12 @@ React JS has been used for the frontend and the backend workflow is established 
   - You can even add a custom link and time in the `Custom` tab
 - The toggle besides the heading is a switch for the extension. If you turn it off, no alarms will ring.
 
-![extension2](https://user-images.githubusercontent.com/56914284/94226137-72486f80-ff14-11ea-87c1-ed07c6d37d97.png)
-![extension5](https://user-images.githubusercontent.com/56914284/94226363-0b778600-ff15-11ea-8be3-fa5fef86a76b.png)
+![upcoming](https://user-images.githubusercontent.com/56914284/94802096-a9cb8600-0404-11eb-9f15-843afc8f32ec.png)
+![upcoming2](https://user-images.githubusercontent.com/56914284/94802106-ad5f0d00-0404-11eb-92e5-65cd306cb416.png)
 
 - This tab shows you the upcoming alarms
   - If you want to uregently join the meeting, just click on the course code given in the list. It will take you to the meeting!
-  - If you want to silent an alarm or don't want it to ring because of some reasons, click on the `alarm icon` on the left to turn it off/on.
+  - If you want to silent an alarm or don't want it to ring because of some reasons, click on the `tick mark` on the left to turn it off/on.
 
 ![extension4](https://user-images.githubusercontent.com/56914284/94226383-192d0b80-ff15-11ea-89bc-d709a6bedaa1.png)
 
