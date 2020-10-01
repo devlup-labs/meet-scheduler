@@ -125,7 +125,7 @@ async function AddCustomAlarm(alarm) {
   settime = settime - (60 * beforeminutes + beforeseconds) * 1000;
   start_date.setTime(settime);
   alarm.Time = alarm.Time - (60 * beforeminutes + beforeseconds) * 1000;
-  //once an dweekly alarms
+  //once and weekly alarms
   if (course.Repeat == 0 || course.Repeat == 7) {
     var alarm_data = new Alarm(course, start_date);
     setDataIntoStorage(alarm_data.id, alarm_data);
