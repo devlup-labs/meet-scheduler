@@ -1,5 +1,10 @@
 import { get_meetlink } from '../Popup/scripts/sheetapi.js';
-import { getAllDataFromStorage, getDataFromStorage, setDataIntoStorage, removeDataFromStorage } from '../Popup/scripts/storage.js';
+import {
+  getAllDataFromStorage,
+  getDataFromStorage,
+  setDataIntoStorage,
+  removeDataFromStorage,
+} from '../Popup/scripts/storage.js';
 import { createTab } from '../Popup/scripts/utils.js';
 
 async function onAlarm(alarm) {
@@ -11,20 +16,20 @@ async function onAlarm(alarm) {
     console.log(`alarm::${alarm.name} initiated`);
     var link;
     if (data.course.type == 'custom') {
-      link = data.course.Link
+      link = data.course.Link;
     } else {
       link = await get_meetlink(data.course.A);
     }
     createTab(link, details.Authuser, details.AutoJoin);
   } else console.log(` passed by alarm::${alarm.name}`);
   if (alarm.periodInMinutes) {
-    console.log(` resceduled alarm::${alarm.name} by ${alarm.periodInMinutes}`)
-    var nextTime = alarm.scheduledTime + alarm.periodInMinutes * 60000
+    console.log(` resceduled alarm::${alarm.name} by ${alarm.periodInMinutes}`);
+    var nextTime = alarm.scheduledTime + alarm.periodInMinutes * 60000;
     data.time = nextTime;
     data.status = true;
-    setDataIntoStorage(alarm.name, data)
+    setDataIntoStorage(alarm.name, data);
   } else {
-    removeDataFromStorage(alarm.name)
+    removeDataFromStorage(alarm.name);
   }
 }
 
@@ -49,11 +54,15 @@ async function receiveMessage(request, sender, sendresponse) {
       // remove data from storage
     } else if (request.type == 'REMOVE_ALL_ALARM') {
       // clear all alarm
-      await new Promise23();
-      2((resolve) => chrome.alarms.clearAll(resolve));
+      await new Promise((resolve) => chrome.alarms.clearAll(resolve));
       // clear all storage
       await new Promise((resolve) => chrome.storage.sync.clear(resolve));
+    } else {
+      console.log('Message from popup.js');
+      console.log(request);
     }
+  } else {
+    console.log('Message from tab');
   }
 }
 

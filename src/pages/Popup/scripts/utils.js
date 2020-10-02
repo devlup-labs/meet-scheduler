@@ -1,6 +1,6 @@
 function createTab(link, authuser, autojoin) {
   const gmeetregexExp = 'https://meet.google.com/[a-zA-Z0-9?&=]+';
-  const zoomregexExp = 'https://zoom.us/+'
+  const zoomregexExp = 'https://zoom.us/+';
   if (link.match(gmeetregexExp)) {
     var link = link.split('?')[0];
     link = link + `?authuser=${authuser}&pli=1`;
@@ -65,7 +65,7 @@ function sendMessage(type, key) {
   let message = {};
   message['type'] = type;
   message['key'] = key;
-  chrome.runtime.sendMessage(message, () => { });
+  chrome.runtime.sendMessage(message, () => {});
 }
 
-export { createTab, sendMessage }
+export { createTab, sendMessage };
