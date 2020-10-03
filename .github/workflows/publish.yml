@@ -1,0 +1,45 @@
+name: Deploy
+on:
+  release:
+    types: [published]
+
+jobs:
+  deploy:
+    name: Deploy to chrome devconsole
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Start deployment
+        uses: bobheadxi/deployments@master
+        id: deployment
+        with:
+          step: start
+          token: ${{ secrets.GITHUB_TOKEN }}
+          env: chrome-devconsole
+
+      - name: Download assets
+        env:
+          FILE_NAME: build.zip
+        run: |
+          response=$(curl -sb -H ${{ github.event.release.assets_url }})
+          url=$(echo $response | jq -r --arg FILE_NAME "$FILE_NAME" '.[] | select(.name==$FILE_NAME) .browser_download_url') 
+          wget $url
+
+      - name: Publish to chrome devconsole
+        uses: Klemensas/chrome-extension-upload-action@$VERSION
+        with:
+          refresh-token: ${{ secrets.REFRESH_TOKEN }}
+          client-id: ${{ secrets.CLIENT_ID }}
+          client-secret: ${{ secrets.CLIENT_SECRET }}
+          file-name: build.zip
+          app-id: ${{ secrets.APP_ID }}
+          publish: true
+
+      - name: Update deployment status
+        uses: bobheadxi/deployments@master
+        if: always()
+        with:
+          step: finish
+          token: ${{ secrets.GITHUB_TOKEN }}
+          status: ${{ job.status }}
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
