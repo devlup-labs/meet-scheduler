@@ -117,4 +117,4 @@ class StorageHandler {
   }
 }
 
-export const storageHandler = StorageHandler();
+export const storageHandler = new StorageHandler();
