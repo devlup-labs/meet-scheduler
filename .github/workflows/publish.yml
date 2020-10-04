@@ -42,4 +42,5 @@ jobs:
           step: finish
           token: ${{ secrets.GITHUB_TOKEN }}
           status: ${{ job.status }}
+          env_url: ${{ secrets.WEBSTORE_URL }}
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
