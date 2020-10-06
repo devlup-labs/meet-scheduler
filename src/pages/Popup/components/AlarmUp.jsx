@@ -11,6 +11,11 @@ import Zoom from '@material-ui/core/Zoom';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import CloseIcon from '@material-ui/icons/Close';
 import DoneIcon from '@material-ui/icons/Done';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Typography from '@material-ui/core/Typography';
 
 import {
   getAllDataFromStorage,
@@ -23,7 +28,10 @@ class Alarmview extends Component {
   constructor() {
     super();
     this.state = {
-      alarms: [],
+      listOfTodayAlarms: [],
+      listOfLaterAlarms: [],
+      listOfTomorrowAlarms: [],
+      expanded: false,
     };
   }
 
@@ -31,24 +39,66 @@ class Alarmview extends Component {
     let data = await getAllDataFromStorage();
     console.log(data);
     var alarms = await new Promise((resolve) => chrome.alarms.getAll(resolve));
-    var setalarms = [];
+    let todayAlarms = [];
+    let tomorrowAlarms = [];
+    let laterAlarms = [];
     alarms.sort(function (a, b) {
       return a.scheduledTime - b.scheduledTime;
     });
+
+    var time = new Date();
+    let todayTime = new Date(time.getTime());
+    let tomorrowTime = new Date(time.setDate(time.getDate() + 1));
+    console.log(alarms);
     for (let i = 0; i < alarms.length; i++) {
-      var time = new Date();
       time.setTime(alarms[i].scheduledTime);
-      time = time.toLocaleString('en-US', {day:'numeric', month:"numeric", year:'numeric', hour:'numeric', minute:'numeric', hour12:true})
-      setalarms.push({
-        time: time,
-        id: i,
-        name: alarms[i].name,
-        data: data[alarms[i].name].course,
-        status: data[alarms[i].name].status,
-        custom: data[alarms[i].name].course.type === 'custom',
-      });
+      console.log(todayTime.toLocaleDateString(), time.toLocaleString());
+      // time = time.toLocaleString();
+      // Checking for today
+      if (time.toLocaleDateString() === todayTime.toLocaleDateString()) {
+        todayAlarms.push({
+          time: time.toLocaleString(),
+          id: i,
+          name: alarms[i].name,
+          data: data[alarms[i].name].course,
+          status: data[alarms[i].name].status,
+          custom: data[alarms[i].name].course.type === 'custom',
+        });
+      } else if (
+        time.toLocaleDateString() === tomorrowTime.toLocaleDateString()
+      ) {
+        tomorrowAlarms.push({
+          time: time.toLocaleString(),
+          id: i,
+          name: alarms[i].name,
+          data: data[alarms[i].name].course,
+          status: data[alarms[i].name].status,
+          custom: data[alarms[i].name].course.type === 'custom',
+        });
+      } else {
+        laterAlarms.push({
+          time: time.toLocaleString(),
+          id: i,
+          name: alarms[i].name,
+          data: data[alarms[i].name].course,
+          status: data[alarms[i].name].status,
+          custom: data[alarms[i].name].course.type === 'custom',
+        });
+      }
+      // setalarms.push({
+      //   time: time,
+      //   id: i,
+      //   name: alarms[i].name,
+      //   data: data[alarms[i].name].course,
+      //   status: data[alarms[i].name].status,
+      //   custom: data[alarms[i].name].course.type === 'custom',
+      // });
     }
-    this.setState({ alarms: setalarms });
+    this.setState({
+      listOfLaterAlarms: laterAlarms,
+      listOfTomorrowAlarms: tomorrowAlarms,
+      listOfTodayAlarms: todayAlarms,
+    });
   }
 
   trunc(string, num) {
@@ -86,61 +136,143 @@ class Alarmview extends Component {
     console.log(alarm);
     return alarm.custom ? `${alarm.data.Name}` : `${alarm.data.A}`;
   };
-
-  render() {
-    return (
-      <div style={{ height: '348px', overflow: 'auto' }}>
-        <List dense>
-          {this.state.alarms.map((alarm) => {
-            return (
-              <ListItem button focusRipple key={alarm.id}>
+  getAlarmsList = (listOfAlarms) => (
+    <div
+      className="alarmsList"
+      style={{ height: '348px', overflow: 'auto', width: '100%' }}
+    >
+      <List dense>
+        {listOfAlarms.map((alarm) => {
+          return (
+            <ListItem button focusRipple key={alarm.id}>
+              <Tooltip
+                placement="bottom-start"
+                TransitionComponent={Zoom}
+                title="Toggle Alarm"
+              >
+                <ListItemIcon
+                  edge="start"
+                  onClick={() => this.updatestatus(alarm.id)}
+                >
+                  {alarm.status ? (
+                    <DoneIcon style={{ color: 'green' }} />
+                  ) : (
+                    <CloseIcon style={{ color: 'red' }} />
+                  )}
+                </ListItemIcon>
+              </Tooltip>
+              <Link
+                onClick={() => this.joinnow(alarm.data)}
+                target="_blank"
+                rel="noopener"
+                underline="none"
+              >
                 <Tooltip
                   placement="bottom-start"
                   TransitionComponent={Zoom}
-                  title="Toggle Alarm"
+                  title="Join now"
                 >
-                  <ListItemIcon
-                    edge="start"
-                    onClick={() => this.updatestatus(alarm.id)}
-                  >
-                    {alarm.status ? (
-                      <DoneIcon style={{ color: 'green' }} />
-                    ) : (
-                      <CloseIcon style={{ color: 'red' }} />
-                    )}
-                  </ListItemIcon>
+                  <ListItemText
+                    id={alarm.id}
+                    primary={
+                      alarm.custom
+                        ? `${this.trunc(alarm.data.Name, 22)}`
+                        : `${alarm.data.A} ${this.trunc(alarm.data.B, 16)}`
+                    }
+                    secondary={`${alarm.time}`}
+                  />
                 </Tooltip>
-                <Link
-                  onClick={() => this.joinnow(alarm.data)}
-                  target="_blank"
-                  rel="noopener"
-                  underline="none"
-                >
-                  <Tooltip
-                    placement="bottom-start"
-                    TransitionComponent={Zoom}
-                    title="Join now"
-                  >
-                    <ListItemText
-                      id={alarm.id}
-                      primary={
-                        alarm.custom
-                          ? `${this.trunc(alarm.data.Name, 22)}`
-                          : `${alarm.data.A} ${this.trunc(alarm.data.B, 16)}`
-                      }
-                      secondary={`${alarm.time}`}
-                    />
-                  </Tooltip>
-                  <ListItemSecondaryAction>
-                    <Avatar edge="end">
-                      {alarm.custom ? <PersonAddIcon /> : alarm.data.F}
-                    </Avatar>
-                  </ListItemSecondaryAction>
-                </Link>
-              </ListItem>
-            );
-          })}
-        </List>
+                <ListItemSecondaryAction>
+                  <Avatar edge="end">
+                    {alarm.custom ? <PersonAddIcon /> : alarm.data.F}
+                  </Avatar>
+                </ListItemSecondaryAction>
+              </Link>
+            </ListItem>
+          );
+        })}
+      </List>
+    </div>
+  );
+  handleChange = (panel) => (e, isExpanded) => {
+    this.setState({ expanded: isExpanded ? panel : false });
+  };
+  render() {
+    const {
+      listOfLaterAlarms,
+      listOfTodayAlarms,
+      listOfTomorrowAlarms,
+      expanded,
+    } = this.state;
+    return (
+      <div className="alarmListWrapper">
+        <Accordion
+          expanded={expanded === 'panel1'}
+          onChange={this.handleChange('panel1')}
+        >
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+            className="accordianSummary"
+          >
+            <Typography>Today</Typography>
+          </AccordionSummary>
+          <AccordionDetails className="accordianDetails">
+            {(listOfTodayAlarms.length > 0 &&
+              this.getAlarmsList(listOfTodayAlarms)) || (
+              <div
+                style={{ padding: '1rem', textAlign: 'center', width: '100%' }}
+              >
+                <Typography>No alarms Present</Typography>
+              </div>
+            )}
+          </AccordionDetails>
+        </Accordion>
+        <Accordion
+          expanded={expanded === 'panel2'}
+          onChange={this.handleChange('panel2')}
+        >
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel2a-content"
+            id="panel2a-header"
+          >
+            <Typography>Tomorrow</Typography>
+          </AccordionSummary>
+          <AccordionDetails className="accordianDetails">
+            {(listOfTomorrowAlarms.length > 0 &&
+              this.getAlarmsList(listOfTomorrowAlarms)) || (
+              <div
+                style={{ padding: '1rem', textAlign: 'center', width: '100%' }}
+              >
+                <Typography>No alarms Present</Typography>
+              </div>
+            )}
+          </AccordionDetails>
+        </Accordion>
+        <Accordion
+          expanded={expanded === 'panel3'}
+          onChange={this.handleChange('panel3')}
+        >
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel3a-content"
+            id="panel3a-header"
+          >
+            <Typography>Later</Typography>
+          </AccordionSummary>
+          <AccordionDetails className="accordianDetails">
+            {(listOfLaterAlarms.length > 0 &&
+              this.getAlarmsList(listOfLaterAlarms)) || (
+              <div
+                style={{ padding: '1rem', textAlign: 'center', width: '100%' }}
+              >
+                <Typography>No alarms Present</Typography>
+              </div>
+            )}
+          </AccordionDetails>
+        </Accordion>
       </div>
     );
   }
