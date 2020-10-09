@@ -79,7 +79,7 @@ export default class Timer extends Component {
     }
 
     async componentDidMount() {
-        const { remTime } = this.state;
+        // const { remTime } = this.state;
         var alarms = await new Promise((resolve) => chrome.alarms.getAll(resolve));
         alarms.sort(function (a, b) {
             return a.scheduledTime - b.scheduledTime;
