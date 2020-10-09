@@ -11,13 +11,15 @@ import Zoom from '@material-ui/core/Zoom';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import CloseIcon from '@material-ui/icons/Close';
 import DoneIcon from '@material-ui/icons/Done';
-
+import Timer from "./timer.jsx";
+import './timerstyle2.css';
 import {
   getAllDataFromStorage,
   getDataFromStorage,
 } from '../scripts/storage.js';
 import { get_meetlink } from '../scripts/sheetapi.js';
 import { createTab } from '../scripts/utils.js';
+import { CodeOutlined } from '@material-ui/icons';
 
 class Alarmview extends Component {
   constructor() {
@@ -35,6 +37,7 @@ class Alarmview extends Component {
     alarms.sort(function (a, b) {
       return a.scheduledTime - b.scheduledTime;
     });
+    console.log(alarms);
     for (let i = 0; i < alarms.length; i++) {
       var time = new Date();
       time.setTime(alarms[i].scheduledTime);
@@ -49,6 +52,7 @@ class Alarmview extends Component {
       });
     }
     this.setState({ alarms: setalarms });
+
   }
 
   trunc(string, num) {
@@ -90,6 +94,7 @@ class Alarmview extends Component {
   render() {
     return (
       <div style={{ height: '348px', overflow: 'auto' }}>
+        <Timer />
         <List dense>
           {this.state.alarms.map((alarm) => {
             return (
@@ -106,8 +111,8 @@ class Alarmview extends Component {
                     {alarm.status ? (
                       <DoneIcon style={{ color: 'green' }} />
                     ) : (
-                      <CloseIcon style={{ color: 'red' }} />
-                    )}
+                        <CloseIcon style={{ color: 'red' }} />
+                      )}
                   </ListItemIcon>
                 </Tooltip>
                 <Link

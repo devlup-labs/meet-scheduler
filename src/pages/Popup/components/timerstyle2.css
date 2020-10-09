@@ -1,0 +1,16 @@
+.timer {
+    background-color: #c2c9f1;
+    color: #645be0;
+    border-radius: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 0px;
+    height: auto;
+    font-family: Montserrat, sans-serif;
+    transition: box-shadow .3s;
+    
+
+}
+.timer:hover{
+    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.2); 
+}
