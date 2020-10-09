@@ -16,27 +16,3 @@ code {
 .alarmsList::-webkit-scrollbar {
   width: 0px;
 }
-
-/* Track */
-/* .chrome-extension-react::-webkit-scrollbar-track {
-  background: #f1f1f1;
-} */
-
-/* Handle */
-/* .chrome-extension-react::-webkit-scrollbar-thumb {
-  background: #888;
-} */
-
-/* Handle on hover */
-/* .chrome-extension-react::-webkit-scrollbar-thumb:hover {
-  background: #555;
-} */
-.accordianDetails {
-  padding: 0 !important;
-}
-.alarmListWrapper {
-  padding: 1rem;
-}
-.accordianSummary {
-  color: red;
-}

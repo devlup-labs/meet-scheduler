@@ -33,6 +33,9 @@ class Alarmview extends Component {
       listOfTomorrowAlarms: [],
       expanded: false,
     };
+    this.accordion1Ref = React.createRef();
+    this.accordion2Ref = React.createRef();
+    this.accordion3Ref = React.createRef();
   }
 
   async componentDidMount() {
@@ -136,76 +139,118 @@ class Alarmview extends Component {
     console.log(alarm);
     return alarm.custom ? `${alarm.data.Name}` : `${alarm.data.A}`;
   };
-  getAlarmsList = (listOfAlarms) => (
-    <div
-      className="alarmsList"
-      style={{ height: '348px', overflow: 'auto', width: '100%' }}
-    >
-      <List dense>
-        {listOfAlarms.map((alarm) => {
-          return (
-            <ListItem button focusRipple key={alarm.id}>
-              <Tooltip
-                placement="bottom-start"
-                TransitionComponent={Zoom}
-                title="Toggle Alarm"
-              >
-                <ListItemIcon
-                  edge="start"
-                  onClick={() => this.updatestatus(alarm.id)}
-                >
-                  {alarm.status ? (
-                    <DoneIcon style={{ color: 'green' }} />
-                  ) : (
-                    <CloseIcon style={{ color: 'red' }} />
-                  )}
-                </ListItemIcon>
-              </Tooltip>
-              <Link
-                onClick={() => this.joinnow(alarm.data)}
-                target="_blank"
-                rel="noopener"
-                underline="none"
-              >
+  checkHeightOfAccodion = (height) => {
+    return {
+      height: height > 147 ? '147px' : 'auto',
+    };
+  };
+  getAlarmsList = (listOfAlarms) => {
+    const {
+      expanded,
+      accordian1Height,
+      accordion2Height,
+      accordion3Height,
+    } = this.state;
+    let listStyle = null;
+
+    if (expanded === 'panel1') {
+      listStyle = this.checkHeightOfAccodion(accordian1Height);
+    } else if (expanded === 'panel2') {
+      listStyle = this.checkHeightOfAccodion(accordion2Height);
+    } else {
+      listStyle = this.checkHeightOfAccodion(accordion3Height);
+    }
+
+    return (
+      <div
+        className="alarmsList"
+        style={{ ...listStyle, overflow: 'auto', width: '100%' }}
+      >
+        <List dense>
+          {listOfAlarms.map((alarm) => {
+            return (
+              <ListItem button focusRipple key={alarm.id}>
                 <Tooltip
                   placement="bottom-start"
                   TransitionComponent={Zoom}
-                  title="Join now"
+                  title="Toggle Alarm"
                 >
-                  <ListItemText
-                    id={alarm.id}
-                    primary={
-                      alarm.custom
-                        ? `${this.trunc(alarm.data.Name, 22)}`
-                        : `${alarm.data.A} ${this.trunc(alarm.data.B, 16)}`
-                    }
-                    secondary={`${alarm.time}`}
-                  />
+                  <ListItemIcon
+                    edge="start"
+                    onClick={() => this.updatestatus(alarm.id)}
+                  >
+                    {alarm.status ? (
+                      <DoneIcon style={{ color: 'green' }} />
+                    ) : (
+                      <CloseIcon style={{ color: 'red' }} />
+                    )}
+                  </ListItemIcon>
                 </Tooltip>
-                <ListItemSecondaryAction>
-                  <Avatar edge="end">
-                    {alarm.custom ? <PersonAddIcon /> : alarm.data.F}
-                  </Avatar>
-                </ListItemSecondaryAction>
-              </Link>
-            </ListItem>
-          );
-        })}
-      </List>
-    </div>
-  );
-  handleChange = (panel) => (e, isExpanded) => {
-    this.setState({ expanded: isExpanded ? panel : false });
+                <Link
+                  onClick={() => this.joinnow(alarm.data)}
+                  target="_blank"
+                  rel="noopener"
+                  underline="none"
+                >
+                  <Tooltip
+                    placement="bottom-start"
+                    TransitionComponent={Zoom}
+                    title="Join now"
+                  >
+                    <ListItemText
+                      id={alarm.id}
+                      primary={
+                        alarm.custom
+                          ? `${this.trunc(alarm.data.Name, 22)}`
+                          : `${alarm.data.A} ${this.trunc(alarm.data.B, 16)}`
+                      }
+                      secondary={`${alarm.time}`}
+                    />
+                  </Tooltip>
+                  <ListItemSecondaryAction>
+                    <Avatar edge="end">
+                      {alarm.custom ? <PersonAddIcon /> : alarm.data.F}
+                    </Avatar>
+                  </ListItemSecondaryAction>
+                </Link>
+              </ListItem>
+            );
+          })}
+        </List>
+      </div>
+    );
   };
+
+  handleChange = (panel) => (e, isExpanded) => {
+    // console.log(
+    //   this.accordion1Ref.current.clientHeight,
+    //   this.accordion2Ref.current.clientHeight,
+    //   this.accordion3Ref.current.clientHeight
+    // );
+    this.setState({
+      expanded: isExpanded ? panel : false,
+      accordian1Height: this.accordion1Ref.current.clientHeight,
+      accordion2Height: this.accordion2Ref.current.clientHeight,
+      accordion3Height: this.accordion3Ref.current.clientHeight,
+    });
+  };
+
   render() {
     const {
       listOfLaterAlarms,
       listOfTodayAlarms,
       listOfTomorrowAlarms,
       expanded,
+      accordian1Height,
+      accordion2Height,
+      accordion3Height,
     } = this.state;
+
     return (
-      <div className="alarmListWrapper">
+      <div
+        className="alarmListWrapper"
+        style={{ width: '100%', height: '348px' }}
+      >
         <Accordion
           expanded={expanded === 'panel1'}
           onChange={this.handleChange('panel1')}
@@ -218,7 +263,14 @@ class Alarmview extends Component {
           >
             <Typography>Today</Typography>
           </AccordionSummary>
-          <AccordionDetails className="accordianDetails">
+          <AccordionDetails
+            className="accordianDetails"
+            ref={this.accordion1Ref}
+            style={{
+              ...this.checkHeightOfAccodion(accordian1Height),
+              paddingBottom: (accordian1Height > 147 && '0') || 'auto',
+            }}
+          >
             {(listOfTodayAlarms.length > 0 &&
               this.getAlarmsList(listOfTodayAlarms)) || (
               <div
@@ -240,7 +292,14 @@ class Alarmview extends Component {
           >
             <Typography>Tomorrow</Typography>
           </AccordionSummary>
-          <AccordionDetails className="accordianDetails">
+          <AccordionDetails
+            className="accordianDetails"
+            ref={this.accordion2Ref}
+            style={{
+              ...this.checkHeightOfAccodion(accordion2Height),
+              paddingBottom: (accordion2Height > 147 && '0') || 'auto',
+            }}
+          >
             {(listOfTomorrowAlarms.length > 0 &&
               this.getAlarmsList(listOfTomorrowAlarms)) || (
               <div
@@ -262,7 +321,14 @@ class Alarmview extends Component {
           >
             <Typography>Later</Typography>
           </AccordionSummary>
-          <AccordionDetails className="accordianDetails">
+          <AccordionDetails
+            className="accordianDetails"
+            ref={this.accordion3Ref}
+            style={{
+              ...this.checkHeightOfAccodion(accordion3Height),
+              paddingBottom: (accordion3Height > 147 && '0') || 'auto',
+            }}
+          >
             {(listOfLaterAlarms.length > 0 &&
               this.getAlarmsList(listOfLaterAlarms)) || (
               <div
