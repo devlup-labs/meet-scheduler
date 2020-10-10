@@ -1,14 +1,18 @@
 .timer {
-    background-color: #c2c9f1;
-    color: #645be0;
+    background-color: #d3d6ec;
+    color: #928ddf;
     border-radius: 5px;
     margin-left: 10px;
     margin-right: 10px;
-    margin-bottom: 0px;
-    height: auto;
+    margin-bottom: 5px;
+    height: 38px;
     font-family: Montserrat, sans-serif;
     transition: box-shadow .3s;
-    
+    border-radius: 30px;
+    position: relative;
+    bottom: 10px;
+    font-weight: 200;
+
 
 }
 .timer:hover{
