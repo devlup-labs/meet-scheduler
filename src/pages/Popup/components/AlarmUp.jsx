@@ -162,10 +162,7 @@ class Alarmview extends Component {
     }
 
     return (
-      <div
-        className="alarmsList"
-        style={{ ...listStyle, overflow: 'auto', width: '100%' }}
-      >
+      <div className="alarmsList" style={{ ...listStyle, width: '100%' }}>
         <List dense>
           {listOfAlarms.map((alarm) => {
             return (
@@ -269,6 +266,7 @@ class Alarmview extends Component {
             style={{
               ...this.checkHeightOfAccodion(accordian1Height),
               paddingBottom: (accordian1Height > 147 && '0') || 'auto',
+              overflow: 'auto',
             }}
           >
             {(listOfTodayAlarms.length > 0 &&
@@ -298,6 +296,7 @@ class Alarmview extends Component {
             style={{
               ...this.checkHeightOfAccodion(accordion2Height),
               paddingBottom: (accordion2Height > 147 && '0') || 'auto',
+              overflow: 'auto',
             }}
           >
             {(listOfTomorrowAlarms.length > 0 &&
@@ -327,6 +326,7 @@ class Alarmview extends Component {
             style={{
               ...this.checkHeightOfAccodion(accordion3Height),
               paddingBottom: (accordion3Height > 147 && '0') || 'auto',
+              overflow: 'auto',
             }}
           >
             {(listOfLaterAlarms.length > 0 &&
