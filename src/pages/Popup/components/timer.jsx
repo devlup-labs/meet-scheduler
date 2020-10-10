@@ -77,37 +77,37 @@ export default class Timer extends Component {
             if (hours < 10) {
                 if (minutes < 10) {
                     if (seconds < 10) {
-                        timeString = `Next class in..\n ${days} d: 0${hours} h: 0${minutes} m: 0${seconds} s`
+                        timeString = `Next Meet In\n ${days} d: 0${hours} h: 0${minutes} m: 0${seconds} s`
                     }
                     else {
-                        timeString = `Next class in..\n ${days} d: 0${hours} h: 0${minutes} m: ${seconds} s`
+                        timeString = `Next Meet In\n ${days} d: 0${hours} h: 0${minutes} m: ${seconds} s`
                     }
                 }
                 else {
-                    timeString = `Next class in..\n ${days} d: 0${hours} h: ${minutes} m: ${seconds} s`
+                    timeString = `Next Meet In\n ${days} d: 0${hours} h: ${minutes} m: ${seconds} s`
                 }
 
             }
             else {
-                timeString = `Next class in..\n ${days} d: ${hours} h: ${minutes} m: ${seconds} s`
+                timeString = `Next Meet In\n ${days} d: ${hours} h: ${minutes} m: ${seconds} s`
             }
         } else {
             if (hours < 10) {
                 if (minutes < 10) {
                     if (seconds < 10) {
-                        timeString = `Next class in..\n 0${hours} h: 0${minutes} m: 0${seconds} s`
+                        timeString = `Next Meet In\n 0${hours} h: 0${minutes} m: 0${seconds} s`
                     }
                     else {
-                        timeString = `Next class in..\n 0${hours} h: 0${minutes} m: ${seconds} s`
+                        timeString = `Next Meet In\n 0${hours} h: 0${minutes} m: ${seconds} s`
                     }
                 }
                 else {
-                    timeString = `Next class in..\n 0${hours} h: ${minutes} m: ${seconds} s`
+                    timeString = `Next Meet In\n 0${hours} h: ${minutes} m: ${seconds} s`
                 }
 
             }
             else {
-                timeString = `Next class in..\n ${hours} h: ${minutes} m: ${seconds} s`
+                timeString = `Next Meet In\n ${hours} h: ${minutes} m: ${seconds} s`
             }
         }
         return (
@@ -115,8 +115,8 @@ export default class Timer extends Component {
                 { days === 0 ?
                     <h1 style={{
                         textAlign: "center",
-                        fontSize: "21px",
-                        paddingTop: "6px"
+                        fontSize: "20px",
+                        paddingTop: "4px"
                     }}>{timeString}</h1> : ""
                 }
             </div>
