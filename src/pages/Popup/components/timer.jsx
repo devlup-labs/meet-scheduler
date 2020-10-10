@@ -111,13 +111,16 @@ export default class Timer extends Component {
             }
         }
         return (
-            <div className="timer">
+            <div>
                 { days === 0 ?
-                    <h1 style={{
-                        textAlign: "center",
-                        fontSize: "20px",
-                        paddingTop: "4px"
-                    }}>{timeString}</h1> : ""
+                    <div className="timer">
+                        <h1 style={{
+                            textAlign: "center",
+                            fontSize: "20px",
+                            paddingTop: "4px"
+                        }}>{timeString}</h1></div>
+                    : ""
+
                 }
             </div>
         )
