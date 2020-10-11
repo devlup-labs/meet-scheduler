@@ -32,6 +32,9 @@ class Alarmview extends Component {
       listOfLaterAlarms: [],
       listOfTomorrowAlarms: [],
       expanded: false,
+      todayAlarmsListCounter: 0,
+      tomorrowAlarmsListCounter: 0,
+      laterAlarmsListCounter: 0,
     };
     this.accordion1Ref = React.createRef();
     this.accordion2Ref = React.createRef();
@@ -61,31 +64,43 @@ class Alarmview extends Component {
       if (time.toLocaleDateString() === todayTime.toLocaleDateString()) {
         todayAlarms.push({
           time: time.toLocaleString(),
-          id: i,
+          id: this.state.todayAlarmsListCounter,
           name: alarms[i].name,
           data: data[alarms[i].name].course,
           status: data[alarms[i].name].status,
           custom: data[alarms[i].name].course.type === 'custom',
+          alarmDayCategoryList: 'listOfTodayAlarms',
+        });
+        this.setState({
+          todayAlarmsListCounter: this.state.todayAlarmsListCounter + 1,
         });
       } else if (
         time.toLocaleDateString() === tomorrowTime.toLocaleDateString()
       ) {
         tomorrowAlarms.push({
           time: time.toLocaleString(),
-          id: i,
+          id: this.state.tomorrowAlarmsListCounter,
           name: alarms[i].name,
           data: data[alarms[i].name].course,
           status: data[alarms[i].name].status,
           custom: data[alarms[i].name].course.type === 'custom',
+          alarmDayCategoryList: 'listOfTomorrowAlarms',
+        });
+        this.setState({
+          tomorrowAlarmsListCounter: this.state.tomorrowAlarmsListCounter + 1,
         });
       } else {
         laterAlarms.push({
           time: time.toLocaleString(),
-          id: i,
+          id: this.state.laterAlarmsListCounter,
           name: alarms[i].name,
           data: data[alarms[i].name].course,
           status: data[alarms[i].name].status,
           custom: data[alarms[i].name].course.type === 'custom',
+          alarmDayCategoryList: 'listOfLaterAlarms',
+        });
+        this.setState({
+          laterAlarmsListCounter: this.state.laterAlarmsListCounter + 1,
         });
       }
       // setalarms.push({
@@ -108,10 +123,10 @@ class Alarmview extends Component {
     return string.length > num ? `${string.slice(0, num)}..` : string;
   }
 
-  updatestatus = async (alarm_id) => {
-    var state = this.state.alarms;
+  updatestatus = async ({ alarm_id, alarmsList, alarmDayCategoryList }) => {
+    var state = alarmsList;
     state[alarm_id].status = !state[alarm_id].status;
-    this.setState({ alarms: state });
+    this.setState({ [alarmDayCategoryList]: state });
     let data = await getAllDataFromStorage();
     var key = state[alarm_id].name;
     var val = data[state[alarm_id].name];
@@ -166,7 +181,11 @@ class Alarmview extends Component {
         <List dense>
           {listOfAlarms.map((alarm) => {
             return (
-              <ListItem button focusRipple key={alarm.id}>
+              <ListItem
+                button
+                focusRipple
+                key={alarm.alarmDayCategoryList + alarm.id}
+              >
                 <Tooltip
                   placement="bottom-start"
                   TransitionComponent={Zoom}
@@ -174,7 +193,13 @@ class Alarmview extends Component {
                 >
                   <ListItemIcon
                     edge="start"
-                    onClick={() => this.updatestatus(alarm.id)}
+                    onClick={() =>
+                      this.updatestatus({
+                        alarm_id: alarm.id,
+                        alarmDayCategoryList: alarm.alarmDayCategoryList,
+                        alarmsList: listOfAlarms,
+                      })
+                    }
                   >
                     {alarm.status ? (
                       <DoneIcon style={{ color: 'green' }} />
