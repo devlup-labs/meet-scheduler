@@ -219,7 +219,7 @@ class Alarmview extends Component {
                       primary={
                         alarm.custom
                           ? `${this.trunc(alarm.data.Name, 22)}`
-                          : `${alarm.data.A} ${this.trunc(alarm.data.B, 16)}`
+                          : `${alarm.data.A} ${this.trunc(alarm.data.B, 13)}`
                       }
                       secondary={`${alarm.time}`}
                     />
@@ -294,7 +294,7 @@ class Alarmview extends Component {
               <div
                 style={{ padding: '1rem', textAlign: 'center', width: '100%' }}
               >
-                <Typography>No alarms Present</Typography>
+                <Typography>No alarms</Typography>
               </div>
             )}
           </AccordionDetails>
@@ -324,7 +324,7 @@ class Alarmview extends Component {
               <div
                 style={{ padding: '1rem', textAlign: 'center', width: '100%' }}
               >
-                <Typography>No alarms Present</Typography>
+                <Typography>No alarms</Typography>
               </div>
             )}
           </AccordionDetails>
@@ -354,7 +354,7 @@ class Alarmview extends Component {
               <div
                 style={{ padding: '1rem', textAlign: 'center', width: '100%' }}
               >
-                <Typography>No alarms Present</Typography>
+                <Typography>No alarms</Typography>
               </div>
             )}
           </AccordionDetails>
