@@ -32,9 +32,6 @@ class Alarmview extends Component {
       listOfLaterAlarms: [],
       listOfTomorrowAlarms: [],
       expanded: false,
-      todayAlarmsListCounter: 0,
-      tomorrowAlarmsListCounter: 0,
-      laterAlarmsListCounter: 0,
     };
     this.accordion1Ref = React.createRef();
     this.accordion2Ref = React.createRef();
@@ -45,9 +42,12 @@ class Alarmview extends Component {
     let data = await getAllDataFromStorage();
     console.log(data);
     var alarms = await new Promise((resolve) => chrome.alarms.getAll(resolve));
-    let todayAlarms = [];
-    let tomorrowAlarms = [];
-    let laterAlarms = [];
+    const todayAlarms = [];
+    const tomorrowAlarms = [];
+    const laterAlarms = [];
+    let tomorrowAlarmsListCounter = 0;
+    let todayAlarmsListCounter = 0;
+    let laterAlarmsListCounter = 0;
     alarms.sort(function (a, b) {
       return a.scheduledTime - b.scheduledTime;
     });
@@ -64,44 +64,38 @@ class Alarmview extends Component {
       if (time.toLocaleDateString() === todayTime.toLocaleDateString()) {
         todayAlarms.push({
           time: time.toLocaleString(),
-          id: this.state.todayAlarmsListCounter,
+          id: todayAlarmsListCounter,
           name: alarms[i].name,
           data: data[alarms[i].name].course,
           status: data[alarms[i].name].status,
           custom: data[alarms[i].name].course.type === 'custom',
           alarmDayCategoryList: 'listOfTodayAlarms',
         });
-        this.setState({
-          todayAlarmsListCounter: this.state.todayAlarmsListCounter + 1,
-        });
+        todayAlarmsListCounter++;
       } else if (
         time.toLocaleDateString() === tomorrowTime.toLocaleDateString()
       ) {
         tomorrowAlarms.push({
           time: time.toLocaleString(),
-          id: this.state.tomorrowAlarmsListCounter,
+          id: tomorrowAlarmsListCounter,
           name: alarms[i].name,
           data: data[alarms[i].name].course,
           status: data[alarms[i].name].status,
           custom: data[alarms[i].name].course.type === 'custom',
           alarmDayCategoryList: 'listOfTomorrowAlarms',
         });
-        this.setState({
-          tomorrowAlarmsListCounter: this.state.tomorrowAlarmsListCounter + 1,
-        });
+        tomorrowAlarmsListCounter++;
       } else {
         laterAlarms.push({
           time: time.toLocaleString(),
-          id: this.state.laterAlarmsListCounter,
+          id: laterAlarmsListCounter,
           name: alarms[i].name,
           data: data[alarms[i].name].course,
           status: data[alarms[i].name].status,
           custom: data[alarms[i].name].course.type === 'custom',
           alarmDayCategoryList: 'listOfLaterAlarms',
         });
-        this.setState({
-          laterAlarmsListCounter: this.state.laterAlarmsListCounter + 1,
-        });
+        laterAlarmsListCounter++;
       }
       // setalarms.push({
       //   time: time,
@@ -125,6 +119,7 @@ class Alarmview extends Component {
 
   updatestatus = async ({ alarm_id, alarmsList, alarmDayCategoryList }) => {
     var state = alarmsList;
+    // console.log(alarmsList);
     state[alarm_id].status = !state[alarm_id].status;
     this.setState({ [alarmDayCategoryList]: state });
     let data = await getAllDataFromStorage();
