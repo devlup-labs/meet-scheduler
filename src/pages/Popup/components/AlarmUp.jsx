@@ -151,7 +151,7 @@ class Alarmview extends Component {
   };
   checkHeightOfAccodion = (height) => {
     return {
-      height: height > 100 ? '100px' : 'auto',
+      height: height > 110 ? '110px' : 'auto',
     };
   };
   getAlarmsList = (listOfAlarms) => {
@@ -173,7 +173,7 @@ class Alarmview extends Component {
 
     return (
       
-      <div className="alarmsList" style={{ ...listStyle, width: '100%' }}>
+      <div className="alarmsList" style={{ ...listStyle, width: '110%' }}>
         <List dense>
           {listOfAlarms.map((alarm) => {
             return (
@@ -270,7 +270,7 @@ class Alarmview extends Component {
         <Timer/>
       <div
         className="alarmListWrapper"
-        style={{ width: '100%', height: '290px', position:'relative' }}
+        style={{ width: '110%', height: '290px', position:'relative' }}
       >
         <Accordion
           expanded={expanded === 'panel1'}
@@ -289,14 +289,14 @@ class Alarmview extends Component {
             ref={this.accordion1Ref}
             style={{
               ...this.checkHeightOfAccodion(accordian1Height),
-              paddingBottom: (accordian1Height > 100 && '0') || 'auto',
+              paddingBottom: (accordian1Height > 110 && '0') || 'auto',
               overflow: 'auto',
             }}
           >
             {(listOfTodayAlarms.length > 0 &&
               this.getAlarmsList(listOfTodayAlarms)) || (
               <div
-                style={{ padding: '1rem', textAlign: 'center', width: '100%' }}
+                style={{ padding: '1rem', textAlign: 'center', width: '110%' }}
               >
                 <Typography>No alarms</Typography>
               </div>
@@ -319,14 +319,14 @@ class Alarmview extends Component {
             ref={this.accordion2Ref}
             style={{
               ...this.checkHeightOfAccodion(accordion2Height),
-              paddingBottom: (accordion2Height > 100 && '0') || 'auto',
+              paddingBottom: (accordion2Height > 110 && '0') || 'auto',
               overflow: 'auto',
             }}
           >
             {(listOfTomorrowAlarms.length > 0 &&
               this.getAlarmsList(listOfTomorrowAlarms)) || (
               <div
-                style={{ padding: '1rem', textAlign: 'center', width: '100%' }}
+                style={{ padding: '1rem', textAlign: 'center', width: '110%' }}
               >
                 <Typography>No alarms</Typography>
               </div>
@@ -349,14 +349,14 @@ class Alarmview extends Component {
             ref={this.accordion3Ref}
             style={{
               ...this.checkHeightOfAccodion(accordion3Height),
-              paddingBottom: (accordion3Height > 100 && '0') || 'auto',
+              paddingBottom: (accordion3Height > 110 && '0') || 'auto',
               overflow: 'auto',
             }}
           >
             {(listOfLaterAlarms.length > 0 &&
               this.getAlarmsList(listOfLaterAlarms)) || (
               <div
-                style={{ padding: '1rem', textAlign: 'center', width: '100%' }}
+                style={{ padding: '1rem', textAlign: 'center', width: '110%' }}
               >
                 <Typography>No alarms</Typography>
               </div>
