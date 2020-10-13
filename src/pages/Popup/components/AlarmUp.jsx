@@ -11,21 +11,18 @@ import Zoom from '@material-ui/core/Zoom';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import CloseIcon from '@material-ui/icons/Close';
 import DoneIcon from '@material-ui/icons/Done';
-import Timer from "./timer.jsx";
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
-
+import Timer from './timer.jsx';
 import {
   getAllDataFromStorage,
   getDataFromStorage,
 } from '../scripts/storage.js';
 import { get_meetlink } from '../scripts/sheetapi.js';
 import { createTab } from '../scripts/utils.js';
-import { CodeOutlined } from '@material-ui/icons';
-
 
 class Alarmview extends Component {
   constructor() {
@@ -154,7 +151,7 @@ class Alarmview extends Component {
   };
   checkHeightOfAccodion = (height) => {
     return {
-      height: height > 147 ? '147px' : 'auto',
+      height: height > 100 ? '100px' : 'auto',
     };
   };
   getAlarmsList = (listOfAlarms) => {
@@ -175,8 +172,8 @@ class Alarmview extends Component {
     }
 
     return (
+      
       <div className="alarmsList" style={{ ...listStyle, width: '100%' }}>
-        <Timer/>
         <List dense>
           {listOfAlarms.map((alarm) => {
             return (
@@ -203,8 +200,8 @@ class Alarmview extends Component {
                     {alarm.status ? (
                       <DoneIcon style={{ color: 'green' }} />
                     ) : (
-                        <CloseIcon style={{ color: 'red' }} />
-                      )}
+                      <CloseIcon style={{ color: 'red' }} />
+                    )}
                   </ListItemIcon>
                 </Tooltip>
                 <Link
@@ -239,6 +236,7 @@ class Alarmview extends Component {
           })}
         </List>
       </div>
+      
     );
   };
 
@@ -268,9 +266,11 @@ class Alarmview extends Component {
     } = this.state;
 
     return (
+      <div className = 'parent' style = {{height : '348px'}}>
+        <Timer/>
       <div
         className="alarmListWrapper"
-        style={{ width: '100%', height: '348px' }}
+        style={{ width: '100%', height: '290px', position:'relative' }}
       >
         <Accordion
           expanded={expanded === 'panel1'}
@@ -289,7 +289,7 @@ class Alarmview extends Component {
             ref={this.accordion1Ref}
             style={{
               ...this.checkHeightOfAccodion(accordian1Height),
-              paddingBottom: (accordian1Height > 147 && '0') || 'auto',
+              paddingBottom: (accordian1Height > 100 && '0') || 'auto',
               overflow: 'auto',
             }}
           >
@@ -319,7 +319,7 @@ class Alarmview extends Component {
             ref={this.accordion2Ref}
             style={{
               ...this.checkHeightOfAccodion(accordion2Height),
-              paddingBottom: (accordion2Height > 147 && '0') || 'auto',
+              paddingBottom: (accordion2Height > 100 && '0') || 'auto',
               overflow: 'auto',
             }}
           >
@@ -349,7 +349,7 @@ class Alarmview extends Component {
             ref={this.accordion3Ref}
             style={{
               ...this.checkHeightOfAccodion(accordion3Height),
-              paddingBottom: (accordion3Height > 147 && '0') || 'auto',
+              paddingBottom: (accordion3Height > 100 && '0') || 'auto',
               overflow: 'auto',
             }}
           >
@@ -363,7 +363,7 @@ class Alarmview extends Component {
             )}
           </AccordionDetails>
         </Accordion>
-      </div>
+      </div></div>
     );
   }
 }
