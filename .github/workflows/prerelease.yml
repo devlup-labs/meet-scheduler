@@ -1,13 +1,13 @@
-name: Release
+name: Beta Release
 
 on:
   push:
     tags:
-      - 'v*'
+      - 'b*'
 
 jobs:
-  release:
-    name: Release
+  pre-release:
+    name: Beta Release
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
@@ -30,7 +30,7 @@ jobs:
           filename: build.zip
           exclusions: '*.git* *.github* .gitignore'
 
-      - name: Create release and Upload zip
+      - name: Create prerelease and Upload zip
         id: create_release
         uses: svenstaro/upload-release-action@2.1.0
         with:
@@ -38,4 +38,4 @@ jobs:
           tag: ${{ github.ref }}
           release_name: ${{ github.ref }}
           file: build.zip
-          prerelease: false
+          prerelease: true
