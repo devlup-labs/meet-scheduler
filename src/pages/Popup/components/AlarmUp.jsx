@@ -12,7 +12,6 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import CloseIcon from '@material-ui/icons/Close';
 import DoneIcon from '@material-ui/icons/Done';
 import Timer from "./timer.jsx";
-import './timerstyle2.css';
 import {
   getAllDataFromStorage,
   getDataFromStorage,
@@ -20,6 +19,7 @@ import {
 import { get_meetlink } from '../scripts/sheetapi.js';
 import { createTab } from '../scripts/utils.js';
 import { CodeOutlined } from '@material-ui/icons';
+
 
 class Alarmview extends Component {
   constructor() {

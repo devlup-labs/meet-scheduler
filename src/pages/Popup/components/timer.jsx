@@ -1,12 +1,24 @@
 import React, { Component } from "react";
-import './timerstyle2.css';
 
-export default class Timer extends Component {
+const timerStyle = {
+    backgroundColor: '#d3d6ec',
+    color: '#928ddf',
+    marginLeft: '10px',
+    marginRight: '10px',
+    marginBottom: '5px',
+    height: '33px',
+    fontFamily: 'Roboto, sans-serif',
+    borderRadius: '30px',
+    position: 'relative',
+    bottom: '10px',
+};
+  
+  export default class Timer extends Component {
     today = new Date();
     constructor(props) {
         super(props);
         this.state = {
-
+            hover: false,
             remTime: this.today
         }
     }
@@ -23,8 +35,6 @@ export default class Timer extends Component {
         }))
         this.myInterval = setInterval(() => {
             const { remTime } = this.state;
-            // var n = new Date();
-            // var k = this.coolMethod();
             if (remTime > 0) {
                 this.setState(({ remTime }) => ({
                     remTime: remTime - 1000
@@ -50,6 +60,10 @@ export default class Timer extends Component {
     componentWillUnmount() {
         clearInterval(this.myInterval);
     };
+    
+    toggleHover() {
+        this.setState({hover: !this.state.hover})
+    }
 
     render() {
 
@@ -70,8 +84,6 @@ export default class Timer extends Component {
             days = Math.floor(hours / 24);
             hours = hours % 24
         }
-
-        // return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
         var timeString = ""
         if (days > 0) {
             if (hours < 10) {
@@ -113,11 +125,11 @@ export default class Timer extends Component {
         return (
             <div>
                 { days === 0 ?
-                    <div className="timer">
+                    <div className="timer" style = {this.state.hover ?  timerStyle : timerStyle } >
                         <h1 style={{
                             textAlign: "center",
                             fontSize: "20px",
-                            paddingTop: "4px"
+                            paddingTop: "5px"
                         }}>{timeString}</h1></div>
                     : ""
 

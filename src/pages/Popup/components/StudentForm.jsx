@@ -12,7 +12,6 @@ import * as sheet from '../scripts/sheetapi.js';
 import { AddAlarm_click } from '../scripts/alarm.js';
 import { getAllDataFromStorage } from '../scripts/storage.js';
 import Timer from "./timer.jsx";
-import './timerstyle2.css';
 const useStyles = (theme) => ({
   button: {
     borderRadius: 30,
