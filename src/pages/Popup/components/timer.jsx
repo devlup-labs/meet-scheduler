@@ -125,7 +125,7 @@ const timerStyle = {
         return (
             <div>
                 { days === 0 ?
-                    <div className="timer" style = {this.state.hover ?  timerStyle : timerStyle } >
+                    <div className="timer" style = {timerStyle} >
                         <h1 style={{
                             textAlign: "center",
                             fontSize: "20px",
