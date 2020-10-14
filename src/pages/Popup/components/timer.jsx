@@ -1,19 +1,40 @@
 import React, { Component } from "react";
+import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
 
 const timerStyle = {
-    backgroundColor: '#d3d6ec',
-    color: '#928ddf',
-    marginLeft: '10px',
-    marginRight: '10px',
-    marginBottom: '5px',
-    height: '33px',
-    fontFamily: 'Roboto, sans-serif',
-    borderRadius: '30px',
-    position: 'relative',
-    bottom: '10px',
+    button: {
+        borderRadius: 30,
+        background: '#3f51b5',
+        color: 'white',
+        '&:hover': {
+          background: '#3f51b5',
+          color: 'white',
+        },
+        '&:disabled': {
+          background: '#E8EAF6',
+          color: '#9fa8da',
+        },
+      },
 };
   
-  export default class Timer extends Component {
+const timers = withStyles((theme) => ({
+  button: {
+    borderRadius: 30,
+    margin: theme.spacing(2),
+    background: '#3f51b5',
+    color: 'white',
+    '&:hover': {
+      background: '#3f51b5',
+      color: 'white',
+    },
+    '&:disabled': {
+      background: '#E8EAF6',
+      color: '#9fa8da',
+    },
+  }
+}));
+class Timer extends Component {
     today = new Date();
     constructor(props) {
         super(props);
@@ -89,52 +110,55 @@ const timerStyle = {
             if (hours < 10) {
                 if (minutes < 10) {
                     if (seconds < 10) {
-                        timeString = `Next Meet In\n ${days} d: 0${hours} h: 0${minutes} m: 0${seconds} s`
+                        timeString = `NEXT MEET IN\n ${days} d: 0${hours} h: 0${minutes} m: 0${seconds} s`
                     }
                     else {
-                        timeString = `Next Meet In\n ${days} d: 0${hours} h: 0${minutes} m: ${seconds} s`
+                        timeString = `NEXT MEET IN\n ${days} d: 0${hours} h: 0${minutes} m: ${seconds} s`
                     }
                 }
                 else {
-                    timeString = `Next Meet In\n ${days} d: 0${hours} h: ${minutes} m: ${seconds} s`
+                    timeString = `NEXT MEET IN\n ${days} d: 0${hours} h: ${minutes} m: ${seconds} s`
                 }
 
             }
             else {
-                timeString = `Next Meet In\n ${days} d: ${hours} h: ${minutes} m: ${seconds} s`
+                timeString = `NEXT MEET IN\n ${days} d: ${hours} h: ${minutes} m: ${seconds} s`
             }
         } else {
             if (hours < 10) {
                 if (minutes < 10) {
                     if (seconds < 10) {
-                        timeString = `Next Meet In\n 0${hours} h: 0${minutes} m: 0${seconds} s`
+                        timeString = `NEXT MEET IN\n 0${hours} h: 0${minutes} m: 0${seconds} s`
                     }
                     else {
-                        timeString = `Next Meet In\n 0${hours} h: 0${minutes} m: ${seconds} s`
+                        timeString = `NEXT MEET IN\n 0${hours} h: 0${minutes} m: ${seconds} s`
                     }
                 }
                 else {
-                    timeString = `Next Meet In\n 0${hours} h: ${minutes} m: ${seconds} s`
+                    timeString = `NEXT MEET IN\n 0${hours} h: ${minutes} m: ${seconds} s`
                 }
 
             }
             else {
-                timeString = `Next Meet In\n ${hours} h: ${minutes} m: ${seconds} s`
+                timeString = `NEXT MEET IN\n ${hours} h: ${minutes} m: ${seconds} s`
             }
         }
         return (
             <div>
                 { days === 0 ?
-                    <div className="timer" style = {timerStyle} >
-                        <h1 style={{
-                            textAlign: "center",
-                            fontSize: "20px",
-                            paddingTop: "5px"
-                        }}>{timeString}</h1></div>
+                    <h2 style = {{
+                        fontSize: '0.950rem',
+                        fontFamily: '"Helvetica", "Arial", sans-serif',
+                        fontWeight: '600',
+                        lineHeight: '1.75',
+                        borderRadius: '4px',
+                        letterSpacing: '0.02857em',
+                        textAlign: 'center'
+                    }}> {timeString} </h2>
                     : ""
-
                 }
             </div>
         )
     }
 };
+export default Timer;
