@@ -17,6 +17,7 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
 import Timer from './timer.jsx';
+
 import {
   getAllDataFromStorage,
   getDataFromStorage,
@@ -111,6 +112,12 @@ class Alarmview extends Component {
       listOfTomorrowAlarms: tomorrowAlarms,
       listOfTodayAlarms: todayAlarms,
     });
+    this.setState({
+      expanded:'panel1',
+      accordian1Height: this.accordion1Ref.current.clientHeight,
+      accordion2Height: this.accordion2Ref.current.clientHeight,
+      accordion3Height: this.accordion3Ref.current.clientHeight,
+    })
   }
 
   trunc(string, num) {
@@ -151,7 +158,7 @@ class Alarmview extends Component {
   };
   checkHeightOfAccodion = (height) => {
     return {
-      height: height > 110 ? '110px' : 'auto',
+      height: height > 110 ?  '110px' : 'auto',
     };
   };
   getAlarmsList = (listOfAlarms) => {
@@ -172,8 +179,7 @@ class Alarmview extends Component {
     }
 
     return (
-      
-      <div className="alarmsList" style={{ ...listStyle, width: '110%' }}>
+      <div className="alarmsList" style={{ ...listStyle, width: '100%' }}>
         <List dense>
           {listOfAlarms.map((alarm) => {
             return (
@@ -236,16 +242,11 @@ class Alarmview extends Component {
           })}
         </List>
       </div>
-      
     );
   };
 
   handleChange = (panel) => (e, isExpanded) => {
-    // console.log(
-    //   this.accordion1Ref.current.clientHeight,
-    //   this.accordion2Ref.current.clientHeight,
-    //   this.accordion3Ref.current.clientHeight
-    // );
+    console.log("changed");
     this.setState({
       expanded: isExpanded ? panel : false,
       accordian1Height: this.accordion1Ref.current.clientHeight,
@@ -266,11 +267,11 @@ class Alarmview extends Component {
     } = this.state;
 
     return (
-      <div className = 'parent' style = {{height : '348px'}}>
+      <div className = 'parent' style={{ width: '100%', height: '348px' }}>
         <Timer/>
       <div
         className="alarmListWrapper"
-        style={{ width: '110%', height: '290px', position:'relative' }}
+        style={{ width: '100%', height: 'auto' }}
       >
         <Accordion
           expanded={expanded === 'panel1'}
@@ -363,9 +364,11 @@ class Alarmview extends Component {
             )}
           </AccordionDetails>
         </Accordion>
-      </div></div>
+      </div>
+      </div>
     );
   }
 }
 
 export default Alarmview;
+
