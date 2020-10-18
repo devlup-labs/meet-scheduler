@@ -1,39 +1,4 @@
 import React, { Component } from "react";
-import Button from '@material-ui/core/Button';
-import { withStyles } from '@material-ui/core/styles';
-
-const timerStyle = {
-    button: {
-        borderRadius: 30,
-        background: '#3f51b5',
-        color: 'white',
-        '&:hover': {
-          background: '#3f51b5',
-          color: 'white',
-        },
-        '&:disabled': {
-          background: '#E8EAF6',
-          color: '#9fa8da',
-        },
-      },
-};
-  
-const timers = withStyles((theme) => ({
-  button: {
-    borderRadius: 30,
-    margin: theme.spacing(2),
-    background: '#3f51b5',
-    color: 'white',
-    '&:hover': {
-      background: '#3f51b5',
-      color: 'white',
-    },
-    '&:disabled': {
-      background: '#E8EAF6',
-      color: '#9fa8da',
-    },
-  }
-}));
 class Timer extends Component {
     today = new Date();
     constructor(props) {
@@ -45,7 +10,6 @@ class Timer extends Component {
     }
 
     async componentDidMount() {
-        // const { remTime } = this.state;
         var alarms = await new Promise((resolve) => chrome.alarms.getAll(resolve));
         alarms.sort(function (a, b) {
             return a.scheduledTime - b.scheduledTime;
@@ -153,7 +117,8 @@ class Timer extends Component {
                         lineHeight: '1.75',
                         borderRadius: '4px',
                         letterSpacing: '0.02857em',
-                        textAlign: 'center'
+                        textAlign: 'center',
+                        marginBottom: '0px'
                     }}> {timeString} </h2>
                     : ""
                 }

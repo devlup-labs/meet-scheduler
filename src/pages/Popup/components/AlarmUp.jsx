@@ -267,11 +267,11 @@ class Alarmview extends Component {
     } = this.state;
 
     return (
-      <div className = 'parent' style={{ width: '100%', height: '348px' }}>
+      <div className = 'parent' style={{ width: '100%', height: '336px' }}>
         <Timer/>
       <div
         className="alarmListWrapper"
-        style={{ width: '100%', height: 'auto' }}
+        style={{ width: '100%', height: 'auto', overflow: '' }}
       >
         <Accordion
           expanded={expanded === 'panel1'}
@@ -371,4 +371,3 @@ class Alarmview extends Component {
 }
 
 export default Alarmview;
-
