@@ -4,7 +4,6 @@ class Timer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            hover: false,
             remTime: this.today
         }
     }
