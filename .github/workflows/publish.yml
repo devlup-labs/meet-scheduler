@@ -26,7 +26,7 @@ jobs:
           wget $url
 
       - name: Publish to chrome devconsole
-        uses: Klemensas/chrome-extension-upload-action@v1.3
+        uses: Klemensas/chrome-extension-upload-action@master
         with:
           refresh-token: ${{ secrets.REFRESH_TOKEN }}
           client-id: ${{ secrets.CLIENT_ID }}
