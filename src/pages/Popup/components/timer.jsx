@@ -13,7 +13,8 @@ class Timer extends Component {
         alarms.sort(function (a, b) {
             return a.scheduledTime - b.scheduledTime;
         });
-        var time = alarms[0].scheduledTime;
+        var timeobj = alarms[0];
+        var time = timeobj.scheduledTime;
         this.setState(() => ({
             remTime: time - this.today
         }))
@@ -29,12 +30,11 @@ class Timer extends Component {
                 alarms.sort(function (a, b) {
                     return a.scheduledTime - b.scheduledTime;
                 });
-                var time = alarms[0].scheduledTime;
-
+                var timeobj = alarms[0];
+                var time = timeobj.scheduledTime;
                 this.setState(() => ({
                     remTime: time - this.today
                 }))
-                console.log("ja");
                 clearInterval(this.myInterval);
             }
         }, 1000)
