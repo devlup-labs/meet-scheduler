@@ -9,12 +9,14 @@ class Timer extends Component {
     }
 
     async componentDidMount() {
-        var alarms = await new Promise((resolve) => chrome.alarms.getAll(resolve));
+        let alarms = await new Promise((resolve) => chrome.alarms.getAll(resolve));
         alarms.sort(function (a, b) {
             return a.scheduledTime - b.scheduledTime;
         });
-        var timeobj = alarms[0];
-        var time = timeobj.scheduledTime;
+        let timeobj = alarms[0];
+        let time = timeobj.scheduledTime;
+        console.log(typeof(alarms));
+        console.log(typeof(timeobj));
         this.setState(() => ({
             remTime: time - this.today
         }))
@@ -26,12 +28,12 @@ class Timer extends Component {
                 }))
             }
             if (remTime <= 0) {
-                var alarms = new Promise((resolve) => chrome.alarms.getAll(resolve));
+                let alarms = new Promise((resolve) => chrome.alarms.getAll(resolve));
                 alarms.sort(function (a, b) {
                     return a.scheduledTime - b.scheduledTime;
                 });
-                var timeobj = alarms[0];
-                var time = timeobj.scheduledTime;
+                let timeobj = alarms[0];
+                let time = timeobj.scheduledTime;
                 this.setState(() => ({
                     remTime: time - this.today
                 }))
