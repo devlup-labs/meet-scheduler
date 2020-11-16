@@ -47,9 +47,6 @@ class Timer extends Component {
         clearInterval(this.myInterval);
     };
     
-    toggleHover() {
-        this.setState({hover: !this.state.hover})
-    }
 
     render() {
 
