@@ -20,7 +20,7 @@ class Timer extends Component {
         this.setState(() => ({
             remTime: time - this.today
         }))
-        this.myInterval = setInterval(() => {
+        this.myInterval = setInterval(async() => {
             const { remTime } = this.state;
             if (remTime > 0) {
                 this.setState(({ remTime }) => ({
@@ -28,7 +28,7 @@ class Timer extends Component {
                 }))
             }
             if (remTime <= 0) {
-                let alarms = new Promise((resolve) => chrome.alarms.getAll(resolve));
+                let alarms = await new Promise((resolve) => chrome.alarms.getAll(resolve));
                 alarms.sort(function (a, b) {
                     return a.scheduledTime - b.scheduledTime;
                 });
