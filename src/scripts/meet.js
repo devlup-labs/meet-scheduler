@@ -27,4 +27,4 @@ setInterval(function () {
     console.log(err);
   }
 }, 8000);
-console.log('I am inserted');
+console.log('Joined the meeting!');
