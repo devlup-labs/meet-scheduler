@@ -39,16 +39,16 @@ class SheetLink {
 
 export const timeTableSheet = new SheetLink(
   'time-table',
-  'https://spreadsheets.google.com/feeds/cells/1pEAMgjUp2eSSYmu__Szz6weCPsXd3Rtkv8MCnXT6rXw/od6/public/basic?alt=json',
+  'https://spreadsheets.google.com/feeds/cells/1rQt-pWpjvpc5A0G0VYs-Quf_JvnjSMio9PswuP-LOlQ/1/public/basic?alt=json',
   (data) => {
-    // write cheks here
+    // write checks here
     return true;
   }
 );
 
 export const slotSheet = new SheetLink(
   'slot-link',
-  'https://spreadsheets.google.com/feeds/cells/1CT8YGYORrT-DXoIC4rmmzfvCklcbpm3S-O0yS8OcIH0/od6/public/basic?alt=json',
+  'https://spreadsheets.google.com/feeds/cells/1rQt-pWpjvpc5A0G0VYs-Quf_JvnjSMio9PswuP-LOlQ/2/public/basic?alt=json',
   (data) => {
     // write checks here
     return true;
