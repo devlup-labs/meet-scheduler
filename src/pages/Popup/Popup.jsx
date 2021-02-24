@@ -38,10 +38,10 @@ class Popup extends Component {
 
   render() {
     var pannel;
-    if (this.state.tab == 0) pannel = <AddAlarmForm />;
-    if (this.state.tab == 1) pannel = <Alarmview />;
-    if (this.state.tab == 2) pannel = <AlarmUp />;
-    if (this.state.tab == 3) pannel = <Settings />;
+    if (this.state.tab === 0) pannel = <AddAlarmForm />;
+    if (this.state.tab === 1) pannel = <Alarmview />;
+    if (this.state.tab === 2) pannel = <AlarmUp />;
+    if (this.state.tab === 3) pannel = <Settings />;
     return (
       <div>
         <Grid
@@ -51,7 +51,7 @@ class Popup extends Component {
           alignItems="center"
           spacing={1}
         >
-          <h1 style={{ marginRight: '10px' }}>Auto Join</h1>
+          <h1 style={{ marginRight: '10px' }}>Meet Scheduler</h1>
           <Switch
             color="primary"
             name="checkedA"

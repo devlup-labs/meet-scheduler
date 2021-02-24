@@ -68,7 +68,12 @@ class Settings extends Component {
   checkInput = () => {
     var Min = this.state.selectedMin.toString();
     var Sec = this.state.selectedSec.toString();
-    if (!/[^0-9]/.test(Min) && Min != '' && !/[^0-9]/.test(Sec) && Sec != '') {
+    if (
+      !/[^0-9]/.test(Min) &&
+      Min !== '' &&
+      !/[^0-9]/.test(Sec) &&
+      Sec !== ''
+    ) {
       this.setState({ buttonDisabled: false });
     } else {
       this.setState({ buttonDisabled: true });
@@ -156,7 +161,7 @@ class Settings extends Component {
         >
           <InputLabel id="demo-controlled-open-select-label">
             {' '}
-            Auth User
+            User Account
           </InputLabel>
           <Select
             labelId="demo-controlled-open-select-label"
@@ -195,7 +200,7 @@ class Settings extends Component {
                 color="primary"
               />
             }
-            label="Auto Join Class"
+            label="Auto Join"
           />
         </center>
         <center>

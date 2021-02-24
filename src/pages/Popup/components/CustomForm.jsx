@@ -34,12 +34,12 @@ class AddAlarmForm extends Component {
   constructor() {
     super();
     this.state = {
+      selectedName: '',
       selectedLink: '',
+      selectedTime: '',
       Linkerror: false,
       Dateerror: false,
-      selectedTime: '',
       Nameerror: false,
-      selectedName: '',
       buttonDisabled: true,
       slots: [
         { count: 0, label: 'Once' },
@@ -53,7 +53,7 @@ class AddAlarmForm extends Component {
   handleNameChange = async (event) => {
     var val = event.target.value;
     var error = false;
-    if (val == '') {
+    if (val === '') {
       error = true;
     }
     await this.setState({
@@ -66,7 +66,11 @@ class AddAlarmForm extends Component {
   handleLinkChange = async (event) => {
     var val = event.target.value;
     var error = false;
-    if ((!val.match('https://meet.google.com/[a-zA-Z0-9?&=]+') && !val.match('https://zoom.us/+')) || val == '') {
+    if (
+      (!val.match('https://meet.google.com/[a-zA-Z0-9?&=]+') &&
+        !val.match('https://zoom.us/+')) ||
+      val === ''
+    ) {
       error = true;
     }
     await this.setState({
@@ -81,7 +85,7 @@ class AddAlarmForm extends Component {
     var d = new Date(val);
     var error = false;
     console.log(val, d);
-    if (val == '' || d < new Date()) {
+    if (val === '' || d < new Date()) {
       error = true;
     }
     await this.setState({
@@ -100,9 +104,9 @@ class AddAlarmForm extends Component {
       !this.state.Linkerror &&
       !this.state.Dateerror &&
       !this.state.Nameerror &&
-      this.state.selectedLink != '' &&
-      this.state.selectedTime != '' &&
-      this.state.selectedName != ''
+      this.state.selectedLink !== '' &&
+      this.state.selectedTime !== '' &&
+      this.state.selectedName !== ''
     ) {
       this.setState({ buttonDisabled: false });
     } else {
@@ -112,8 +116,12 @@ class AddAlarmForm extends Component {
 
   ClearForm = () => {
     this.setState({
+      selectedName: '',
       selectedLink: '',
       selectedTime: '',
+      Linkerror: false,
+      Dateerror: false,
+      Nameerror: false,
       buttonDisabled: true,
     });
   };
