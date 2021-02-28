@@ -294,7 +294,12 @@ class Alarmview extends Component {
               <div
                 style={{ padding: '1rem', textAlign: 'center', width: '100%' }}
               >
-                <Typography>No alarms</Typography>
+                <Typography>
+                  Done for the day{' '}
+                  <span role="img" aria-label="wink">
+                    😉
+                  </span>
+                </Typography>
               </div>
             )}
           </AccordionDetails>
@@ -324,7 +329,12 @@ class Alarmview extends Component {
               <div
                 style={{ padding: '1rem', textAlign: 'center', width: '100%' }}
               >
-                <Typography>No alarms</Typography>
+                <Typography>
+                  Done for the day{' '}
+                  <span role="img" aria-label="wink">
+                    😉
+                  </span>
+                </Typography>
               </div>
             )}
           </AccordionDetails>
@@ -354,7 +364,12 @@ class Alarmview extends Component {
               <div
                 style={{ padding: '1rem', textAlign: 'center', width: '100%' }}
               >
-                <Typography>No alarms</Typography>
+                <Typography>
+                  Done for the day{' '}
+                  <span role="img" aria-label="wink">
+                    😉
+                  </span>
+                </Typography>
               </div>
             )}
           </AccordionDetails>
