@@ -2,7 +2,7 @@ const autoJoin = () => {
   var initiateAutoJoin = setInterval(() => {
     try {
       var micButton = document.getElementsByClassName(
-        'U26fgb JRY2Pb mUbCce kpROve uJNmj HNeRed QmxbVb'
+        'U26fgb JRY2Pb mUbCce kpROve yBiuPb y1zVCf HNeRed M9Bg4d'
       )[0];
       if (typeof micButton != 'undefined' && micButton != null) {
         micButton.click();
@@ -13,7 +13,7 @@ const autoJoin = () => {
     }
     try {
       var camButton = document.getElementsByClassName(
-        'U26fgb JRY2Pb mUbCce kpROve uJNmj HNeRed QmxbVb'
+        'U26fgb JRY2Pb mUbCce kpROve yBiuPb y1zVCf HNeRed M9Bg4d'
       )[0];
       if (typeof camButton != 'undefined' && camButton != null) {
         camButton.click();
