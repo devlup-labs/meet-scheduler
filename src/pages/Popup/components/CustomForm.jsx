@@ -37,6 +37,7 @@ class AddAlarmForm extends Component {
       selectedName: '',
       selectedLink: '',
       selectedTime: '',
+      selectedEndTime: '',
       Linkerror: false,
       Dateerror: false,
       Nameerror: false,
@@ -95,6 +96,21 @@ class AddAlarmForm extends Component {
     this.check();
   };
 
+  handleEndTimeChange = async (event) => {
+    var val = event.target.value;
+    var d = new Date(val);
+    var error = false;
+    console.log(val, d);
+    if (val === '' || d < new Date()) {
+      error = true;
+    }
+    await this.setState({
+      selectedEndTime: val,
+      Dateerror: error,
+    });
+    // this.check();
+  };
+
   handleSlotChange = async (event) => {
     this.setState({ selectedSlot: event.target.value });
   };
@@ -119,6 +135,7 @@ class AddAlarmForm extends Component {
       selectedName: '',
       selectedLink: '',
       selectedTime: '',
+      selectedEndTime: '',
       Linkerror: false,
       Dateerror: false,
       Nameerror: false,
@@ -127,16 +144,18 @@ class AddAlarmForm extends Component {
   };
 
   AddAlarm = async () => {
-    var state = {
-      Name: this.state.selectedName,
-      Link: this.state.selectedLink,
-      Time: this.state.selectedTime,
-      Repeat: this.state.selectedSlot,
-    };
+      var state = {
+        Name: this.state.selectedName,
+        Link: this.state.selectedLink,
+        Time: this.state.selectedTime,
+        EndTime: this.state.selectedEndTime,
+        Repeat: this.state.selectedSlot,
+      };
     await AddCustomAlarm(state);
     this.setState({
       selectedLink: '',
       selectedTime: '',
+      selectedEndTime: '',
       selectedName: '',
       buttonDisabled: true,
       selectedSlot: 0,
@@ -166,11 +185,23 @@ class AddAlarmForm extends Component {
           error={this.state.Linkerror}
         />
         <TextField
-          style={{ width: '45%', margin: '4%' }}
+          style={{ width: '30%', margin: '4%' }}
           value={this.state.selectedTime}
           onChange={this.handleTimeChange}
           id="date"
-          label="Meet Date"
+          label="Start Time"
+          type="datetime-local"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          error={this.state.Dateerror}
+        />
+        <TextField
+          style={{ width: '30%', marginTop: '4%'}}
+          value={this.state.selectedEndTime}
+          onChange={this.handleEndTimeChange}
+          id="date"
+          label="End Time"
           type="datetime-local"
           InputLabelProps={{
             shrink: true,
@@ -178,7 +209,7 @@ class AddAlarmForm extends Component {
           error={this.state.Dateerror}
         />
         <FormControl
-          style={{ width: '35%', margin: '4%' }}
+          style={{ width: '20%', margin: '4%' }}
           disabled={this.state.slotDisabled}
         >
           <InputLabel id="demo-controlled-open-select-label">Repeat</InputLabel>

@@ -6,6 +6,7 @@ import {
   removeDataFromStorage,
 } from '../Popup/scripts/storage.js';
 import { createTab } from '../Popup/scripts/utils.js';
+// import { autoLeave } from '../../scripts/meetAutoLeave.js';
 
 async function onAlarm(alarm) {
   let extensionToggle = await getDataFromStorage('extensionToggle');
@@ -20,7 +21,7 @@ async function onAlarm(alarm) {
     } else {
       link = await get_meetlink(data.course.A);
     }
-    createTab(link, details.Authuser, details.AutoJoin);
+    createTab(link, details.Authuser, details.AutoJoin, details.AutoLeave, data.EndTime);
   } else console.log(` passed by alarm::${alarm.name}`);
   if (alarm.periodInMinutes) {
     console.log(` resceduled alarm::${alarm.name} by ${alarm.periodInMinutes}`);
@@ -101,6 +102,8 @@ async function onStart() {
     BeforeMinutes: 0,
     BeforeSeconds: 30,
     AutoJoin: true,
+    AutoLeaveSwitch: false,
+    AutoLeave: false
   };
   let details = await getDataFromStorage('Defaults');
   if (!details) {

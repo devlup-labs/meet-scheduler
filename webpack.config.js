@@ -43,6 +43,7 @@ var options = {
       'background.js'
     ),
     meet: path.join(__dirname, 'src', 'scripts', 'meet.js'),
+    meetAutoLeave: path.join(__dirname, 'src', 'scripts', 'meetAutoLeave.js'),
   },
   output: {
     path: path.resolve(__dirname, 'build'),

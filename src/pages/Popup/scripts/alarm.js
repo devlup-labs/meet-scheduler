@@ -14,7 +14,7 @@ async function RemoveAlarms(alarmsKeyList) {
 
 //createas a alarms object
 //course: object containing course data
-//nearst slot date object
+//nearest slot date object
 class Alarm {
   constructor(course, startdata) {
     this.generateID = function () {
@@ -37,7 +37,7 @@ class Alarm {
   }
 }
 
-//returns <Date> the nearest date corrosponding to data provided
+//returns <Date> the nearest date corresponding to data provided
 //day : <string>, day to be found
 //time: <string>, time to be found
 async function get_nearestDate(day, time) {
@@ -118,9 +118,13 @@ async function AddCustomAlarm(alarm) {
   var data = resp['Defaults'];
   var beforeminutes = data['BeforeMinutes'];
   var beforeseconds = data['BeforeSeconds'];
+  var autoleaveswitch = data['AutoLeaveSwitch'];
   var course = alarm;
   course['type'] = 'custom';
   var start_date = new Date(alarm.Time);
+  if (alarm.EndTime != '' && autoleaveswitch == true) {
+    data['AutoLeave'] = true
+  }
   var settime = start_date.getTime();
   settime = settime - (60 * beforeminutes + beforeseconds) * 1000;
   start_date.setTime(settime);

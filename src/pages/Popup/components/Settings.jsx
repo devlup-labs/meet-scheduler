@@ -37,6 +37,7 @@ class Settings extends Component {
       selectedMin: 0,
       selectedSec: 30,
       selectedSwi: true,
+      selectedSwi2: false,
       userDisabled: false,
       buttonDisabled: true,
       alarmData: {},
@@ -62,6 +63,11 @@ class Settings extends Component {
 
   handleSwiChange = async (event) => {
     await this.setState({ selectedSwi: event.target.checked });
+    this.setState({ buttonDisabled: false });
+  };
+
+  handleSwi2Change = async (event) => {
+    await this.setState({ selectedSwi2: event.target.checked });
     this.setState({ buttonDisabled: false });
   };
 
@@ -103,6 +109,8 @@ class Settings extends Component {
       BeforeMinutes: parseInt(this.state.selectedMin),
       BeforeSeconds: parseInt(this.state.selectedSec),
       AutoJoin: this.state.selectedSwi,
+      AutoLeaveSwitch: this.state.selectedSwi2,
+      AutoLeave: false
     };
     await chrome.storage.sync.set({ Defaults: values }, function () {
       console.log('Updated Defaults settings to');
@@ -146,6 +154,7 @@ class Settings extends Component {
       selectedMin: data['BeforeMinutes'],
       selectedSec: data['BeforeSeconds'],
       selectedSwi: data['AutoJoin'],
+      selectedSwi2: data['AutoLeaveSwitch']
     });
 
     console.log(this.state);
@@ -201,6 +210,17 @@ class Settings extends Component {
               />
             }
             label="Auto Join"
+          />
+          <FormControlLabel
+            style={{ marginTop: '20px' }}
+            control={
+              <Switch
+                checked={this.state.selectedSwi2}
+                onChange={this.handleSwi2Change}
+                color="primary"
+              />
+            }
+            label="Auto Leave"
           />
         </center>
         <center>

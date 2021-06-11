@@ -1,4 +1,4 @@
-function createTab(link, authuser, autojoin) {
+function createTab(link, authuser, autojoin, autoleave, endtime) {
   const gmeetregexExp = 'https://meet.google.com/[a-zA-Z0-9?&=]+';
   const zoomregexExp = 'https://zoom.us/+';
   if (link.match(gmeetregexExp)) {
@@ -22,6 +22,12 @@ function createTab(link, authuser, autojoin) {
               chrome.tabs.executeScript(tab.id, { file: 'meet.bundle.js' });
             }
             console.log(`Status : ${info.status} and ID : ${tab.id}`);
+            if (autoleave) {
+              var ctime = new Date().getTime();
+              var etime = new Date(endtime).getTime();
+              etime -= ctime
+              setTimeout(chrome.tabs.executeScript(tab.id, { file: 'meetAutoLeave.bundle.js' }), etime)
+            }
           } else if (link.match(zoomregexExp)) {
             console.log('URL matched the zoom regex');
             if (autojoin) {
