@@ -1,5 +1,4 @@
 const autoLeave = () => {
-    console.log('Initiating auto leave')
     try {
         const leaveButton = document.getElementsByClassName('VfPpkd-Bz112c-LgbsSe yHy1rc eT1oJ tWDL4c jh0Tpd Gt6sbf QQrMi ftJPW')[0];
         if (typeof leaveButton != undefined && leaveButton != null) {

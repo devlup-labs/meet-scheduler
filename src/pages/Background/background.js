@@ -21,7 +21,7 @@ async function onAlarm(alarm) {
     } else {
       link = await get_meetlink(data.course.A);
     }
-    createTab(link, details.Authuser, details.AutoJoin, details.EndTimeCheck, data.EndTime);
+    createTab(link, details.Authuser, details.AutoJoin, details.EndTimeCheck, data.course.EndTime);
   } else console.log(` passed by alarm::${alarm.name}`);
   if (alarm.periodInMinutes) {
     console.log(` resceduled alarm::${alarm.name} by ${alarm.periodInMinutes}`);
