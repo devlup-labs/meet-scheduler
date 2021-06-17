@@ -110,7 +110,7 @@ class Settings extends Component {
       BeforeSeconds: parseInt(this.state.selectedSec),
       AutoJoin: this.state.selectedSwi,
       AutoLeaveSwitch: this.state.selectedSwi2,
-      AutoLeave: false
+      EndTimeCheck: false
     };
     await chrome.storage.sync.set({ Defaults: values }, function () {
       console.log('Updated Defaults settings to');

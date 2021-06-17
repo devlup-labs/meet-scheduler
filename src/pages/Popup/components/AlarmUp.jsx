@@ -142,7 +142,7 @@ class Alarmview extends Component {
       link = await get_meetlink(data.A);
     }
     let details = await getDataFromStorage('Defaults');
-    let tab = await createTab(link, details.Authuser, details.AutoJoin, details.AutoLeave, data.EndTime);
+    let tab = await createTab(link, details.Authuser, details.AutoJoin, details.EndTimeCheck, data.EndTime);
   };
 
   getname = (alarm) => {

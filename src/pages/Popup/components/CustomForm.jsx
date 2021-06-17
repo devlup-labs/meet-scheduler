@@ -40,6 +40,7 @@ class AddAlarmForm extends Component {
       selectedEndTime: '',
       Linkerror: false,
       Dateerror: false,
+      endDateerror: false,
       Nameerror: false,
       buttonDisabled: true,
       slots: [
@@ -106,7 +107,7 @@ class AddAlarmForm extends Component {
     }
     await this.setState({
       selectedEndTime: val,
-      Dateerror: error,
+      endDateerror: error,
     });
     // this.check();
   };
@@ -144,6 +145,7 @@ class AddAlarmForm extends Component {
   };
 
   AddAlarm = async () => {
+    if (this.state.selectedEndTime != '') {
       var state = {
         Name: this.state.selectedName,
         Link: this.state.selectedLink,
@@ -151,6 +153,7 @@ class AddAlarmForm extends Component {
         EndTime: this.state.selectedEndTime,
         Repeat: this.state.selectedSlot,
       };
+    }
     await AddCustomAlarm(state);
     this.setState({
       selectedLink: '',
@@ -206,7 +209,7 @@ class AddAlarmForm extends Component {
           InputLabelProps={{
             shrink: true,
           }}
-          error={this.state.Dateerror}
+          error={this.state.endDateerror}
         />
         <FormControl
           style={{ width: '20%', margin: '4%' }}

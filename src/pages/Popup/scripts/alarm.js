@@ -16,7 +16,7 @@ async function RemoveAlarms(alarmsKeyList) {
 //course: object containing course data
 //nearest slot date object
 class Alarm {
-  constructor(course, startdata) {
+  constructor(course, startdata, enddata) {
     this.generateID = function () {
       var dt = new Date().getTime();
       var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(
@@ -33,6 +33,10 @@ class Alarm {
     this.course = course;
     this.startdata = startdata.toString();
     this.time = startdata.getTime();
+    if (enddata != null) {
+      this.enddata = enddata.toString();
+      this.endtime = enddata.getTime();
+    }
     this.status = true;
   }
 }
@@ -106,7 +110,7 @@ async function AddAlarm_click(course, dates) {
       course['type'] = 'student';
       var start_time = dates[day][i]['start'];
       var start_date = await get_nearestDate(day, start_time);
-      var alarm_data = new Alarm(course, start_date);
+      var alarm_data = new Alarm(course, start_date, null);
       setDataIntoStorage(alarm_data.id, alarm_data);
       sendMessage('ADD_ALARM', alarm_data.id);
     }
@@ -116,22 +120,38 @@ async function AddAlarm_click(course, dates) {
 async function AddCustomAlarm(alarm) {
   var resp = await new Promise((resolve) => chrome.storage.sync.get(resolve));
   var data = resp['Defaults'];
+  var authuser = data['Authuser'];
   var beforeminutes = data['BeforeMinutes'];
   var beforeseconds = data['BeforeSeconds'];
+  var autojoin = data['AutoJoin'];
   var autoleaveswitch = data['AutoLeaveSwitch'];
+  var endtimecheck = data['EndTimeCheck'];
   var course = alarm;
   course['type'] = 'custom';
   var start_date = new Date(alarm.Time);
   if (alarm.EndTime != '' && autoleaveswitch == true) {
-    data['AutoLeave'] = true
+    endtimecheck = true;
   }
+  var values = {
+    Authuser: authuser,
+    BeforeMinutes: beforeminutes,
+    BeforeSeconds: beforeseconds,
+    AutoJoin: autojoin,
+    AutoLeaveSwitch: autoleaveswitch,
+    EndTimeCheck: endtimecheck
+  };
+  await chrome.storage.sync.set({ Defaults: values }, function () {
+    console.log('Updated Defaults settings to');
+    console.log(values);
+  });
   var settime = start_date.getTime();
   settime = settime - (60 * beforeminutes + beforeseconds) * 1000;
   start_date.setTime(settime);
+  var end_date = new Date(alarm.EndTime)
   alarm.Time = alarm.Time - (60 * beforeminutes + beforeseconds) * 1000;
   //once and weekly alarms
   if (course.Repeat == 0 || course.Repeat == 7) {
-    var alarm_data = new Alarm(course, start_date);
+    var alarm_data = new Alarm(course, start_date, end_date);
     setDataIntoStorage(alarm_data.id, alarm_data);
     var time = { when: alarm_data.time }
     if (course.Repeat == 7) {
@@ -142,9 +162,10 @@ async function AddCustomAlarm(alarm) {
   } else {
     //daily alarms
     for (var i = 0; i < 7; i++) {
-      var alarm_data = new Alarm(course, start_date);
+      var alarm_data = new Alarm(course, start_date, end_date);
       setDataIntoStorage(alarm_data.id, alarm_data);
       start_date.setDate(start_date.getDate() + 1);
+      end_date.setDate(end_date.getDate() + 1);
       console.log(start_date);
       var time = {
         when: alarm_data.time,

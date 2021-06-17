@@ -25,8 +25,9 @@ function createTab(link, authuser, autojoin, autoleave, endtime) {
             if (autoleave) {
               var ctime = new Date().getTime();
               var etime = new Date(endtime).getTime();
-              etime -= ctime
-              setTimeout(chrome.tabs.executeScript(tab.id, { file: 'meetAutoLeave.bundle.js' }), etime)
+              etime -= ctime;
+              // setTimeout(chrome.tabs.executeScript(tab.id, { code: "document.getElementsByClassName('VfPpkd-Bz112c-LgbsSe yHy1rc eT1oJ tWDL4c jh0Tpd Gt6sbf QQrMi ftJPW')[0].click()" }), 30000);
+              setTimeout(chrome.tabs.executeScript(tab.id, { file: "meetAutoLeave.bundle.js" }), etime);
             }
           } else if (link.match(zoomregexExp)) {
             console.log('URL matched the zoom regex');

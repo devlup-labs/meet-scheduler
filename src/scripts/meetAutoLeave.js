@@ -1,7 +1,7 @@
 const autoLeave = () => {
     console.log('Initiating auto leave')
     try {
-        var leaveButton = document.getElementsByClassName('VfPpkd-Bz112c-LgbsSe yHy1rc eT1oJ tWDL4c jh0Tpd Gt6sbf QQrMi ftJPW')[0];
+        const leaveButton = document.getElementsByClassName('VfPpkd-Bz112c-LgbsSe yHy1rc eT1oJ tWDL4c jh0Tpd Gt6sbf QQrMi ftJPW')[0];
         if (typeof leaveButton != undefined && leaveButton != null) {
             leaveButton.click();
             console.log('Leave button clicked');
@@ -12,3 +12,5 @@ const autoLeave = () => {
         console.log(err)
     }
 }
+
+autoLeave();
