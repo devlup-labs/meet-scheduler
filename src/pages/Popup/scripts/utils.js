@@ -21,17 +21,17 @@ function createTab(link, authuser, autojoin, autoleave, endtime) {
               console.log('Intiating autojoin');
               chrome.tabs.executeScript(tab.id, { file: 'meet.bundle.js' });
             }
-            console.log(endtime);
-            console.log(new Date(endtime).getTime());
-            console.log(new Date().getTime());
+            // console.log(endtime);
+            // console.log(new Date(endtime).getTime());
+            // console.log(new Date().getTime());
             console.log(`Status : ${info.status} and ID : ${tab.id}`);
             if (autoleave) {
-              console.log('Initiating auto leave')
               var etime = new Date(endtime).getTime();
               while (true) {
                 var ctime = new Date().getTime();
-                console.log(ctime, etime)
+                // console.log(ctime, etime);
                 if (ctime === etime) {
+                  console.log('Initiating auto leave')
                   chrome.tabs.executeScript(tab.id, { file: "meetAutoLeave.bundle.js" })
                   break;
                 }
