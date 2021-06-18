@@ -21,22 +21,14 @@ function createTab(link, authuser, autojoin, autoleave, endtime) {
               console.log('Intiating autojoin');
               chrome.tabs.executeScript(tab.id, { file: 'meet.bundle.js' });
             }
-            // console.log(endtime);
-            // console.log(new Date(endtime).getTime());
-            // console.log(new Date().getTime());
             console.log(`Status : ${info.status} and ID : ${tab.id}`);
             if (autoleave) {
               var etime = new Date(endtime).getTime();
-              while (true) {
-                var ctime = new Date().getTime();
-                // console.log(ctime, etime);
-                if (ctime === etime) {
-                  console.log('Initiating auto leave')
-                  chrome.tabs.executeScript(tab.id, { file: "meetAutoLeave.bundle.js" })
-                  break;
-                }
-              }
-              // setTimeout(chrome.tabs.executeScript(tab.id, { code: "document.getElementsByClassName('VfPpkd-Bz112c-LgbsSe yHy1rc eT1oJ tWDL4c jh0Tpd Gt6sbf QQrMi ftJPW')[0].click()" }), 30000);
+              var ctime = new Date().getTime();
+              var initiateAutoLeave = setTimeout(() => {
+                console.log('Initiating auto leave');
+                chrome.tabs.executeScript(tab.id, { file: "meetAutoLeave.bundle.js" });
+              }, etime-ctime);
             }
           } else if (link.match(zoomregexExp)) {
             console.log('URL matched the zoom regex');

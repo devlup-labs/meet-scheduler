@@ -6,7 +6,6 @@ import {
   removeDataFromStorage,
 } from '../Popup/scripts/storage.js';
 import { createTab } from '../Popup/scripts/utils.js';
-// import { autoLeave } from '../../scripts/meetAutoLeave.js';
 
 async function onAlarm(alarm) {
   let extensionToggle = await getDataFromStorage('extensionToggle');

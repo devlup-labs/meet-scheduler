@@ -109,7 +109,7 @@ class AddAlarmForm extends Component {
       selectedEndTime: val,
       endDateerror: error,
     });
-    // this.check();
+    this.check();
   };
 
   handleSlotChange = async (event) => {

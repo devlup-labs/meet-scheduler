@@ -4,11 +4,10 @@ const autoLeave = () => {
         if (typeof leaveButton != undefined && leaveButton != null) {
             leaveButton.click();
             console.log('Leave button clicked');
-            console.log('Left the meeting')
+            console.log('Left the meeting');
         }
-    }
-    catch (err){
-        console.log(err)
+    } catch (err) {
+        console.log(err);
     }
 }
 
