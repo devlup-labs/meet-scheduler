@@ -82,13 +82,19 @@ class AddAlarmForm extends Component {
     this.check();
   };
 
+  time = null;
+  endtime = null;
+
   handleTimeChange = async (event) => {
     var val = event.target.value;
     var d = new Date(val);
+    this.time = d;
     var error = false;
     console.log(val, d);
-    if (val === '' || d < new Date()) {
-      error = true;
+    if (this.endtime != null) {
+      if (val === '' || d < new Date() || this.time >= this.endtime) {
+        error = true;
+      }
     }
     await this.setState({
       selectedTime: val,
@@ -100,10 +106,13 @@ class AddAlarmForm extends Component {
   handleEndTimeChange = async (event) => {
     var val = event.target.value;
     var d = new Date(val);
+    this.endtime = d;
     var error = false;
     console.log(val, d);
-    if (val === '' || d < new Date()) {
-      error = true;
+    if (this.time != null) {
+      if (val === '' || d < new Date() || this.time >= this.endtime) {
+        error = true;
+      }
     }
     await this.setState({
       selectedEndTime: val,
