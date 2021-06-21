@@ -145,15 +145,13 @@ class AddAlarmForm extends Component {
   };
 
   AddAlarm = async () => {
-    if (this.state.selectedEndTime != '') {
-      var state = {
-        Name: this.state.selectedName,
-        Link: this.state.selectedLink,
-        Time: this.state.selectedTime,
-        EndTime: this.state.selectedEndTime,
-        Repeat: this.state.selectedSlot,
-      };
-    }
+    var state = {
+      Name: this.state.selectedName,
+      Link: this.state.selectedLink,
+      Time: this.state.selectedTime,
+      EndTime: this.state.selectedEndTime,
+      Repeat: this.state.selectedSlot,
+    };
     await AddCustomAlarm(state);
     this.setState({
       selectedLink: '',
