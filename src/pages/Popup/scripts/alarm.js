@@ -120,30 +120,11 @@ async function AddAlarm_click(course, dates) {
 async function AddCustomAlarm(alarm) {
   var resp = await new Promise((resolve) => chrome.storage.sync.get(resolve));
   var data = resp['Defaults'];
-  var authuser = data['Authuser'];
   var beforeminutes = data['BeforeMinutes'];
   var beforeseconds = data['BeforeSeconds'];
-  var autojoin = data['AutoJoin'];
-  var autoleaveswitch = data['AutoLeaveSwitch'];
-  var endtimecheck = data['EndTimeCheck'];
   var course = alarm;
   course['type'] = 'custom';
   var start_date = new Date(alarm.Time);
-  if (alarm.EndTime != '' && autoleaveswitch == true) {
-    endtimecheck = true;
-  }
-  var values = {
-    Authuser: authuser,
-    BeforeMinutes: beforeminutes,
-    BeforeSeconds: beforeseconds,
-    AutoJoin: autojoin,
-    AutoLeaveSwitch: autoleaveswitch,
-    EndTimeCheck: endtimecheck
-  };
-  await chrome.storage.sync.set({ Defaults: values }, function () {
-    console.log('Updated Defaults settings to');
-    console.log(values);
-  });
   var settime = start_date.getTime();
   settime = settime - (60 * beforeminutes + beforeseconds) * 1000;
   start_date.setTime(settime);
