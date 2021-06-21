@@ -1,6 +1,6 @@
 {
   "name": "meet-scheduler",
-  "version": "2.1.8",
+  "version": "2.1.9",
   "description": "A chrome extension that lets you auto join your google meet/ zoom links",
   "license": "MIT",
   "repository": {
