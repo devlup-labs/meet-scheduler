@@ -1,5 +1,5 @@
 const autoJoin = () => {
-  var initiateAutoJoin = setTimeout(() => {
+  var initiateAutoJoin = setInterval(() => {
     try {
       var micButton = document.getElementsByClassName(
         'U26fgb JRY2Pb mUbCce kpROve yBiuPb y1zVCf HNeRed M9Bg4d'
@@ -46,7 +46,7 @@ const autoJoin = () => {
     }
     if (!micButton && !camButton && !joinButton && !joinRecording) {
       console.log('Stopping Auto Join execution');
-      clearTimeout(initiateAutoJoin);
+      clearInterval(initiateAutoJoin);
     }
     console.log('Joined the meeting!');
   }, 10000);
