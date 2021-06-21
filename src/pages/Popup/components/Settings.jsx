@@ -37,7 +37,7 @@ class Settings extends Component {
       selectedMin: 0,
       selectedSec: 30,
       selectedSwi: true,
-      selectedSwi2: false,
+      selectedSwi2: true,
       userDisabled: false,
       buttonDisabled: true,
       alarmData: {},

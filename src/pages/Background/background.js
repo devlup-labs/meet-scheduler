@@ -107,7 +107,7 @@ async function onStart() {
     BeforeMinutes: 0,
     BeforeSeconds: 30,
     AutoJoin: true,
-    AutoLeaveSwitch: false,
+    AutoLeaveSwitch: true,
   };
   let details = await getDataFromStorage('Defaults');
   if (!details) {
