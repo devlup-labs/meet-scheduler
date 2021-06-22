@@ -12,6 +12,12 @@ async function onAlarm(alarm) {
   let data = await getDataFromStorage(alarm.name);
   let details = await getDataFromStorage('Defaults');
   var ctime = new Date().getTime();
+  let endtime = data.course.EndTime;
+  let autoleaveswitch = details.AutoLeaveSwitch;
+  var autoleave = false;
+  if (autoleaveswitch == true && endtime != '') {
+    autoleave = true;
+  }
   if (extensionToggle && data.status && ctime - data.time < 5000) {
     console.log(`alarm::${alarm.name} initiated`);
     var link;
@@ -20,7 +26,7 @@ async function onAlarm(alarm) {
     } else {
       link = await get_meetlink(data.course.A);
     }
-    createTab(link, details.Authuser, details.AutoJoin);
+    createTab(link, details.Authuser, details.AutoJoin, autoleave, endtime);
   } else console.log(` passed by alarm::${alarm.name}`);
   if (alarm.periodInMinutes) {
     console.log(` resceduled alarm::${alarm.name} by ${alarm.periodInMinutes}`);
@@ -101,6 +107,7 @@ async function onStart() {
     BeforeMinutes: 0,
     BeforeSeconds: 30,
     AutoJoin: true,
+    AutoLeaveSwitch: true,
   };
   let details = await getDataFromStorage('Defaults');
   if (!details) {

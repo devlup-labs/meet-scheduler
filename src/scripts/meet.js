@@ -45,11 +45,11 @@ const autoJoin = () => {
       console.log(err);
     }
     if (!micButton && !camButton && !joinButton && !joinRecording) {
+      console.log('Joined the meeting!');
       console.log('Stopping Auto Join execution');
       clearInterval(initiateAutoJoin);
     }
   }, 10000);
-  console.log('Joined the meeting!');
 };
 
 autoJoin();
