@@ -23,12 +23,14 @@ function createTab(link, authuser, autojoin, autoleave, endtime) {
             }
             console.log(`Status : ${info.status} and ID : ${tab.id}`);
             if (autoleave) {
-              var etime = new Date(endtime).getTime();
-              var ctime = new Date().getTime();
+              var endTime = new Date(endtime).getTime();
+              var currentTime = new Date().getTime();
               var initiateAutoLeave = setTimeout(() => {
                 console.log('Initiating auto leave');
-                chrome.tabs.executeScript(tab.id, { file: "meetAutoLeave.bundle.js" });
-              }, etime-ctime);
+                chrome.tabs.executeScript(tab.id, {
+                  file: 'meetAutoLeave.bundle.js',
+                });
+              }, endTime - currentTime);
             }
           } else if (link.match(zoomregexExp)) {
             console.log('URL matched the zoom regex');

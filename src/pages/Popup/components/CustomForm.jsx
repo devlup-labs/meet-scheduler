@@ -84,29 +84,38 @@ class AddAlarmForm extends Component {
 
   handleTimeChange = async (event) => {
     var val = event.target.value;
-    var d = new Date(val);
+    var startTime = new Date(val);
     var error = false;
-    console.log(val, d);
-    if (val === '' || d < new Date()) {
+    console.log(val, startTime);
+    if (val === '' || startTime < new Date()) {
       error = true;
     }
     await this.setState({
       selectedTime: val,
       Dateerror: error,
     });
+    if (this.state.selectedEndTime !== '') {
+      var endTimeVal = new Date(this.state.selectedEndTime);
+      if (startTime >= endTimeVal && !error) {
+        this.setState({
+          endDateerror: true,
+        });
+      } else {
+        this.setState({
+          endDateerror: false,
+        });
+      }
+    }
     this.check();
   };
 
   handleEndTimeChange = async (event) => {
     var val = event.target.value;
-    var d = new Date(val);
+    var endTimeVal = new Date(val);
+    var startTime = new Date(this.state.selectedTime);
     var error = false;
-    console.log(val, d);
-    if (val === '' || d < new Date()) {
-      error = true;
-    }
-    var t = new Date(this.state.selectedTime);
-    if (t >= d) {
+    console.log(val, endTimeVal);
+    if (val === '' || endTimeVal < new Date() || startTime >= endTimeVal) {
       error = true;
     }
     await this.setState({
@@ -204,13 +213,13 @@ class AddAlarmForm extends Component {
           error={this.state.Dateerror}
         />
         <TextField
-          style={{ width: '30%', marginTop: '4%'}}
+          style={{ width: '30%', marginTop: '4%' }}
           value={this.state.selectedEndTime}
           onChange={this.handleEndTimeChange}
           id="date"
           label="End Time"
           type="datetime-local"
-          disabled = {!this.state.selectedTime}
+          disabled={this.state.Dateerror || this.state.selectedTime === ''}
           InputLabelProps={{
             shrink: true,
           }}

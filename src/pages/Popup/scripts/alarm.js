@@ -33,7 +33,7 @@ class Alarm {
     this.course = course;
     this.startdata = startdata.toString();
     this.time = startdata.getTime();
-    if (enddata != null) {
+    if (enddata !== '') {
       this.enddata = enddata.toString();
       this.endtime = enddata.getTime();
     }
@@ -110,7 +110,7 @@ async function AddAlarm_click(course, dates) {
       course['type'] = 'student';
       var start_time = dates[day][i]['start'];
       var start_date = await get_nearestDate(day, start_time);
-      var alarm_data = new Alarm(course, start_date, null);
+      var alarm_data = new Alarm(course, start_date, '');
       setDataIntoStorage(alarm_data.id, alarm_data);
       sendMessage('ADD_ALARM', alarm_data.id);
     }
