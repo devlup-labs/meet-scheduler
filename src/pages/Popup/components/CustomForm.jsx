@@ -82,19 +82,13 @@ class AddAlarmForm extends Component {
     this.check();
   };
 
-  time = null;
-  endtime = null;
-
   handleTimeChange = async (event) => {
     var val = event.target.value;
     var d = new Date(val);
-    this.time = d;
     var error = false;
     console.log(val, d);
-    if (this.endtime != null) {
-      if (val === '' || d < new Date() || this.time >= this.endtime) {
-        error = true;
-      }
+    if (val === '' || d < new Date()) {
+      error = true;
     }
     await this.setState({
       selectedTime: val,
@@ -106,13 +100,14 @@ class AddAlarmForm extends Component {
   handleEndTimeChange = async (event) => {
     var val = event.target.value;
     var d = new Date(val);
-    this.endtime = d;
     var error = false;
     console.log(val, d);
-    if (this.time != null) {
-      if (val === '' || d < new Date() || this.time >= this.endtime) {
-        error = true;
-      }
+    if (val === '' || d < new Date()) {
+      error = true;
+    }
+    var t = new Date(this.state.selectedTime);
+    if (t >= d) {
+      error = true;
     }
     await this.setState({
       selectedEndTime: val,
@@ -129,6 +124,7 @@ class AddAlarmForm extends Component {
     if (
       !this.state.Linkerror &&
       !this.state.Dateerror &&
+      !this.state.endDateerror &&
       !this.state.Nameerror &&
       this.state.selectedLink !== '' &&
       this.state.selectedTime !== '' &&
@@ -148,6 +144,7 @@ class AddAlarmForm extends Component {
       selectedEndTime: '',
       Linkerror: false,
       Dateerror: false,
+      endDateerror: false,
       Nameerror: false,
       buttonDisabled: true,
     });
@@ -213,6 +210,7 @@ class AddAlarmForm extends Component {
           id="date"
           label="End Time"
           type="datetime-local"
+          disabled = {!this.state.selectedTime}
           InputLabelProps={{
             shrink: true,
           }}
