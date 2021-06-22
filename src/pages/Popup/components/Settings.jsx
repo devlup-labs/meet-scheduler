@@ -36,8 +36,8 @@ class Settings extends Component {
       selectedUser: 0,
       selectedMin: 0,
       selectedSec: 30,
-      selectedSwi: true,
-      selectedSwi2: true,
+      autoJoinCheck: true,
+      autoLeaveCheck: true,
       userDisabled: false,
       buttonDisabled: true,
       alarmData: {},
@@ -62,12 +62,12 @@ class Settings extends Component {
   };
 
   handleSwiChange = async (event) => {
-    await this.setState({ selectedSwi: event.target.checked });
+    await this.setState({ autoJoinCheck: event.target.checked });
     this.setState({ buttonDisabled: false });
   };
 
   handleSwi2Change = async (event) => {
-    await this.setState({ selectedSwi2: event.target.checked });
+    await this.setState({ autoLeaveCheck: event.target.checked });
     this.setState({ buttonDisabled: false });
   };
 
@@ -108,8 +108,8 @@ class Settings extends Component {
       Authuser: this.state.selectedUser,
       BeforeMinutes: parseInt(this.state.selectedMin),
       BeforeSeconds: parseInt(this.state.selectedSec),
-      AutoJoin: this.state.selectedSwi,
-      AutoLeaveSwitch: this.state.selectedSwi2,
+      AutoJoin: this.state.autoJoinCheck,
+      AutoLeaveSwitch: this.state.autoLeaveCheck,
     };
     await chrome.storage.sync.set({ Defaults: values }, function () {
       console.log('Updated Defaults settings to');
@@ -152,8 +152,8 @@ class Settings extends Component {
       selectedUser: data['Authuser'],
       selectedMin: data['BeforeMinutes'],
       selectedSec: data['BeforeSeconds'],
-      selectedSwi: data['AutoJoin'],
-      selectedSwi2: data['AutoLeaveSwitch']
+      autoJoinCheck: data['AutoJoin'],
+      autoLeaveCheck: data['AutoLeaveSwitch'],
     });
 
     console.log(this.state);
@@ -183,7 +183,7 @@ class Settings extends Component {
           </Select>
         </FormControl>
         <center>
-          <h4>Before Start Time</h4>
+          <h4>Join Before Start Time</h4>
           <TextField
             style={{ width: '20%', marginLeft: '5%' }}
             id="standard-basic"
@@ -203,7 +203,7 @@ class Settings extends Component {
             style={{ marginTop: '20px' }}
             control={
               <Switch
-                checked={this.state.selectedSwi}
+                checked={this.state.autoJoinCheck}
                 onChange={this.handleSwiChange}
                 color="primary"
               />
@@ -214,7 +214,7 @@ class Settings extends Component {
             style={{ marginTop: '20px' }}
             control={
               <Switch
-                checked={this.state.selectedSwi2}
+                checked={this.state.autoLeaveCheck}
                 onChange={this.handleSwi2Change}
                 color="primary"
               />

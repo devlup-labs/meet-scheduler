@@ -183,7 +183,7 @@ class AddAlarmForm extends Component {
     return (
       <div style={{ height: '300px' }}>
         <TextField
-          style={{ width: '90%', marginLeft: '4%' }}
+          style={{ width: '90%', margin: '0 4%' }}
           value={this.state.selectedName}
           onChange={this.handleNameChange}
           id="Link"
@@ -192,16 +192,16 @@ class AddAlarmForm extends Component {
           error={this.state.Nameerror}
         />
         <TextField
-          style={{ width: '90%', margin: '4%' }}
+          style={{ width: '90%', margin: '0 4%' }}
           value={this.state.selectedLink}
           onChange={this.handleLinkChange}
           id="Link"
-          label="Meet link"
+          label="Meet Link"
           type="text"
           error={this.state.Linkerror}
         />
         <TextField
-          style={{ width: '30%', margin: '4%' }}
+          style={{ width: '42%', margin: '4% 2% 4% 4%' }}
           value={this.state.selectedTime}
           onChange={this.handleTimeChange}
           id="date"
@@ -213,7 +213,7 @@ class AddAlarmForm extends Component {
           error={this.state.Dateerror}
         />
         <TextField
-          style={{ width: '30%', marginTop: '4%' }}
+          style={{ width: '42%', margin: '4% 4% 4% 2%' }}
           value={this.state.selectedEndTime}
           onChange={this.handleEndTimeChange}
           id="date"
@@ -226,7 +226,7 @@ class AddAlarmForm extends Component {
           error={this.state.endDateerror}
         />
         <FormControl
-          style={{ width: '20%', margin: '4%' }}
+          style={{ width: '90%', margin: '0 4%' }}
           disabled={this.state.slotDisabled}
         >
           <InputLabel id="demo-controlled-open-select-label">Repeat</InputLabel>
