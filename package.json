@@ -1,7 +1,7 @@
 {
   "name": "meet-scheduler",
-  "version": "2.1.9",
-  "description": "A chrome extension that lets you auto join your google meet/ zoom links",
+  "version": "2.2.0",
+  "description": "A chrome extension that lets you auto join and auto leave your google meet/ zoom meetings",
   "license": "MIT",
   "repository": {
     "type": "git",
