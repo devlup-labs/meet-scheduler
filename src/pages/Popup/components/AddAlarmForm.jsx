@@ -15,7 +15,7 @@ class AddAlarmForm extends Component {
   }
 
   changeTab = (event, newValue) => {
-    console.log(eve);
+    console.log(event);
     this.setState({ tab: newValue });
   };
 
@@ -23,8 +23,8 @@ class AddAlarmForm extends Component {
 
   render() {
     var pannel;
-    if (this.state.tab == 0) pannel = <StudentForm />;
-    if (this.state.tab == 1) pannel = <CustomForm />;
+    if (this.state.tab === 0) pannel = <CustomForm />;
+    if (this.state.tab === 1) pannel = <StudentForm />;
     return (
       <div>
         <div>
@@ -38,8 +38,8 @@ class AddAlarmForm extends Component {
             aria-label="tabs"
             centered
           >
-            <Tab label="Student" />
             <Tab label="Custom" />
+            <Tab label="Student" />
           </Tabs>
         </div>
         {pannel}
