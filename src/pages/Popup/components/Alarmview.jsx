@@ -83,41 +83,59 @@ class Alarmview extends Component {
   render() {
     return (
       <div style={{ height: '348px', overflow: 'auto' }}>
-        <List dense>
-          {this.state.alarms.map((alarm) => {
-            return (
-              <ListItem key={alarm.code}>
-                <ListItemIcon edge="start">
-                  <AccessAlarmIcon style={{ color: 'black' }} />
-                </ListItemIcon>
-                <ListItemText
-                  id={alarm.code}
-                  primary={
-                    alarm.course == 'custom'
-                      ? `${this.trunc(alarm.code, 22)}`
-                      : `${alarm.course}`
-                  }
-                  secondary={
-                    alarm.course == 'custom'
-                      ? `Custom User alarm`
-                      : `${alarm.code}`
-                  }
-                />
-                <ListItemSecondaryAction>
-                  <IconButton
-                    edge="end"
-                    aria-label="delete"
-                    onClick={() => {
-                      this.DeleteAlarm(alarm.code);
-                    }}
-                  >
-                    <DeleteIcon style={{ fill: 'black' }} />
-                  </IconButton>
-                </ListItemSecondaryAction>
-              </ListItem>
-            );
-          })}
-        </List>
+        {this.state.alarms.length === 0 ? (
+          <div
+            style={{
+              width: 'auto',
+              height: '100%',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              fontSize: '1rem',
+            }}
+          >
+            No alarms{' '}
+            <span role="img" aria-label="alarm">
+              ⏰
+            </span>
+          </div>
+        ) : (
+          <List dense>
+            {this.state.alarms.map((alarm) => {
+              return (
+                <ListItem key={alarm.code}>
+                  <ListItemIcon edge="start">
+                    <AccessAlarmIcon style={{ color: 'black' }} />
+                  </ListItemIcon>
+                  <ListItemText
+                    id={alarm.code}
+                    primary={
+                      alarm.course == 'custom'
+                        ? `${this.trunc(alarm.code, 22)}`
+                        : `${alarm.course}`
+                    }
+                    secondary={
+                      alarm.course == 'custom'
+                        ? `Custom User alarm`
+                        : `${alarm.code}`
+                    }
+                  />
+                  <ListItemSecondaryAction>
+                    <IconButton
+                      edge="end"
+                      aria-label="delete"
+                      onClick={() => {
+                        this.DeleteAlarm(alarm.code);
+                      }}
+                    >
+                      <DeleteIcon style={{ fill: 'black' }} />
+                    </IconButton>
+                  </ListItemSecondaryAction>
+                </ListItem>
+              );
+            })}
+          </List>
+        )}
       </div>
     );
   }

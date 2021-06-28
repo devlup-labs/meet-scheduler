@@ -183,7 +183,7 @@ class AddAlarmForm extends Component {
     return (
       <div style={{ height: '300px' }}>
         <TextField
-          style={{ width: '90%', margin: '0 4%' }}
+          style={{ width: '90%', margin: '2% 4% 0 4%' }}
           value={this.state.selectedName}
           onChange={this.handleNameChange}
           id="Link"
@@ -192,7 +192,7 @@ class AddAlarmForm extends Component {
           error={this.state.Nameerror}
         />
         <TextField
-          style={{ width: '90%', margin: '0 4%' }}
+          style={{ width: '90%', margin: '2% 4% 0 4%' }}
           value={this.state.selectedLink}
           onChange={this.handleLinkChange}
           id="Link"
@@ -201,7 +201,7 @@ class AddAlarmForm extends Component {
           error={this.state.Linkerror}
         />
         <TextField
-          style={{ width: '42%', margin: '4% 2% 4% 4%' }}
+          style={{ width: '42%', margin: '2% 2% 2% 4%' }}
           value={this.state.selectedTime}
           onChange={this.handleTimeChange}
           id="date"
@@ -213,7 +213,7 @@ class AddAlarmForm extends Component {
           error={this.state.Dateerror}
         />
         <TextField
-          style={{ width: '42%', margin: '4% 4% 4% 2%' }}
+          style={{ width: '42%', margin: '2% 4% 2% 2%' }}
           value={this.state.selectedEndTime}
           onChange={this.handleEndTimeChange}
           id="date"
