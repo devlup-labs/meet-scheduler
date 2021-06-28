@@ -13,7 +13,7 @@
     "scripts": ["background.bundle.js"],
     "persistent": true
   },
-  "permissions": ["storage", "alarms", "tabs", "https://meet.google.com/"],
+  "permissions": ["storage", "alarms", "https://meet.google.com/"],
   "manifest_version": 2,
   "icons": {
     "16": "icon16.png",
