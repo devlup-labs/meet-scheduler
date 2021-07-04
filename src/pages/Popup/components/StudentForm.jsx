@@ -11,7 +11,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 import * as sheet from '../scripts/sheetapi.js';
 import { AddAlarm_click } from '../scripts/alarm.js';
 import { getAllDataFromStorage } from '../scripts/storage.js';
-
+import Timer from "./timer.jsx";
 const useStyles = (theme) => ({
   button: {
     borderRadius: 30,
@@ -186,6 +186,10 @@ class AddAlarmForm extends Component {
           >
             Reset
           </Button>
+          <div>
+            <Timer />
+          </div>
+
         </center>
       </div>
     );

@@ -16,6 +16,7 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
+import Timer from './timer.jsx';
 
 import {
   getAllDataFromStorage,
@@ -111,6 +112,12 @@ class Alarmview extends Component {
       listOfTomorrowAlarms: tomorrowAlarms,
       listOfTodayAlarms: todayAlarms,
     });
+    this.setState({
+      expanded:'panel1',
+      accordian1Height: this.accordion1Ref.current.clientHeight,
+      accordion2Height: this.accordion2Ref.current.clientHeight,
+      accordion3Height: this.accordion3Ref.current.clientHeight,
+    })
   }
 
   trunc(string, num) {
@@ -157,7 +164,7 @@ class Alarmview extends Component {
   };
   checkHeightOfAccodion = (height) => {
     return {
-      height: height > 147 ? '147px' : 'auto',
+      height: height > 110 ?  '110px' : 'auto',
     };
   };
   getAlarmsList = (listOfAlarms) => {
@@ -245,11 +252,7 @@ class Alarmview extends Component {
   };
 
   handleChange = (panel) => (e, isExpanded) => {
-    // console.log(
-    //   this.accordion1Ref.current.clientHeight,
-    //   this.accordion2Ref.current.clientHeight,
-    //   this.accordion3Ref.current.clientHeight
-    // );
+    console.log("changed");
     this.setState({
       expanded: isExpanded ? panel : false,
       accordian1Height: this.accordion1Ref.current.clientHeight,
@@ -270,9 +273,11 @@ class Alarmview extends Component {
     } = this.state;
 
     return (
+      <div className = 'parent' style={{ width: '100%', height: '336px' }}>
+        <Timer/>
       <div
         className="alarmListWrapper"
-        style={{ width: '100%', height: '348px' }}
+        style={{ width: '100%', height: 'auto', overflow: '' }}
       >
         <Accordion
           expanded={expanded === 'panel1'}
@@ -291,14 +296,14 @@ class Alarmview extends Component {
             ref={this.accordion1Ref}
             style={{
               ...this.checkHeightOfAccodion(accordian1Height),
-              paddingBottom: (accordian1Height > 147 && '0') || 'auto',
+              paddingBottom: (accordian1Height > 110 && '0') || 'auto',
               overflow: 'auto',
             }}
           >
             {(listOfTodayAlarms.length > 0 &&
               this.getAlarmsList(listOfTodayAlarms)) || (
               <div
-                style={{ padding: '1rem', textAlign: 'center', width: '100%' }}
+                style={{ padding: '1rem', textAlign: 'center', width: '110%' }}
               >
                 <Typography>
                   Done for the day{' '}
@@ -326,14 +331,14 @@ class Alarmview extends Component {
             ref={this.accordion2Ref}
             style={{
               ...this.checkHeightOfAccodion(accordion2Height),
-              paddingBottom: (accordion2Height > 147 && '0') || 'auto',
+              paddingBottom: (accordion2Height > 110 && '0') || 'auto',
               overflow: 'auto',
             }}
           >
             {(listOfTomorrowAlarms.length > 0 &&
               this.getAlarmsList(listOfTomorrowAlarms)) || (
               <div
-                style={{ padding: '1rem', textAlign: 'center', width: '100%' }}
+                style={{ padding: '1rem', textAlign: 'center', width: '110%' }}
               >
                 <Typography>
                   Done for the day{' '}
@@ -361,14 +366,14 @@ class Alarmview extends Component {
             ref={this.accordion3Ref}
             style={{
               ...this.checkHeightOfAccodion(accordion3Height),
-              paddingBottom: (accordion3Height > 147 && '0') || 'auto',
+              paddingBottom: (accordion3Height > 110 && '0') || 'auto',
               overflow: 'auto',
             }}
           >
             {(listOfLaterAlarms.length > 0 &&
               this.getAlarmsList(listOfLaterAlarms)) || (
               <div
-                style={{ padding: '1rem', textAlign: 'center', width: '100%' }}
+                style={{ padding: '1rem', textAlign: 'center', width: '110%' }}
               >
                 <Typography>
                   Done for the day{' '}
@@ -380,6 +385,7 @@ class Alarmview extends Component {
             )}
           </AccordionDetails>
         </Accordion>
+      </div>
       </div>
     );
   }
