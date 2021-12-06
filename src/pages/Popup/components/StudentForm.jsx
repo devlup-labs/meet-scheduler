@@ -7,7 +7,6 @@ import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import AlarmAddIcon from '@material-ui/icons/AlarmAdd';
 import ClearIcon from '@material-ui/icons/Clear';
-
 import * as sheet from '../scripts/sheetapi.js';
 import { AddAlarm_click } from '../scripts/alarm.js';
 import { getAllDataFromStorage } from '../scripts/storage.js';
@@ -73,8 +72,8 @@ class AddAlarmForm extends Component {
         if (data[key].type == 'student') {
           var alarm = {
             key: key,
-            code: data[key].course['A'],
-            course: data[key].course['B'],
+            code: data[key].course[0],
+            course: data[key].course[1],
           };
           alarmAll.push(alarm);
         }
@@ -88,7 +87,7 @@ class AddAlarmForm extends Component {
   AddAlarm = async () => {
     var classes = await sheet.get_classes(this.state.selectedSlot);
     var dataExist = this.state.existingAlarms.filter((alarm) => {
-      return alarm['course'] == this.state.selectedCourse.B;
+      return alarm['course'] == this.state.selectedCourse;
     });
     if (dataExist.length === 0) {
       AddAlarm_click(this.state.selectedCourse, classes);
@@ -160,7 +159,7 @@ class AddAlarmForm extends Component {
             {this.state.courses.map((item) => {
               return (
                 <MenuItem key={item} value={item}>
-                  {item.B + ' (' + item.E + ')'}
+                  {item[1] + ' (' + item[4] + ')'}
                 </MenuItem>
               );
             })}

@@ -87,15 +87,16 @@ async function get_nearestDate(day, time) {
 //listens alarmadd button click on pop window
 /*course: 
     {
-    A: "PHL6020"
-    B: "Classical Mechanics"
-    C: "3"
-    D: "3-0-0"
-    E: "Monika Sinha"
-    F: "B"
-    G: "https://meet.google.com/lookup/gvaieffwcw?authuser=0&hs=179"
+    0: "PHL6020"
+    1: "Classical Mechanics"
+    2: "3"
+    3: "3-0-0"
+    4: "Monika Sinha"
+    5: "B"
+    6: "https://meet.google.com/lookup/gvaieffwcw?authuser=0&hs=179"
     }
 */
+
 /*dates: 
     {
     Friday: Array(2)

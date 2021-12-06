@@ -24,7 +24,7 @@ async function onAlarm(alarm) {
     if (data.course.type == 'custom') {
       link = data.course.Link;
     } else {
-      link = await get_meetlink(data.course.A);
+      link = await get_meetlink(data.course[0]);
     }
     createTab(link, details.Authuser, details.AutoJoin, autoleave, endtime);
   } else console.log(` passed by alarm::${alarm.name}`);

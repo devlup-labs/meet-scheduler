@@ -39,7 +39,7 @@ class SheetLink {
 
 export const timeTableSheet = new SheetLink(
   'time-table',
-  'https://spreadsheets.google.com/feeds/cells/1rQt-pWpjvpc5A0G0VYs-Quf_JvnjSMio9PswuP-LOlQ/1/public/basic?alt=json',
+  'https://sheets.googleapis.com/v4/spreadsheets/1PaQXWiZEYGCqPXflmCbt83RvBs30emz7PCTBBhk_Smo/values/Slots?key=AIzaSyAb90c8s24Qk0t6ImmYwVxcd9sHiwrgYC8',
   (data) => {
     // write checks here
     return true;
@@ -48,7 +48,7 @@ export const timeTableSheet = new SheetLink(
 
 export const slotSheet = new SheetLink(
   'slot-link',
-  'https://spreadsheets.google.com/feeds/cells/1rQt-pWpjvpc5A0G0VYs-Quf_JvnjSMio9PswuP-LOlQ/2/public/basic?alt=json',
+  'https://sheets.googleapis.com/v4/spreadsheets/1PaQXWiZEYGCqPXflmCbt83RvBs30emz7PCTBBhk_Smo/values/Courses?key=AIzaSyAb90c8s24Qk0t6ImmYwVxcd9sHiwrgYC8',
   (data) => {
     // write checks here
     return true;

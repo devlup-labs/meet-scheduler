@@ -40,7 +40,7 @@ function createTab(link, authuser, autojoin, autoleave, endtime) {
               console.log(`Status : ${info.status} and ID : ${tab.id}`);
             }
           } else {
-            console.log('URL did not mtach the regex');
+            console.log('URL did not match the regex');
           }
 
           chrome.tabs.onUpdated.removeListener(listener);

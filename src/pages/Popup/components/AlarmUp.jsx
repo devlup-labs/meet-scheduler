@@ -16,7 +16,6 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
-
 import {
   getAllDataFromStorage,
   getDataFromStorage,
@@ -119,7 +118,6 @@ class Alarmview extends Component {
 
   updatestatus = async ({ alarm_id, alarmsList, alarmDayCategoryList }) => {
     var state = alarmsList;
-    // console.log(alarmsList);
     state[alarm_id].status = !state[alarm_id].status;
     this.setState({ [alarmDayCategoryList]: state });
     let data = await getAllDataFromStorage();
@@ -134,32 +132,40 @@ class Alarmview extends Component {
     });
   };
 
-  joinnow = async (data) => {
+  joinNow = async (data) => {
     var link;
     if (data.type == 'custom') {
       link = data.Link;
     } else {
-      link = await get_meetlink(data.A);
+      link = await get_meetlink(data[0]);
     }
     let details = await getDataFromStorage('Defaults');
     let endtime = data.EndTime;
     let autoleaveswitch = details.AutoLeaveSwitch;
     var autoleave = false;
     if (autoleaveswitch == true && endtime != '') {
-      autoleave = true
+      autoleave = true;
     }
-    let tab = await createTab(link, details.Authuser, details.AutoJoin, autoleave, endtime);
+    let tab = await createTab(
+      link,
+      details.Authuser,
+      details.AutoJoin,
+      autoleave,
+      endtime
+    );
   };
 
   getname = (alarm) => {
     console.log(alarm);
-    return alarm.custom ? `${alarm.data.Name}` : `${alarm.data.A}`;
+    return alarm.custom ? `${alarm.data.Name}` : `${alarm.data[1]}`;
   };
+
   checkHeightOfAccodion = (height) => {
     return {
       height: height > 147 ? '147px' : 'auto',
     };
   };
+
   getAlarmsList = (listOfAlarms) => {
     const {
       expanded,
@@ -167,6 +173,7 @@ class Alarmview extends Component {
       accordion2Height,
       accordion3Height,
     } = this.state;
+    
     let listStyle = null;
 
     if (expanded === 'panel1') {
@@ -210,7 +217,7 @@ class Alarmview extends Component {
                   </ListItemIcon>
                 </Tooltip>
                 <Link
-                  onClick={() => this.joinnow(alarm.data)}
+                  onClick={() => this.joinNow(alarm.data)}
                   target="_blank"
                   rel="noopener"
                   underline="none"
@@ -225,14 +232,14 @@ class Alarmview extends Component {
                       primary={
                         alarm.custom
                           ? `${this.trunc(alarm.data.Name, 22)}`
-                          : `${alarm.data.A} ${this.trunc(alarm.data.B, 13)}`
+                          : `${alarm.data[0]} ${this.trunc(alarm.data[1], 13)}`
                       }
                       secondary={`${alarm.time}`}
                     />
                   </Tooltip>
                   <ListItemSecondaryAction>
                     <Avatar edge="end">
-                      {alarm.custom ? <PersonAddIcon /> : alarm.data.F}
+                      {alarm.custom ? <PersonAddIcon /> : alarm.data[5]}
                     </Avatar>
                   </ListItemSecondaryAction>
                 </Link>
@@ -245,11 +252,6 @@ class Alarmview extends Component {
   };
 
   handleChange = (panel) => (e, isExpanded) => {
-    // console.log(
-    //   this.accordion1Ref.current.clientHeight,
-    //   this.accordion2Ref.current.clientHeight,
-    //   this.accordion3Ref.current.clientHeight
-    // );
     this.setState({
       expanded: isExpanded ? panel : false,
       accordian1Height: this.accordion1Ref.current.clientHeight,

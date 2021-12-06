@@ -34,8 +34,8 @@ class Alarmview extends Component {
         } else {
           var alarm = {
             key: key,
-            code: data[key].course['A'],
-            course: data[key].course['B'],
+            code: data[key].course[0],
+            course: data[key].course[1],
           };
         }
         alarmAll.push(alarm);
