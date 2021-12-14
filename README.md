@@ -48,7 +48,7 @@ React JS ⚛️ has been used in frontend and the backend workflow is establishe
 
 ## Steps to run locally
 
-1. Make sure you have [Node.js](https://nodejs.org/en/download/) installed on your machine
+1. Make sure you have [Node.js](https://nodejs.org/en/download/) (v14.x) installed on your machine
 1. Clone this repository `git clone https://github.com/devlup-labs/meet-scheduler.git`
 1. Run `npm install` to install the dependencies
 1. Run `npm start`
@@ -56,4 +56,4 @@ React JS ⚛️ has been used in frontend and the backend workflow is establishe
    1. Go to `chrome://extensions/`
    1. Turn on `Developer mode`
    1. Click on `Load unpacked extension`
-   1. Select the `build` folder
+   1. Select the `build` folder and upload it
