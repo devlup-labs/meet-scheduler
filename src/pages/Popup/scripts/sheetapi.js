@@ -108,7 +108,6 @@ async function get_classes(slot) {
         var st = time[0].trim();
         var et = time[1].trim();
         classes[key][dkey] = { start: st, end: et };
-        console.log(`Start Time: ${st}, End Time: ${et}`)
       }
     }
     return classes;
