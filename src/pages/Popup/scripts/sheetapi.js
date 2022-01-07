@@ -27,8 +27,7 @@ async function get_slots() {
     }
     var result = {};
     for (var key in formatteddata) {
-      if (!formatteddata[key][5] || formatteddata[key][5] == 'slot')
-        continue;
+      if (!formatteddata[key][5] || formatteddata[key][5] == 'slot') continue;
       result[formatteddata[key][5]] = '';
     }
     return Object.keys(result);
@@ -52,7 +51,7 @@ async function get_courses(slot) {
     }
     var result = [];
     for (var key in formatteddata) {
-      if (formatteddata[key][5] == slot){
+      if (formatteddata[key][5] == slot) {
         result.push(formatteddata[key]);
       }
     }
@@ -78,24 +77,25 @@ async function get_classes(slot) {
     var cols = {
       0: 'Time',
       1: 'Monday',
-      3: 'Tuesday',
-      5: 'Wednesday',
-      7: 'Thursday',
-      9: 'Friday',
       2: 'Monday',
+      3: 'Tuesday',
       4: 'Tuesday',
+      5: 'Wednesday',
       6: 'Wednesday',
+      7: 'Thursday',
       8: 'Thursday',
+      9: 'Friday',
       10: 'Friday',
+      11: 'Saturday',
     };
     var classes = {};
     for (var key in formatteddata) {
-      if(key == 0){
+      if (key == 0) {
         continue;
       }
       for (var col in formatteddata[key]) {
         if (formatteddata[key][col] == slot) {
-          if (!classes[cols[col]]){
+          if (!classes[cols[col]]) {
             classes[cols[col]] = [];
           }
           classes[cols[col]].push(formatteddata[key][0]);
@@ -130,8 +130,7 @@ async function get_meetlink(course_code) {
       formatteddata[key] = data[key];
     }
     for (var key in formatteddata) {
-      if (formatteddata[key][0] == course_code)
-        return formatteddata[key][6];
+      if (formatteddata[key][0] == course_code) return formatteddata[key][6];
     }
   }
 }
