@@ -24,7 +24,7 @@ const autoJoin = () => {
     }
     try {
       var joinButton = document.getElementsByClassName(
-        'VfPpkd-LgbsSe VfPpkd-LgbsSe-OWXEXe-k8QpJ VfPpkd-LgbsSe-OWXEXe-dgl2Hf nCP5yc AjY5Oe DuMIQc qfvgSe jEvJdc QJgqC'
+        'VfPpkd-LgbsSe VfPpkd-LgbsSe-OWXEXe-k8QpJ VfPpkd-LgbsSe-OWXEXe-dgl2Hf nCP5yc AjY5Oe DuMIQc LQeN7 jEvJdc QJgqC'
       )[0];
       if (typeof joinButton != 'undefined' && joinButton != null) {
         joinButton.click();
